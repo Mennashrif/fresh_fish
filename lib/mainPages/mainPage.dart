@@ -1,0 +1,98 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import'package:fresh_fish/pages/Profile.dart';
+import'package:fresh_fish/pages/Home.dart';
+import"package:fresh_fish/pages/Order.dart";
+import'package:fresh_fish/pages/Offers.dart';
+import'package:fresh_fish/pages/aboutUs.dart';
+
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
+
+     ProfileScreen _Profile= ProfileScreen();
+     HomeScreen _Home= HomeScreen();
+     OrderScreen _Order= OrderScreen();
+     OffersScreen _Offers= OffersScreen();
+     aboutUsScreen _aboutUs= aboutUsScreen();
+     Widget _showpage;
+
+
+     Widget _pageChooser(int page){
+       switch(page){
+         case 0:
+           return _Home;
+           break;
+         case 1:
+           return _Profile;
+           break;
+         case 2:
+           return _Order;
+           break;
+         case 3:
+           return _Offers;
+           break;
+         case 4:
+           return _aboutUs;
+           break;
+
+
+       }
+     }
+     int _bottomNavBarIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+
+
+          bottomNavigationBar: CurvedNavigationBar(
+            backgroundColor: Colors.blueAccent,
+            height: 60,
+            items: <Widget>[
+              Icon(Icons.home, size: 25),
+              Icon(Icons.account_circle, size: 25),
+              Icon(Icons.add_shopping_cart, size: 25),
+              Icon(Icons.local_offer, size: 25),
+              Icon(Icons.live_help, size: 25),
+            ],
+
+            onTap: (index) {
+              setState(() {
+                _showpage=_pageChooser(index);
+              });
+            },
+          ),
+          //body: Container(color: Colors.blueAccent),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(children: <Widget>[
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/background.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                child:_showpage,
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
