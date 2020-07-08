@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "938576998514",
+    "firebase_url": "https://freshfish-31b08.firebaseio.com",
+    "project_id": "freshfish-31b08",
+    "storage_bucket": "freshfish-31b08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938576998514:android:4cf5b2cbb55ac0ff4592eb",
+        "android_client_info": {
+          "package_name": "com.example.fresh_fish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938576998514-5b0g9heibv2cogubcvc88jmqpdhuohn6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fresh_fish",
+            "certificate_hash": "2faf0f5df9eb1fe77bd19e6e5bd228f4422da397"
+          }
+        },
+        {
+          "client_id": "938576998514-62277rfk0a8j5uqn9ju8ns6sp45dktoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDngsbx-SGLYzsnttZXCLoNm3Xyd0xsj-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938576998514-62277rfk0a8j5uqn9ju8ns6sp45dktoe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

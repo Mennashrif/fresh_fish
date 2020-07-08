@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fresh_fish/mainPages/signUp.dart';
 import 'package:fresh_fish/utilities/constants.dart';
-import 'package:fresh_fish/mainPages/mainPage.dart';
+import 'package:flutter/gestures.dart';
+import 'package:fresh_fish/services/auth.dart';
+import 'package:fresh_fish/utilities/loading.dart';
+
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -9,7 +14,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
-
+  final AuthService _auth = AuthService();
+  String _email = '';
+  String _password = '';
+  String _error = '';
+  bool loading = false;
+  final _formkey = GlobalKey<FormState>();
   Widget _buildEmailTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,8 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             keyboardType: TextInputType.emailAddress,
+            validator: (val) => val.isEmpty ? 'Enter an Email' : null,
+            onChanged: (val) {
+              _email = val;
+            },
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -58,8 +72,13 @@ class _LoginScreenState extends State<LoginScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             obscureText: true,
+            validator: (val) =>
+                val.length < 6 ? 'Enter a password 6+ chars long' : null,
+            onChanged: (val) {
+              _password = val;
+            },
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -127,7 +146,19 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen())),
+        onPressed: () async {
+          if (_formkey.currentState.validate()) {
+            setState(() => loading = true);
+            dynamic result =
+                await _auth.signInWithEmailAndPassword(_email, _password);
+            if (result == null) {
+              setState(() {
+                loading = false;
+                _error = 'Could not sign in with those credentials';
+              });
+            }
+          }
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -197,13 +228,57 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildSocialBtn(
-                () => print('Login with Facebook'),
+            () async {
+              /*Map userProfile;
+                dynamic result =
+                    await _auth.signInWithfacebook();
+               print(result.status);
+                switch (result.status) {
+
+                  case FacebookLoginStatus.loggedIn:
+                    final token = result.accessToken.token;
+                    final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+                    final profile = JSON.jsonDecode(graphResponse.body);
+                    setState(() {
+                      userProfile = profile;
+                      loading = true;
+
+                    });
+                    break;
+
+                  case FacebookLoginStatus.cancelledByUser:
+                    setState(() => loading = false );
+                    break;
+                  case FacebookLoginStatus.error:
+                    setState(() => loading = false );
+                    break;
+                }*/
+              setState(() => loading = true);
+              dynamic result =
+              await _auth.signInWithfacebook();
+              if (result == null) {
+                setState(() {
+                  loading = false;
+                  _error = 'Could not sign in with those credentials';
+                });
+              }
+            },
             AssetImage(
               'assets/logos/facebook.jpg',
             ),
           ),
           _buildSocialBtn(
-                () => print('Login with Google'),
+            () async{
+              setState(() => loading = true);
+              dynamic result =
+              await _auth.signInWithgoogle();
+              if (result == null) {
+                setState(() {
+                  loading = false;
+                  _error = 'Could not sign in with those credentials';
+                });
+              }
+            },
             AssetImage(
               'assets/logos/google.jpg',
             ),
@@ -215,7 +290,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignupBtn() {
     return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => signUpScreen()));
+      },
       child: RichText(
         text: TextSpan(
           children: [
@@ -243,18 +320,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //backgroundColor: Colors.black12,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                /*decoration: BoxDecoration(
+    return loading
+        ? Loading()
+        : Scaffold(
+            //backgroundColor: Colors.black12,
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      /*decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -267,52 +346,62 @@ class _LoginScreenState extends State<LoginScreen> {
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),
                 ),*/
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/background.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color:Colors.black,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/background.png"),
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
+                    ),
+                    Container(
+                      height: double.infinity,
+                      child: SingleChildScrollView(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 40.0,
+                          vertical: 120.0,
+                        ),
+                        child: Form(
+                          key: _formkey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 30.0),
+                              _buildEmailTF(),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              _buildPasswordTF(),
+                              _buildForgotPasswordBtn(),
+                              _buildRememberMeCheckbox(),
+                              _buildLoginBtn(),
+                              SizedBox(height: 12.0),
+                              Text(
+                                _error,
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 14.0),
+                              ),
+                              SizedBox(height: 10.0),
+                              _buildSignInWithText(),
+                              _buildSocialBtnRow(),
+                              _buildSignupBtn(),
+                            ],
+                          ),
+                        ),
                       ),
-                      _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignInWithText(),
-                      _buildSocialBtnRow(),
-                      _buildSignupBtn(),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+              ),
+            ),
+          );
   }
 }

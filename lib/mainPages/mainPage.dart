@@ -25,19 +25,19 @@ class _MainScreenState extends State<MainScreen>
 
      Widget _pageChooser(int page){
        switch(page){
-         case 0:
+         case 4:
            return _Home;
            break;
-         case 1:
+         case 3:
            return _Profile;
            break;
          case 2:
            return _Order;
            break;
-         case 3:
+         case 1:
            return _Offers;
            break;
-         case 4:
+         case 0:
            return _aboutUs;
            break;
 
@@ -56,18 +56,19 @@ class _MainScreenState extends State<MainScreen>
             backgroundColor: Colors.blueAccent,
             height: 60,
             items: <Widget>[
-              Icon(Icons.home, size: 25),
-              Icon(Icons.account_circle, size: 25),
-              Icon(Icons.add_shopping_cart, size: 25),
-              Icon(Icons.local_offer, size: 25),
               Icon(Icons.live_help, size: 25),
+              Icon(Icons.local_offer, size: 25),
+              Icon(Icons.add_shopping_cart, size: 25),
+              Icon(Icons.account_circle, size: 25),
+              Icon(Icons.home, size: 25),
             ],
-
+            index: 4,
             onTap: (index) {
               setState(() {
                 _showpage=_pageChooser(index);
               });
             },
+
           ),
           //body: Container(color: Colors.blueAccent),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -75,16 +76,6 @@ class _MainScreenState extends State<MainScreen>
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(children: <Widget>[
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
             Center(
               child: Container(
                 child:_showpage,

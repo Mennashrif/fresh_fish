@@ -22,3 +22,18 @@ final kBoxDecorationStyle = BoxDecoration(
     ),
   ],
 );
+final SmallButton =Container(
+  height: 25.0,
+  width: 60.0,
+  decoration: BoxDecoration(
+      border: Border.all(
+        color: Colors.blue,
+      ),
+      borderRadius: BorderRadius.circular(20.0)),
+  child: Center(
+    child: Text(
+      "تعديل",
+      style: TextStyle(color: Colors.blue, fontSize: 16.0),
+    ),
+  ),
+);
