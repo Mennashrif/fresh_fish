@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/utilities/custom_list_tile.dart';
 import 'package:fresh_fish/utilities/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -10,14 +13,29 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool turnOnNotification = false;
   bool turnOnLocation = false;
-
+  String _name='';
+  String _email='';
   void initState() {
     super.initState();
 
-    SystemChrome.setEnabledSystemUIOverlays([]);
+   // SystemChrome.setEnabledSystemUIOverlays([]);
+  }
+  void getdata(final user,final uid){
+    if(user!=null) {
+      for(int i=0;i<user.documents.length;i++){
+        if( user.documents[i].documentID==uid.uid) {
+          _name = user.documents[i].data['name'];
+          _email = user.documents[i].data['email'];
+        }
+      }
+
+    }
   }
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<QuerySnapshot>(context);
+    final uid = Provider.of<User>(context);
+    getdata(user, uid);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -53,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                       image: DecorationImage(
                         image: AssetImage(
-                          "assets/images/breakfast.jpeg",
+                          "assets/images/background.png",
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -66,7 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Richmond Blankson",
+
+                        _name,
                         style: TextStyle(
                           fontSize: 16.0,
                         ),
@@ -75,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 10.0,
                       ),
                       Text(
-                        "+233247656959",
+                        _email,
                         style: TextStyle(color: Colors.grey),
                       ),
                       SizedBox(

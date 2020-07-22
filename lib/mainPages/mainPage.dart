@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fresh_fish/models/item.dart';
 import'package:fresh_fish/pages/Profile.dart';
 import'package:fresh_fish/pages/Home.dart';
 import"package:fresh_fish/pages/Order.dart";
 import'package:fresh_fish/pages/Offers.dart';
 import'package:fresh_fish/pages/aboutUs.dart';
+import 'package:fresh_fish/services/database.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -21,18 +25,15 @@ class _MainScreenState extends State<MainScreen>
      OffersScreen _Offers= OffersScreen();
      aboutUsScreen _aboutUs= aboutUsScreen();
      Widget _showpage;
-
+     int _index=3;
 
      Widget _pageChooser(int page){
        switch(page){
-         case 4:
+         case 3:
            return _Home;
            break;
-         case 3:
-           return _Profile;
-           break;
          case 2:
-           return _Order;
+           return _Profile;
            break;
          case 1:
            return _Offers;
@@ -44,46 +45,56 @@ class _MainScreenState extends State<MainScreen>
 
        }
      }
-     int _bottomNavBarIndex = 0;
 
+     void changeTab(int index) {
+       setState(() {
+         _showpage=_pageChooser(index);
+       });
+     }
+     int _bottomNavBarIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    changeTab(_index);
+    return MultiProvider(
+      providers:[ StreamProvider<QuerySnapshot>.value(
+        value:DatabaseService().users),
+        StreamProvider<List<item>>.value(
+            value:DatabaseService().items),
+      ],
+        child: Scaffold(
+              bottomNavigationBar: CurvedNavigationBar(
+                backgroundColor: Colors.blueAccent,
+                height: 60,
+                items: <Widget>[
+                  Icon(Icons.live_help, size: 25),
+                  Icon(Icons.local_offer, size: 25),
+                  Icon(Icons.account_circle, size: 25),
+                  Icon(Icons.home, size: 25),
+                ],
+                index: 3,
+                onTap: (index) {
+                  setState(() {
+                    _index=index;
+                  });
+                },
 
-
-
-          bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: Colors.blueAccent,
-            height: 60,
-            items: <Widget>[
-              Icon(Icons.live_help, size: 25),
-              Icon(Icons.local_offer, size: 25),
-              Icon(Icons.add_shopping_cart, size: 25),
-              Icon(Icons.account_circle, size: 25),
-              Icon(Icons.home, size: 25),
-            ],
-            index: 4,
-            onTap: (index) {
-              setState(() {
-                _showpage=_pageChooser(index);
-              });
-            },
-
-          ),
-          //body: Container(color: Colors.blueAccent),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(children: <Widget>[
-            Center(
-              child: Container(
-                child:_showpage,
               ),
+              //body: Container(color: Colors.blueAccent),
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Stack(children: <Widget>[
+                Center(
+                  child: Container(
+                    child:_showpage,
+                  ),
+                ),
+              ]),
             ),
-          ]),
+          ),
         ),
-      ),
-    );
+      );
+
   }
 }
