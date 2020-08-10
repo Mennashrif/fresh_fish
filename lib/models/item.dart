@@ -5,6 +5,6 @@ class item{
   final String category;
   final bool Isoffered;
   final String Waytoget;
-  item({ this.name='',this.price=0,this.category='',this.Isoffered=false,this.Waytoget=''});
+  item({ this.name='',this.price=0.0,this.category='',this.Isoffered=false,this.Waytoget=''});
 
 }

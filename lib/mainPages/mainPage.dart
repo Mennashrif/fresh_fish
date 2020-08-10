@@ -21,7 +21,6 @@ class _MainScreenState extends State<MainScreen>
 
      ProfileScreen _Profile= ProfileScreen();
      HomeScreen _Home= HomeScreen();
-     OrderScreen _Order= OrderScreen();
      OffersScreen _Offers= OffersScreen();
      aboutUsScreen _aboutUs= aboutUsScreen();
      Widget _showpage;
@@ -58,8 +57,6 @@ class _MainScreenState extends State<MainScreen>
     return MultiProvider(
       providers:[ StreamProvider<QuerySnapshot>.value(
         value:DatabaseService().users),
-        StreamProvider<List<item>>.value(
-            value:DatabaseService().items),
       ],
         child: Scaffold(
               bottomNavigationBar: CurvedNavigationBar(

@@ -1,8 +1,12 @@
-import 'item.dart';
 
-class orderitem extends item{
 
-  final String quantity;
+class orderitem {
 
-  orderitem(name,price,this.quantity,Isoffered);
+  final num quantity;
+  final String name;
+  final num price;
+  final String optionName;
+  final num optionPrice;
+  final bool Isoffered;
+  orderitem(this.name,this.price,this.quantity,this.Isoffered, this.optionName, this.optionPrice);
 }

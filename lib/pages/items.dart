@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
+import 'package:provider/provider.dart';
 
 import 'detailsPage.dart';
 class itemsPage extends StatefulWidget {
   final category;
-  final items;
+  //final items;
   final refreshHome;
-   itemsPage({this.category,this.items,this.refreshHome}) ;
+   itemsPage({this.category,this.refreshHome}) ;
 
   @override
   _itemsPageState createState() => _itemsPageState();
@@ -15,12 +16,12 @@ class itemsPage extends StatefulWidget {
 
 class _itemsPageState extends State<itemsPage> {
 
-  List<item> fillListofcategory(){
+  List<item> fillListofcategory(List<item> items){
     List<item> Listofcategory=[];
-    if(widget.items!=null) {
-      for (int i = 0; i < widget.items.length; i++) {
-        if (widget.items[i].category == widget.category) {
-          Listofcategory.add(widget.items[i]);
+    if(items!=null) {
+      for (int i = 0; i < items.length; i++) {
+        if (items[i].category == widget.category) {
+          Listofcategory.add(items[i]);
 
         }
       }
@@ -34,59 +35,66 @@ class _itemsPageState extends State<itemsPage> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      backgroundColor: Color(0xFF7A9BEE),
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 15.0, left: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  color: Colors.white,
-                  onPressed: () {
-
-                    Navigator.of(context).pop();
-                  },
-                ),
-                fixedicon(),
-              ],
+    return WillPopScope(
+        onWillPop: () async{
+          widget.refreshHome();
+          return true;
+        },
+      child: Scaffold(
+        backgroundColor: Color(0xFF7A9BEE),
+        body: ListView(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 15.0, left: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: Colors.white,
+                    onPressed: () {
+                      widget.refreshHome();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  fixedicon(order: false,refresh: refresh),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 25.0),
-          Padding(
-            padding: EdgeInsets.only(left: 40.0),
-            child: Row(
-              children: <Widget>[
-                Text('Fresh',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0)),
-                SizedBox(width: 10.0),
-                Text('Fish',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        color: Colors.white,
-                        fontSize: 25.0))
-              ],
+            SizedBox(height: 25.0),
+            Padding(
+              padding: EdgeInsets.only(left: 40.0),
+              child: Row(
+                children: <Widget>[
+                  Text('Fresh',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0)),
+                  SizedBox(width: 10.0),
+                  Text('Fish',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                          fontSize: 25.0))
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 40.0),
+            SizedBox(height: 40.0),
 
-          _buildFoodItem(),
+            _buildFoodItem(),
 
 
-    ]
-    ),
+      ]
+      ),
+      ),
     );
   }
 
   Widget _buildFoodItem() {
-  List<item> Listofcategory=fillListofcategory();
+    final items =Provider.of<List<item>>(context);
+  List<item> Listofcategory=fillListofcategory(items);
     return Container(
         height: MediaQuery.of(context).size.height - 185.0,
         decoration: BoxDecoration(
@@ -110,7 +118,7 @@ class _itemsPageState extends State<itemsPage> {
                           child: InkWell(
                             onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DetailsPage(heroTag: "assets/images/salmon.png", foodName:  Listofcategory[index].name, foodPrice:  Listofcategory[index].price.toString(),refresh:refresh)
+                          builder: (context) => DetailsPage(heroTag: "assets/images/salmon.png", foodName:  Listofcategory[index].name, foodPrice:  Listofcategory[index].price,order:false,refresh:refresh,refreshHome:widget.refreshHome)
                       ));
                     },
                               child: Row(
@@ -163,8 +171,10 @@ class _itemsPageState extends State<itemsPage> {
                                 ],
                               )
                           ));}),
+
                ),
              ),
+
           ]
           ),
         );
@@ -172,7 +182,7 @@ class _itemsPageState extends State<itemsPage> {
   refresh() {
     setState(() {
 //all the reload processes
-      widget.refreshHome();
+
     });
   }
 

@@ -151,6 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
             setState(() => loading = true);
             dynamic result =
                 await _auth.signInWithEmailAndPassword(_email, _password);
+            print("result");
+            print(result);
             if (result == null) {
               setState(() {
                 loading = false;

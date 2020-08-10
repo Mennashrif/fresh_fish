@@ -7,7 +7,10 @@ import 'package:fresh_fish/pages/Order.dart';
 
 class fixedicon extends StatefulWidget {
   @override
-
+  final order;
+  final refresh;
+  final refreshHome;
+  fixedicon({this.order,this.refresh,this.refreshHome});
   _fixediconState createState() => _fixediconState();
 
 }
@@ -21,21 +24,49 @@ class fixedicon extends StatefulWidget {
 
 
    }
+   void decreasecart(int index){
+
+     cartItem.removeAt(index);
+
+   }
+   void editcart(int index,orderitem item){
+
+     cartItem[index]=item;
+
+   }
+   void cleancart(){
+     cartItem.removeRange(0, cartItem.length);
+   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => OrderScreen(cartItem:cartItem)));
+        if(widget.order){
+          widget.refresh();
+          Navigator.of(context).pop();
+        }
+       else {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  OrderScreen(cartItem: cartItem, refresh: widget.refresh,refreshHome:widget.refreshHome)));
+        }
       },
       child: new Stack(
         children: <Widget>[
           new IconButton(icon: new Icon(Icons.shopping_cart,
             color: Colors.black,),
             onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => OrderScreen(cartItem:cartItem)));
+              if(widget.order){
+                widget.refresh();
+                Navigator.of(context).pop();
+              }
+              else {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        OrderScreen(
+                            cartItem: cartItem, refresh: widget.refresh,refreshHome:widget.refreshHome)));
+              }
             },
           ),
           cartItem.length ==0 ? new Container() :

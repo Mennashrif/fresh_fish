@@ -1,25 +1,28 @@
 import 'package:fresh_fish/mainPages/signUp.dart';
+import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:fresh_fish/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:fresh_fish/mainPages/login.dart';
 import 'package:fresh_fish/mainPages/mainPage.dart';
 
 class Wrapper extends StatelessWidget {
   @override
-
-
   Widget build(BuildContext context) {
-
     final user = Provider.of<User>(context);
     print(user);
 
     // return either the Home or Authenticate widget
-    if (user == null){
+    if (user == null) {
       return LoginScreen();
     } else {
-      return MainScreen();
+      return StreamProvider<List<item>>.value(
+          value: DatabaseService().items,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: MainScreen(),
+          ));
     }
-
   }
 }

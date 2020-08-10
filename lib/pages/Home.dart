@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
+import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/services/auth.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ["جمبرى لحم اماراتى","جمبرى قشر أماراتى","جمبرى بلدى","كابوريا","مشكل","بطارخ","فيليه","الاسماك"];
   @override
   Widget build(BuildContext context) {
-    final items = Provider.of<List<item>>(context);
+    //final items = Provider.of<List<item>>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              fixedicon(),
+              fixedicon(order: false,refresh: refreshHome),
             ],),
         ],
       ),
@@ -101,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.black,
                               ),
                                 onPressed: () async {
+                                  fixedicon().createState().cleancart();
                                   await _auth.signOut();
                                 },
                             )),
@@ -118,8 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index){
                     return InkWell(
                       onTap: () {
+
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => itemsPage(category:categoryList[index],items:items,refreshHome:refreshHome)
+                            builder: (context) => itemsPage(category:categoryList[index],refreshHome:refreshHome)
                         ));
                       },
                       child: Container(
