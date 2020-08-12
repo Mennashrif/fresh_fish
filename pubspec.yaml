@@ -44,20 +44,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #intl_translation: ^0.17.10
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
 flutter:
   assets:
     - assets/logos/New File.flr
     - assets/images/background.png
     - assets/logos/facebook.jpg
     - assets/logos/google.jpg
-    - assets/images/plate1.png
-    - assets/images/salmon.png
-    - assets/images/20170329-shopping-1-large.jpg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

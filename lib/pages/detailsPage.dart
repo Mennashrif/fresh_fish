@@ -13,7 +13,15 @@ class DetailsPage extends StatefulWidget {
   final index;
   final refresh;
   final refreshHome;
-  DetailsPage({this.heroTag, this.foodName, this.foodPrice,this.order,this.edit=false,this.index=0,this.refresh,this.refreshHome});
+  DetailsPage(
+      {this.heroTag,
+      this.foodName,
+      this.foodPrice,
+      this.order,
+      this.edit = false,
+      this.index = 0,
+      this.refresh,
+      this.refreshHome});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -21,19 +29,19 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   var selectedCard = 'WEIGHT';
-  var quantity=0.25;
-  var optionPrice=0.0;
-  var optionName='';
+  var quantity = 0.25;
+  var optionPrice = 0.0;
+  var optionName = '';
   var re;
   var ed;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          widget.refresh();
-          return true;
-        },
-        child: Scaffold(
+      onWillPop: () async {
+        widget.refresh();
+        return true;
+      },
+      child: Scaffold(
           backgroundColor: Color(0xFF7A9BEE),
           appBar: AppBar(
             leading: IconButton(
@@ -54,12 +62,14 @@ class _DetailsPageState extends State<DetailsPage> {
                     color: Colors.white)),
             centerTitle: true,
             actions: <Widget>[
-              widget.edit?new Container():fixedicon(order: widget.order,refresh: widget.order?widget.refresh:refresh,refreshHome:widget.refreshHome),
+              widget.edit
+                  ? new Container()
+                  : fixedicon(
+                      order: widget.order,
+                      refresh: widget.order ? widget.refresh : refresh,
+                      refreshHome: widget.refreshHome),
             ],
-
-
           ),
-
           body: ListView(children: [
             Stack(children: [
               Container(
@@ -85,7 +95,8 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(widget.heroTag),
+                                  image: NetworkImage(
+                                      'https://freedesignfile.com/upload/2017/06/Different-practices-delicious-fish-dishes-Stock-Photo-07.jpg'),
                                   fit: BoxFit.cover)),
                           height: 200.0,
                           width: 200.0))),
@@ -105,12 +116,13 @@ class _DetailsPageState extends State<DetailsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(widget.foodPrice.toString()+" "+"L.e",
+                          Text(widget.foodPrice.toString() + " " + "L.e",
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 20.0,
                                   color: Colors.grey)),
-                          Container(height: 25.0, color: Colors.grey, width: 1.0),
+                          Container(
+                              height: 25.0, color: Colors.grey, width: 1.0),
                           Container(
                             width: 125.0,
                             height: 40.0,
@@ -123,15 +135,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      if(quantity>0.25)
-                                          quantity-=0.25;
+                                      if (quantity > 0.25) quantity -= 0.25;
                                     });
                                   },
                                   child: Container(
                                     height: 25.0,
                                     width: 25.0,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(7.0),
+                                        borderRadius:
+                                            BorderRadius.circular(7.0),
                                         color: Color(0xFF7A9BEE)),
                                     child: Center(
                                       child: Icon(
@@ -142,7 +154,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                     ),
                                   ),
                                 ),
-                                Text(quantity.toString()+" "+"Kg",
+                                Text(quantity.toString() + " " + "Kg",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Montserrat',
@@ -150,14 +162,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      quantity+=0.25;
+                                      quantity += 0.25;
                                     });
                                   },
                                   child: Container(
                                     height: 25.0,
                                     width: 25.0,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(7.0),
+                                        borderRadius:
+                                            BorderRadius.circular(7.0),
                                         color: Colors.white),
                                     child: Center(
                                       child: Icon(
@@ -187,42 +200,54 @@ class _DetailsPageState extends State<DetailsPage> {
                               SizedBox(width: 10.0),
                               _buildInfoCard('بدون', '0', 'L.e')
                             ],
-                          )
-                      ),
+                          )),
                       SizedBox(height: 20.0),
                       InkWell(
-                        onTap: (){
-                           setState(() {
-                               if(!widget.edit)
-                                fixedicon().createState().increasecart(orderitem(widget.foodName, widget.foodPrice,quantity,false,optionName,optionPrice));
-                               else {
-                                 fixedicon().createState().editcart(
-                                     widget.index, orderitem(
-                                     widget.foodName, widget.foodPrice,
-                                     quantity, false, optionName, optionPrice));
-                                     widget.refresh();
-                                     Navigator.pop(context);
-                               }
-
-                             });
+                        onTap: () {
+                          setState(() {
+                            if (!widget.edit)
+                              fixedicon().createState().increasecart(orderitem(
+                                  widget.foodName,
+                                  widget.foodPrice,
+                                  quantity,
+                                  false,
+                                  optionName,
+                                  optionPrice));
+                            else {
+                              fixedicon().createState().editcart(
+                                  widget.index,
+                                  orderitem(
+                                      widget.foodName,
+                                      widget.foodPrice,
+                                      quantity,
+                                      false,
+                                      optionName,
+                                      optionPrice));
+                              widget.refresh();
+                              Navigator.pop(context);
+                            }
+                          });
                         },
-
                         child: Padding(
-                          padding: EdgeInsets.only(bottom:5.0),
+                          padding: EdgeInsets.only(bottom: 5.0),
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0), bottomLeft: Radius.circular(25.0), bottomRight: Radius.circular(25.0)),
-                                color: Colors.black
-                            ),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10.0),
+                                    topRight: Radius.circular(10.0),
+                                    bottomLeft: Radius.circular(25.0),
+                                    bottomRight: Radius.circular(25.0)),
+                                color: Colors.black),
                             height: 50.0,
                             child: Center(
                               child: Text(
-                              (quantity*widget.foodPrice+optionPrice).toString()+" "+"L.e",
+                                  (quantity * widget.foodPrice + optionPrice)
+                                          .toString() +
+                                      " " +
+                                      "L.e",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontFamily: 'Montserrat'
-                                  )
-                              ),
+                                      fontFamily: 'Montserrat')),
                             ),
                           ),
                         ),
@@ -237,8 +262,8 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget _buildInfoCard(String cardTitle, String info, String unit) {
     return InkWell(
         onTap: () {
-          optionPrice=double.parse(info);
-          cardTitle=='بدون'?optionName='':optionName=cardTitle;
+          optionPrice = double.parse(info);
+          cardTitle == 'بدون' ? optionName = '' : optionName = cardTitle;
           selectCard(cardTitle);
         },
         child: AnimatedContainer(
@@ -246,15 +271,14 @@ class _DetailsPageState extends State<DetailsPage> {
             curve: Curves.easeIn,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: cardTitle == selectedCard ? Color(0xFF7A9BEE) : Colors.white,
+              color:
+                  cardTitle == selectedCard ? Color(0xFF7A9BEE) : Colors.white,
               border: Border.all(
-                  color: cardTitle == selectedCard ?
-                  Colors.transparent :
-                  Colors.grey.withOpacity(0.3),
+                  color: cardTitle == selectedCard
+                      ? Colors.transparent
+                      : Colors.grey.withOpacity(0.3),
                   style: BorderStyle.solid,
-                  width: 0.75
-              ),
-
+                  width: 0.75),
             ),
             height: 100.0,
             width: 100.0,
@@ -268,8 +292,9 @@ class _DetailsPageState extends State<DetailsPage> {
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 12.0,
-                          color:
-                          cardTitle == selectedCard ? Colors.white : Colors.grey.withOpacity(0.7),
+                          color: cardTitle == selectedCard
+                              ? Colors.white
+                              : Colors.grey.withOpacity(0.7),
                         )),
                   ),
                   Padding(
@@ -296,10 +321,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       ],
                     ),
                   )
-                ]
-            )
-        )
-    );
+                ])));
   }
 
   selectCard(cardTitle) {
@@ -307,10 +329,10 @@ class _DetailsPageState extends State<DetailsPage> {
       selectedCard = cardTitle;
     });
   }
+
   refresh() {
     setState(() {
 //all the reload processes
-
     });
   }
 }

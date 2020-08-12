@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
-
 import 'detailsPage.dart';
 class itemsPage extends StatefulWidget {
   final category;
@@ -157,7 +156,7 @@ class _itemsPageState extends State<itemsPage> {
                                             Hero(
                                                 tag: Listofcategory[index].name,
                                                 child: Image(
-                                                    image:AssetImage("assets/images/plate1.png"),
+                                                    image:NetworkImage("https://freedesignfile.com/upload/2017/06/Different-practices-delicious-fish-dishes-Stock-Photo-07.jpg"),
                                                     fit: BoxFit.cover,
                                                     height: 75.0,
                                                     width: 75.0
