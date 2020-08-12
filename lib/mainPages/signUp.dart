@@ -227,6 +227,9 @@ class _signUpScreenState extends State<signUpScreen> {
                 _error = 'Please supply a valid email';
               });
             }
+            else{
+              Navigator.of(context).pop();
+            }
             }
         },
         padding: EdgeInsets.all(15.0),

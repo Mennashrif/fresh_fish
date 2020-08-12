@@ -23,7 +23,7 @@ class DatabaseService {
   Future addOrder(List<orderitem> order) async{
      return await Order.document().setData({
                'uid':uid,
-               "content": [
+               'content': [
                  for(int i=0;i<order.length;i++)
                  { "name": order[i].name,
                    "quantity":order[i].quantity,
