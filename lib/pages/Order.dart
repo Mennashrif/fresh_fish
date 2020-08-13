@@ -13,8 +13,7 @@ class OrderScreen extends StatefulWidget {
   @override
   final List<orderitem> cartItem;
   final refresh;
-  final refreshHome;
-  OrderScreen({this.cartItem, this.refresh, this.refreshHome});
+  OrderScreen({this.cartItem, this.refresh});
   _OrderScreenState createState() => _OrderScreenState();
 }
 
@@ -95,10 +94,11 @@ class _OrderScreenState extends State<OrderScreen>
       ),
       child: loading
           ? Container(
-              color: Color(0xFF478DE0),
+              color: Colors.white,
               child: Center(
                 child: SpinKitChasingDots(
-                  color: Colors.brown[100],
+                  color: Color(0xFF478DE0)
+                  ,
                   size: 50.0,
                 ),
               ),
@@ -107,8 +107,7 @@ class _OrderScreenState extends State<OrderScreen>
               ? new Container(
                   decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        "https://freedesignfile.com/upload/2017/06/Different-practices-delicious-fish-dishes-Stock-Photo-07.jpg"),
+                    image:AssetImage("assets/images/20170329-shopping-1-large.jpg"),
                     // fit: BoxFit.cover,
                   ),
                 ))
@@ -188,71 +187,74 @@ class _OrderScreenState extends State<OrderScreen>
                                                 ]),
                                             Container(
                                                 child: Row(children: [
-                                              Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                        widget.cartItem[index]
-                                                            .name,
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            fontSize: 17.0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                    Text(
-                                                        (widget.cartItem[index]
-                                                                    .quantity)
-                                                                .toString() +
-                                                            " " +
-                                                            "Kg",
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            fontSize: 15.0,
-                                                            color:
-                                                                Colors.grey)),
-                                                    Text(
-                                                        (widget.cartItem[index]
-                                                                            .price *
-                                                                        widget
-                                                                            .cartItem[
-                                                                                index]
-                                                                            .quantity +
-                                                                    widget
-                                                                        .cartItem[
-                                                                            index]
-                                                                        .optionPrice)
-                                                                .toString() +
-                                                            " " +
-                                                            "L.e",
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            fontSize: 15.0,
-                                                            color:
-                                                                Colors.grey)),
-                                                    widget.cartItem[index].optionName ==
-                                                            ''
-                                                        ? new Container()
-                                                        : Text(
-                                                            widget
-                                                                .cartItem[index]
-                                                                .optionName,
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontSize: 15.0,
-                                                                color: Colors
-                                                                    .blue)),
-                                                  ]),
+                                              Padding(
+                                                padding: EdgeInsets.only(right: 10.0),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                          widget.cartItem[index]
+                                                              .name,
+                                                      textDirection:TextDirection.rtl,
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 17.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      Text(
+                                                          (widget.cartItem[index]
+                                                                      .quantity)
+                                                                  .toString() +
+                                                              " " +
+                                                              "Kg",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 15.0,
+                                                              color:
+                                                                  Colors.grey)),
+                                                      Text(
+                                                          (widget.cartItem[index]
+                                                                              .price *
+                                                                          widget
+                                                                              .cartItem[
+                                                                                  index]
+                                                                              .quantity +
+                                                                      widget
+                                                                          .cartItem[
+                                                                              index]
+                                                                          .optionPrice)
+                                                                  .toString() +
+                                                              " " +
+                                                              "L.e",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 15.0,
+                                                              color:
+                                                                  Colors.grey)),
+                                                      widget.cartItem[index].optionName ==
+                                                              ''
+                                                          ? new Container()
+                                                          : Text(
+                                                              widget
+                                                                  .cartItem[index]
+                                                                  .optionName,
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  fontSize: 15.0,
+                                                                  color: Colors
+                                                                      .blue)),
+                                                    ]),
+                                              ),
                                               Hero(
                                                   tag: index,
                                                   child: Image(
-                                                      image: NetworkImage(
-                                                          "http://chikk.net/wp-content/uploads/2017/02/Delicious-Fish-Recipes-to-Try-for-Lunch-This-Week-660x330.jpg"),
+                                                      image: AssetImage("assets/images/salmon.png"),
                                                       fit: BoxFit.cover,
                                                       height: 75.0,
                                                       width: 75.0)),

@@ -4,7 +4,8 @@ class item{
   final num price;
   final String category;
   final bool Isoffered;
-  final String Waytoget;
-  item({ this.name='',this.price=0.0,this.category='',this.Isoffered=false,this.Waytoget=''});
+  final num sort;
+  final num theOffer;
+  item({ this.name='',this.price=0.0,this.category='',this.Isoffered=false,this.sort=0,this.theOffer=0});
 
 }

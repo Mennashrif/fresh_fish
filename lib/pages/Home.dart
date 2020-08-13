@@ -5,6 +5,7 @@ import 'package:fresh_fish/services/auth.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
 
+import 'detailsPage.dart';
 import 'items.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,18 +20,27 @@ class _HomeScreenState extends State<HomeScreen> {
   // List<Food> _foods = foods;
 
   @override
-  void initState() {
-    super.initState();
-
-  }
   int _index = 0;
   final textStyle = TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold);
   final AuthService _auth = AuthService();
   final List<String> categoryList =
-  ["جمبرى لحم اماراتى","جمبرى قشر أماراتى","جمبرى بلدى","كابوريا","مشكل","بطارخ","فيليه","الاسماك"];
+  ["جمبرى لحم اماراتى","جمبرى قشر أماراتى","جمبرى بلدى","كابوريا","سبيط و اخطابوت","جاندوفلى و بلح البحر","جزل","سلمون","بطارخ","سى فود","فيليه","استاكوزا","الاسماك"];
+
+  List<item> fillListofcategory(List<item> items) {
+    List<item> Listofcategory = [];
+    if (items != null) {
+      for (int i = 0; i < items.length; i++) {
+        if (items[i].Isoffered) {
+          Listofcategory.add(items[i]);
+        }
+      }
+    }
+    return Listofcategory;
+  }
   @override
   Widget build(BuildContext context) {
-    //final items = Provider.of<List<item>>(context);
+    final items = Provider.of<List<item>>(context);
+    List<item> Listofcategory = fillListofcategory(items);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -59,20 +69,75 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SizedBox(
                   height: 200, // card height
                   child: PageView.builder(
-                    itemCount: 10,
+                    itemCount: Listofcategory.length,
                     controller: PageController(viewportFraction: 0.7),
                     onPageChanged: (int index) => setState(() => _index = index),
                     itemBuilder: (_, i) {
-                      return Transform.scale(
-                        scale: i == _index ? 1 : 0.9,
-                        child: Card(
-                          elevation: 6,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Text(
-                              "Card ${i + 1}",
-                              style: TextStyle(fontSize: 32),
-                            ),
+                      return InkWell(
+                        onTap:() {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DetailsPage(
+                                  heroTag: "assets/images/salmon.png",
+                                  foodName: Listofcategory[i].name,
+                                  foodPrice: (Listofcategory[i].price -
+                                      Listofcategory[i]
+                                          .theOffer),
+                                  order: false,
+                                  refresh: refreshHome)));
+                        },
+                        child: Transform.scale(
+                          scale: i == _index ? 1 : 0.9,
+                          child: Card(
+                            elevation: 6,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            child: Stack(children: [
+
+                              Positioned(
+                                top:10.0,
+                                left: (MediaQuery.of(context).size.width / 2) - 115.0,
+                                child: Hero(
+                                    tag:i,
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image:AssetImage("assets/images/salmon.png"),
+                                                fit: BoxFit.cover)),
+                                        height: 90.0,
+                                        width: 90.0)),
+                              ),
+
+                            Positioned(
+                            top: 103,
+                            left: 25.0,
+                            right: 10.0,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                Text( Listofcategory[i].name,
+                                    textDirection:TextDirection.rtl,
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold)),
+                            /*SizedBox(height: 1.0),*/
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(Listofcategory[i].price.toString() + " " + "L.e",
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 18.0,
+                                          color: Colors.grey,
+                                          decoration: TextDecoration
+                                              .lineThrough)),
+                                Text((Listofcategory[i].price -
+                                    Listofcategory[i].theOffer).toString() + " " + "L.e",
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 18.0,
+                                    color: Colors.blue,
+                                    ))])])),
+                            ]),
                           ),
                         ),
                       );

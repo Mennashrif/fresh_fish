@@ -12,7 +12,6 @@ class DetailsPage extends StatefulWidget {
   final edit;
   final index;
   final refresh;
-  final refreshHome;
   DetailsPage(
       {this.heroTag,
       this.foodName,
@@ -20,8 +19,7 @@ class DetailsPage extends StatefulWidget {
       this.order,
       this.edit = false,
       this.index = 0,
-      this.refresh,
-      this.refreshHome});
+      this.refresh});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -32,8 +30,6 @@ class _DetailsPageState extends State<DetailsPage> {
   var quantity = 0.25;
   var optionPrice = 0.0;
   var optionName = '';
-  var re;
-  var ed;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -66,8 +62,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   ? new Container()
                   : fixedicon(
                       order: widget.order,
-                      refresh: widget.order ? widget.refresh : refresh,
-                      refreshHome: widget.refreshHome),
+                      refresh: refresh,
+                     ),
             ],
           ),
           body: ListView(children: [
@@ -95,8 +91,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://freedesignfile.com/upload/2017/06/Different-practices-delicious-fish-dishes-Stock-Photo-07.jpg'),
+                                  image:AssetImage(widget.heroTag),
                                   fit: BoxFit.cover)),
                           height: 200.0,
                           width: 200.0))),

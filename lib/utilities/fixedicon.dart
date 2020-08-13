@@ -49,7 +49,7 @@ class fixedicon extends StatefulWidget {
        else {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
-                  OrderScreen(cartItem: cartItem, refresh: widget.refresh,refreshHome:widget.refreshHome)));
+                  OrderScreen(cartItem: cartItem, refresh: widget.refresh)));
         }
       },
       child: new Stack(
@@ -65,7 +65,7 @@ class fixedicon extends StatefulWidget {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) =>
                         OrderScreen(
-                            cartItem: cartItem, refresh: widget.refresh,refreshHome:widget.refreshHome)));
+                            cartItem: cartItem, refresh: widget.refresh)));
               }
             },
           ),

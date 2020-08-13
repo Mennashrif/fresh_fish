@@ -51,12 +51,13 @@ class DatabaseService {
           price: doc.data['price'] ?? 0,
           category: doc.data['category'] ?? '0',
           Isoffered: doc.data['Isoffered'] ?? false,
-          Waytoget: doc.data['Waytoget'] ?? '0');
+          theOffer:doc.data['theOffer']??0);
+
     }).toList();
   }
 
   // get brews stream
   Stream<List<item>> get items {
-    return Items.snapshots().map(_itemListFromSnapshot);
+    return Items.orderBy('sort').snapshots().map(_itemListFromSnapshot);
   }
 }
