@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       // TODO: implement initState
 
       Timer(Duration(seconds: 5), (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Wrapper()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Wrapper()));
       });
 
 

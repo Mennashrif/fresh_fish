@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/models/orderitem.dart';
-import 'package:fresh_fish/models/user.dart';
 
 class DatabaseService {
   final String uid;
@@ -12,7 +11,7 @@ class DatabaseService {
   final CollectionReference Order = Firestore.instance.collection('Order');
   Future updateUserData(
       String email, String name, String address, String phone) async {
-    return await Users.document(uid).setData(
+    return await Users.document(uid).updateData(
         {'email': email, 'name': name, 'address': address, 'phone': phone});
   }
 

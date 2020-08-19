@@ -124,7 +124,7 @@ class _OrderScreenState extends State<OrderScreen>
                               itemBuilder: (context, index) {
                                 return Padding(
                                     padding:
-                                        EdgeInsets.only(left: 10.0, top: 10.0),
+                                        EdgeInsets.only(left: 5.0, top: 10.0),
                                     child: InkWell(
                                         onTap: () {
                                           Navigator.of(context).push(MaterialPageRoute(
