@@ -8,7 +8,9 @@ class itemsPage extends StatefulWidget {
   final category;
   //final items;
   final refreshHome;
-  itemsPage({this.category, this.refreshHome});
+  final bool searchPage ; 
+  final List<item> searchResult; 
+  itemsPage({this.category, this.refreshHome, this.searchPage, this.searchResult});
 
   @override
   _itemsPageState createState() => _itemsPageState();
@@ -27,11 +29,6 @@ class _itemsPageState extends State<itemsPage> {
     }
     return Listofcategory;
   }
-
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -88,7 +85,7 @@ class _itemsPageState extends State<itemsPage> {
 
   Widget _buildFoodItem() {
     final items = Provider.of<List<item>>(context);
-    List<item> Listofcategory = fillListofcategory(items);
+    List<item> Listofcategory =widget.searchPage? widget.searchResult: fillListofcategory(items);
     return Container(
       height: MediaQuery.of(context).size.height - 185.0,
       decoration: BoxDecoration(

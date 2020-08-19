@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/services/database.dart';
@@ -10,10 +9,10 @@ import 'package:provider/provider.dart';
 import 'detailsPage.dart';
 
 class OrderScreen extends StatefulWidget {
-  @override
   final List<orderitem> cartItem;
   final refresh;
   OrderScreen({this.cartItem, this.refresh});
+  @override
   _OrderScreenState createState() => _OrderScreenState();
 }
 
@@ -97,8 +96,7 @@ class _OrderScreenState extends State<OrderScreen>
               color: Colors.white,
               child: Center(
                 child: SpinKitChasingDots(
-                  color: Color(0xFF478DE0)
-                  ,
+                  color: Color(0xFF478DE0),
                   size: 50.0,
                 ),
               ),
@@ -107,18 +105,19 @@ class _OrderScreenState extends State<OrderScreen>
               ? new Container(
                   decoration: BoxDecoration(
                   image: DecorationImage(
-                    image:AssetImage("assets/images/20170329-shopping-1-large.jpg"),
+                    image: AssetImage(
+                        "assets/images/20170329-shopping-1-large.jpg"),
                     // fit: BoxFit.cover,
                   ),
                 ))
               : ListView(
                   primary: false,
-                  padding: EdgeInsets.only(left: 25.0, right: 20.0),
+                  padding: EdgeInsets.only(left: 15.0, right: 10.0),
                   children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 45.0),
+                        padding: EdgeInsets.only(top: 25.0),
                         child: Container(
-                          height: MediaQuery.of(context).size.height - 450.0,
+                          height: MediaQuery.of(context).size.height * 0.4,
                           child: ListView.builder(
                               itemCount: widget.cartItem.length,
                               itemBuilder: (context, index) {
@@ -188,7 +187,8 @@ class _OrderScreenState extends State<OrderScreen>
                                             Container(
                                                 child: Row(children: [
                                               Padding(
-                                                padding: EdgeInsets.only(right: 10.0),
+                                                padding: EdgeInsets.only(
+                                                    right: 10.0),
                                                 child: Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.end,
@@ -196,7 +196,8 @@ class _OrderScreenState extends State<OrderScreen>
                                                       Text(
                                                           widget.cartItem[index]
                                                               .name,
-                                                      textDirection:TextDirection.rtl,
+                                                          textDirection:
+                                                              TextDirection.rtl,
                                                           style: TextStyle(
                                                               fontFamily:
                                                                   'Montserrat',
@@ -205,7 +206,9 @@ class _OrderScreenState extends State<OrderScreen>
                                                                   FontWeight
                                                                       .bold)),
                                                       Text(
-                                                          (widget.cartItem[index]
+                                                          (widget
+                                                                      .cartItem[
+                                                                          index]
                                                                       .quantity)
                                                                   .toString() +
                                                               " " +
@@ -217,8 +220,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                               color:
                                                                   Colors.grey)),
                                                       Text(
-                                                          (widget.cartItem[index]
-                                                                              .price *
+                                                          (widget.cartItem[index].price *
                                                                           widget
                                                                               .cartItem[
                                                                                   index]
@@ -236,17 +238,20 @@ class _OrderScreenState extends State<OrderScreen>
                                                               fontSize: 15.0,
                                                               color:
                                                                   Colors.grey)),
-                                                      widget.cartItem[index].optionName ==
+                                                      widget.cartItem[index]
+                                                                  .optionName ==
                                                               ''
                                                           ? new Container()
                                                           : Text(
                                                               widget
-                                                                  .cartItem[index]
+                                                                  .cartItem[
+                                                                      index]
                                                                   .optionName,
                                                               style: TextStyle(
                                                                   fontFamily:
                                                                       'Montserrat',
-                                                                  fontSize: 15.0,
+                                                                  fontSize:
+                                                                      15.0,
                                                                   color: Colors
                                                                       .blue)),
                                                     ]),
@@ -254,7 +259,8 @@ class _OrderScreenState extends State<OrderScreen>
                                               Hero(
                                                   tag: index,
                                                   child: Image(
-                                                      image: AssetImage("assets/images/salmon.png"),
+                                                      image: AssetImage(
+                                                          "assets/images/salmon.png"),
                                                       fit: BoxFit.cover,
                                                       height: 75.0,
                                                       width: 75.0)),

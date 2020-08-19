@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Password',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        SizedBox(height: 5.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -190,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
             fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(height: 20.0),
         Text(
           'Sign in with',
           style: kLabelStyle,
@@ -225,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSocialBtnRow() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 30.0),
+      padding: EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -355,47 +354,49 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: double.infinity,
-                      child: SingleChildScrollView(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 40.0,
-                          vertical: 120.0,
-                        ),
-                        child: Form(
-                          key: _formkey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
+                    Center(
+                      child: Container(
+                        height: double.infinity,
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                            vertical: MediaQuery.of(context).size.height*0.17,
+                          ),
+                          child: Form(
+                            key: _formkey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 30.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 30.0),
-                              _buildEmailTF(),
-                              SizedBox(
-                                height: 30.0,
-                              ),
-                              _buildPasswordTF(),
-                              _buildForgotPasswordBtn(),
-                              _buildRememberMeCheckbox(),
-                              _buildLoginBtn(),
-                              SizedBox(height: 12.0),
-                              Text(
-                                _error,
-                                style: TextStyle(
-                                    color: Colors.red, fontSize: 14.0),
-                              ),
-                              SizedBox(height: 10.0),
-                              _buildSignInWithText(),
-                              _buildSocialBtnRow(),
-                              _buildSignupBtn(),
-                            ],
+                                SizedBox(height: 10.0),
+                                _buildEmailTF(),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                _buildPasswordTF(),
+                                _buildForgotPasswordBtn(),
+                                _buildRememberMeCheckbox(),
+                                _buildLoginBtn(),
+                                SizedBox(height: 12.0),
+                                Text(
+                                  _error,
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 14.0),
+                                ),
+                                SizedBox(height: 10.0),
+                                _buildSignInWithText(),
+                                _buildSocialBtnRow(),
+                                _buildSignupBtn(),
+                              ],
+                            ),
                           ),
                         ),
                       ),

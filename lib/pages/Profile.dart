@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_fish/mainPages/mainPage.dart';
 import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/utilities/edit_profile_modal.dart';
 import 'package:fresh_fish/utilities/profile_info_item.dart';

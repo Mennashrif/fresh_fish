@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/pages/Profile.dart';
 import 'package:fresh_fish/pages/Home.dart';
-import "package:fresh_fish/pages/Order.dart";
 import 'package:fresh_fish/pages/Offers.dart';
 import 'package:fresh_fish/pages/aboutUs.dart';
 import 'package:fresh_fish/services/database.dart';
@@ -40,6 +38,7 @@ class _MainScreenState extends State<MainScreen>
         return _aboutUs;
         break;
     }
+    return null;
   }
 
   void changeTab(int index) {

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 
-import 'items.dart';
-
 class DetailsPage extends StatefulWidget {
   final heroTag;
   final foodName;

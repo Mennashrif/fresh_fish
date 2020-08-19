@@ -1,4 +1,3 @@
-import 'package:fresh_fish/mainPages/signUp.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/models/user.dart';
 import 'package:flutter/material.dart';

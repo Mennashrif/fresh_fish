@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/constants.dart';
 import 'package:fresh_fish/services/auth.dart';
 import 'package:fresh_fish/utilities/loading.dart';
@@ -12,7 +11,6 @@ class signUpScreen extends StatefulWidget {
 class _signUpScreenState extends State<signUpScreen> {
 
   final AuthService _auth = AuthService();
-  final DatabaseService _db=DatabaseService();
   String _name='';
   String _email='';
   String _password='';

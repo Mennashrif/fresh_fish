@@ -31,7 +31,7 @@ class DatabaseService {
             },
         ]
       });
-      return true; 
+      return true;
     } catch (e) {
       print(e);
       return false;
@@ -50,9 +50,26 @@ class DatabaseService {
           price: doc.data['price'] ?? 0,
           category: doc.data['category'] ?? '0',
           Isoffered: doc.data['Isoffered'] ?? false,
-          theOffer:doc.data['theOffer']??0);
-
+          theOffer: doc.data['theOffer'] ?? 0);
     }).toList();
+  }
+
+  Future<List<item>> fetchSearchResult(String searchString) async {
+    List<item> result = [];
+    QuerySnapshot querySnapshot = await Items.getDocuments();
+    List<DocumentSnapshot> docSnapshot = querySnapshot.documents;
+     docSnapshot.map((e) {
+      if (e.data['name'].contains(searchString))
+        result.add(item(
+          name: e.data['name'],
+          price: e.data['price'],
+          category: e.data['category'],
+          Isoffered: e.data['Isoffered'],
+          sort: e.data['sort'],
+          theOffer: e.data['theOffer'],
+        ));
+    }).toList();
+    return result;
   }
 
   // get brews stream
