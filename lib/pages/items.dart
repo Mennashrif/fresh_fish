@@ -8,9 +8,11 @@ class itemsPage extends StatefulWidget {
   final category;
   //final items;
   final refreshHome;
-  final bool searchPage ; 
-  final List<item> searchResult; 
-  itemsPage({this.category, this.refreshHome, this.searchPage, this.searchResult});
+  final bool searchPage;
+  final List<item> searchResult;
+  final email ;
+  itemsPage(
+      {this.category, this.refreshHome, this.searchPage, this.searchResult,@required this.email});
 
   @override
   _itemsPageState createState() => _itemsPageState();
@@ -85,7 +87,8 @@ class _itemsPageState extends State<itemsPage> {
 
   Widget _buildFoodItem() {
     final items = Provider.of<List<item>>(context);
-    List<item> Listofcategory =widget.searchPage? widget.searchResult: fillListofcategory(items);
+    List<item> Listofcategory =
+        widget.searchPage ? widget.searchResult : fillListofcategory(items);
     return Container(
       height: MediaQuery.of(context).size.height - 185.0,
       decoration: BoxDecoration(
@@ -112,10 +115,14 @@ class _itemsPageState extends State<itemsPage> {
                                     builder: (context) => DetailsPage(
                                         heroTag: "assets/images/salmon.png",
                                         foodName: Listofcategory[index].name,
-                                        foodPrice:Listofcategory[index].Isoffered? (Listofcategory[index].price -
-                                            Listofcategory[index]
-                                                .theOffer):Listofcategory[index].price,
+                                        foodPrice: Listofcategory[index]
+                                                .Isoffered
+                                            ? (Listofcategory[index].price -
+                                                Listofcategory[index].theOffer)
+                                            : Listofcategory[index].price,
                                         order: false,
+                                        isAdmin: widget.email=="fresh_fish@freshfish.com",
+                                        id: Listofcategory[index].id,
                                         refresh: refresh)));
                               },
                               child: Row(
@@ -156,19 +163,22 @@ class _itemsPageState extends State<itemsPage> {
                                                               .lineThrough
                                                           : null,
                                                 )),
-                                            Listofcategory[index]
-                                                .Isoffered?Text(
-                                                (Listofcategory[index].price -
-                                                            Listofcategory[index]
-                                                                .theOffer)
-                                                        .toString() +
-                                                    " " +
-                                                    "L.e",
-                                                style: TextStyle(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 15.0,
-                                                  color: Colors.blue,
-                                                )):new Container(),
+                                            Listofcategory[index].Isoffered
+                                                ? Text(
+                                                    (Listofcategory[index]
+                                                                    .price -
+                                                                Listofcategory[
+                                                                        index]
+                                                                    .theOffer)
+                                                            .toString() +
+                                                        " " +
+                                                        "L.e",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 15.0,
+                                                      color: Colors.blue,
+                                                    ))
+                                                : new Container(),
                                           ]),
                                     ),
                                     Hero(

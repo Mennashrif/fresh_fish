@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/mainPages/mainPage.dart';
 import 'package:fresh_fish/models/item.dart';
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // List<Food> _foods = foods;
 
   int _index = 0;
+  String _email;
   final textStyle = TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold);
   final List<String> categoryList = [
     "جمبرى لحم اماراتى",
@@ -49,10 +51,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Listofcategory;
   }
 
+  void getdata(final user, final uid) {
+    if (user != null) {
+      for (int i = 0; i < user.documents.length; i++) {
+        if (user.documents[i].documentID == uid.uid) {
+          _email = user.documents[i].data['email'];
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final items = Provider.of<List<item>>(context);
     final uid = Provider.of<User>(context);
+    final user = Provider.of<QuerySnapshot>(context);
+    getdata(user, uid);
     List<item> Listofcategory = fillListofcategory(items);
     return WillPopScope(
       onWillPop: () {
@@ -104,6 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     foodPrice: (Listofcategory[i].price -
                                         Listofcategory[i].theOffer),
                                     order: false,
+                                    isAdmin:
+                                        _email == "fresh_fish@freshfish.com",
+                                    id: Listofcategory[i].id,
                                     refresh: refreshHome)));
                           },
                           child: Transform.scale(
@@ -214,17 +231,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () async {
                                   /*fixedicon().createState().cleancart();
                                     await _auth.signOut();*/
-                                    if(_textFieldController.text.isNotEmpty){
-                                  DatabaseService databaseService =
-                                      DatabaseService(uid: uid.uid);
-                                  List<item> result =
-                                      await databaseService.fetchSearchResult(
-                                          _textFieldController.text);
-                                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => itemsPage(
-                                  searchPage: true,
-                                  searchResult: result,
-                                  refreshHome: refreshHome)));}
+                                  if (_textFieldController.text.isNotEmpty) {
+                                    DatabaseService databaseService =
+                                        DatabaseService(uid: uid.uid);
+                                    List<item> result =
+                                        await databaseService.fetchSearchResult(
+                                            _textFieldController.text);
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => itemsPage(
+                                                searchPage: true,
+                                                email: _email,
+                                                searchResult: result,
+                                                refreshHome: refreshHome)));
+                                  }
                                 },
                               )),
                           border: InputBorder.none,
@@ -244,6 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => itemsPage(
                                   searchPage: false,
+                                  email: _email,
                                   category: categoryList[index],
                                   refreshHome: refreshHome)));
                         },

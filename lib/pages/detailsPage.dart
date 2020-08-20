@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/orderitem.dart';
+import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
+import 'package:fresh_fish/utilities/set_offer_modal.dart';
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
@@ -10,6 +12,9 @@ class DetailsPage extends StatefulWidget {
   final edit;
   final index;
   final refresh;
+  final offer;
+  final id;
+  final bool isAdmin;
   DetailsPage(
       {this.heroTag,
       this.foodName,
@@ -17,7 +22,10 @@ class DetailsPage extends StatefulWidget {
       this.order,
       this.edit = false,
       this.index = 0,
-      this.refresh});
+      this.refresh,
+      this.id,
+      this.isAdmin = false,
+      this.offer});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -28,6 +36,8 @@ class _DetailsPageState extends State<DetailsPage> {
   var quantity = 0.25;
   var optionPrice = 0.0;
   var optionName = '';
+  DatabaseService databaseService = DatabaseService();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -58,10 +68,23 @@ class _DetailsPageState extends State<DetailsPage> {
             actions: <Widget>[
               widget.edit
                   ? new Container()
-                  : fixedicon(
-                      order: widget.order,
-                      refresh: refresh,
-                     ),
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Visibility(
+                          visible: widget.isAdmin,
+                          child: GestureDetector(
+                              onTap: () {
+                                showEditScreen(context, widget.id);
+                              },
+                              child: Icon(Icons.local_offer)),
+                        ),
+                        fixedicon(
+                          order: widget.order,
+                          refresh: refresh,
+                        ),
+                      ],
+                    ),
             ],
           ),
           body: ListView(children: [
@@ -89,7 +112,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image:AssetImage(widget.heroTag),
+                                  image: AssetImage(widget.heroTag),
                                   fit: BoxFit.cover)),
                           height: 200.0,
                           width: 200.0))),
@@ -109,7 +132,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(widget.foodPrice.toString() + " " + "L.e",
+                          Text(widget.foodPrice.toString() + " L.E",
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 20.0,
@@ -327,5 +350,17 @@ class _DetailsPageState extends State<DetailsPage> {
     setState(() {
 //all the reload processes
     });
+  }
+
+  showEditScreen(var context, String itemId) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => SingleChildScrollView(
+                child: Container(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: EditOfferModal(itemId: itemId),
+            )));
   }
 }

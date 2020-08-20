@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
+import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
 import 'detailsPage.dart';
@@ -22,12 +24,22 @@ class _OffersScreenState extends State<OffersScreen> {
     return Listofcategory;
   }
 
-  void initState() {
-    super.initState();
+  String _email;
+  void getdata(final user, final uid) {
+    if (user != null) {
+      for (int i = 0; i < user.documents.length; i++) {
+        if (user.documents[i].documentID == uid.uid) {
+          _email = user.documents[i].data['email'];
+        }
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final uid = Provider.of<User>(context);
+    final user = Provider.of<QuerySnapshot>(context);
+    getdata(user, uid);
     return Scaffold(
       backgroundColor: Color(0xFF7A9BEE),
       body: ListView(children: <Widget>[
@@ -95,10 +107,13 @@ class _OffersScreenState extends State<OffersScreen> {
                                     builder: (context) => DetailsPage(
                                         heroTag: "assets/images/salmon.png",
                                         foodName: Listofcategory[index].name,
-                                        foodPrice: (Listofcategory[index].price -
-                                            Listofcategory[index]
-                                                .theOffer),
+                                        foodPrice:
+                                            (Listofcategory[index].price -
+                                                Listofcategory[index].theOffer),
                                         order: false,
+                                        id: Listofcategory[index].id,
+                                        isAdmin: _email ==
+                                            "fresh_fish@freshfish.com",
                                         refresh: refresh)));
                               },
                               child: Row(
@@ -136,8 +151,10 @@ class _OffersScreenState extends State<OffersScreen> {
                                                       .lineThrough,
                                                 )),
                                             Text(
-                                                (Listofcategory[index]
-                                                        .price-Listofcategory[index].theOffer)
+                                                (Listofcategory[index].price -
+                                                            Listofcategory[
+                                                                    index]
+                                                                .theOffer)
                                                         .toString() +
                                                     " " +
                                                     "L.e",

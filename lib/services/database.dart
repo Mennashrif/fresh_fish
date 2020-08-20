@@ -15,6 +15,12 @@ class DatabaseService {
         {'email': email, 'name': name, 'address': address, 'phone': phone});
   }
 
+  Future setUserData(
+      String email, String name, String address, String phone) async {
+    return await Users.document(uid).setData(
+        {'email': email, 'name': name, 'address': address, 'phone': phone});
+  }
+
   Future<bool> addOrder(List<orderitem> order) async {
     try {
       await Order.document().setData({
@@ -46,6 +52,7 @@ class DatabaseService {
     return snapshot.documents.map((doc) {
       //print(doc.data);
       return item(
+          id: doc.documentID,
           name: doc.data['name'] ?? '0',
           price: doc.data['price'] ?? 0,
           category: doc.data['category'] ?? '0',
@@ -58,9 +65,10 @@ class DatabaseService {
     List<item> result = [];
     QuerySnapshot querySnapshot = await Items.getDocuments();
     List<DocumentSnapshot> docSnapshot = querySnapshot.documents;
-     docSnapshot.map((e) {
+    docSnapshot.map((e) {
       if (e.data['name'].contains(searchString))
         result.add(item(
+          id: e.documentID,
           name: e.data['name'],
           price: e.data['price'],
           category: e.data['category'],
@@ -70,6 +78,18 @@ class DatabaseService {
         ));
     }).toList();
     return result;
+  }
+
+  Future<void> makeOffer(int offer, String itemId) {
+    if (offer > 0)
+      return Items.document(itemId)
+          .updateData({'theOffer': offer, 'Isoffered': true});
+    return removeOffer(itemId);
+  }
+
+  Future<void> removeOffer(String itemId) {
+    return Items.document(itemId)
+        .updateData({'theOffer': 0, 'Isoffered': false});
   }
 
   // get brews stream

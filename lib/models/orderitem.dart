@@ -1,7 +1,4 @@
-
-
 class orderitem {
-
   final num quantity;
   final String name;
   final num price;

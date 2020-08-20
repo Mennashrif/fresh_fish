@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fresh_fish/models/orderitem.dart';
@@ -30,8 +31,22 @@ class _OrderScreenState extends State<OrderScreen>
     return total;
   }
 
+  String _email;
+  void getdata(final user, final uid) {
+    if (user != null) {
+      for (int i = 0; i < user.documents.length; i++) {
+        if (user.documents[i].documentID == uid.uid) {
+          _email = user.documents[i].data['email'];
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final uid = Provider.of<User>(context);
+    final user = Provider.of<QuerySnapshot>(context);
+    getdata(user, uid);
     return WillPopScope(
       onWillPop: () async {
         widget.refresh();
@@ -135,6 +150,8 @@ class _OrderScreenState extends State<OrderScreen>
                                                   foodPrice: widget
                                                       .cartItem[index].price,
                                                   order: true,
+                                                  isAdmin: _email ==
+                                                      "fresh_fish@freshfish.com",
                                                   refresh: refresh)));
                                         },
                                         child: Row(
@@ -177,6 +194,8 @@ class _OrderScreenState extends State<OrderScreen>
                                                                     .price,
                                                                 edit: true,
                                                                 index: index,
+                                                                isAdmin: _email ==
+                                                                    "fresh_fish@freshfish.com",
                                                                 order: true,
                                                                 refresh:
                                                                     refresh)));
