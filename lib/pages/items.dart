@@ -100,99 +100,96 @@ class _itemsPageState extends State<itemsPage> {
           padding: EdgeInsets.only(left: 25.0, right: 20.0),
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 45.0),
+              padding: EdgeInsets.only(top: 16.0),
               child: Container(
-                height: MediaQuery.of(context).size.height - 300.0,
+                height: MediaQuery.of(context).size.height*0.8,
                 child: ListView.builder(
                     itemCount: Listofcategory.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                          padding: EdgeInsets.only(
-                              left: 10.0, right: 10.0, top: 10.0),
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => DetailsPage(
-                                        heroTag: "assets/images/salmon.png",
-                                        foodName: Listofcategory[index].name,
-                                        foodPrice: Listofcategory[index]
-                                                .Isoffered
-                                            ? (Listofcategory[index].price -
-                                                Listofcategory[index].theOffer)
-                                            : Listofcategory[index].price,
-                                        order: false,
-                                        isAdmin: widget.email=="fresh_fish@freshfish.com",
-                                        id: Listofcategory[index].id,
-                                        refresh: refresh)));
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Icon(Icons.add, color: Colors.black),
-                                  Container(
-                                      child: Row(children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 10.0),
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(Listofcategory[index].name,
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                                style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 17.0,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            Text(
-                                                Listofcategory[index]
-                                                        .price
+                      return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DetailsPage(
+                                    heroTag: "assets/images/salmon.png",
+                                    foodName: Listofcategory[index].name,
+                                    foodPrice: Listofcategory[index]
+                                            .Isoffered
+                                        ? (Listofcategory[index].price -
+                                            Listofcategory[index].theOffer)
+                                        : Listofcategory[index].price,
+                                    order: false,
+                                    quantity: Listofcategory[index].quantity,
+                                    isAdmin: widget.email=="fresh_fish@freshfish.com",
+                                    id: Listofcategory[index].id,
+                                    refresh: refresh)));
+                          },
+                          child: Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Icon(Icons.add, color: Colors.black),
+                              Container(
+                                  child: Row(children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10.0),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(Listofcategory[index].name,
+                                            textDirection:
+                                                TextDirection.rtl,
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontSize: 17.0,
+                                                fontWeight:
+                                                    FontWeight.bold)),
+                                        Text(
+                                            Listofcategory[index]
+                                                    .price
+                                                    .toString() +
+                                                " L.E",
+                                            style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 15.0,
+                                              color: Colors.grey,
+                                              decoration:
+                                                  Listofcategory[index]
+                                                          .Isoffered
+                                                      ? TextDecoration
+                                                          .lineThrough
+                                                      : null,
+                                            )),
+                                        Listofcategory[index].Isoffered
+                                            ? Text(
+                                                (Listofcategory[index]
+                                                                .price -
+                                                            Listofcategory[
+                                                                    index]
+                                                                .theOffer)
                                                         .toString() +
                                                     " " +
                                                     "L.e",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 15.0,
-                                                  color: Colors.grey,
-                                                  decoration:
-                                                      Listofcategory[index]
-                                                              .Isoffered
-                                                          ? TextDecoration
-                                                              .lineThrough
-                                                          : null,
-                                                )),
-                                            Listofcategory[index].Isoffered
-                                                ? Text(
-                                                    (Listofcategory[index]
-                                                                    .price -
-                                                                Listofcategory[
-                                                                        index]
-                                                                    .theOffer)
-                                                            .toString() +
-                                                        " " +
-                                                        "L.e",
-                                                    style: TextStyle(
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 15.0,
-                                                      color: Colors.blue,
-                                                    ))
-                                                : new Container(),
-                                          ]),
-                                    ),
-                                    Hero(
-                                        tag: index,
-                                        child: Image(
-                                            image: AssetImage(
-                                                "assets/images/salmon.png"),
-                                            fit: BoxFit.cover,
-                                            height: 75.0,
-                                            width: 75.0)),
-                                    SizedBox(width: 10.0),
-                                  ])),
-                                ],
-                              )));
+                                                  color: Colors.blue,
+                                                ))
+                                            : new Container(),
+                                      ]),
+                                ),
+                                Hero(
+                                    tag: index,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/salmon.png"),
+                                        fit: BoxFit.cover,
+                                        height: 75.0,
+                                        width: 75.0)),
+                                SizedBox(width: 10.0),
+                              ])),
+                            ],
+                          ));
                     }),
               ),
             ),

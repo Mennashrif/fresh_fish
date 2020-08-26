@@ -57,10 +57,13 @@ class DatabaseService {
           price: doc.data['price'] ?? 0,
           category: doc.data['category'] ?? '0',
           Isoffered: doc.data['Isoffered'] ?? false,
+          quantity: doc.data['quantity'] ?? 0,
           theOffer: doc.data['theOffer'] ?? 0);
     }).toList();
   }
-
+  Future<List<orderitem>> getOrders(){
+    
+  }
   Future<List<item>> fetchSearchResult(String searchString) async {
     List<item> result = [];
     QuerySnapshot querySnapshot = await Items.getDocuments();
@@ -73,6 +76,7 @@ class DatabaseService {
           price: e.data['price'],
           category: e.data['category'],
           Isoffered: e.data['Isoffered'],
+          quantity: e.data['quantity'] ?? 0,
           sort: e.data['sort'],
           theOffer: e.data['theOffer'],
         ));
@@ -80,16 +84,27 @@ class DatabaseService {
     return result;
   }
 
-  Future<void> makeOffer(int offer, String itemId) {
-    if (offer > 0)
-      return Items.document(itemId)
+  Future<int> makeOffer(int offer, String itemId) async {
+    if (offer > 0) {
+      await Items.document(itemId)
           .updateData({'theOffer': offer, 'Isoffered': true});
-    return removeOffer(itemId);
+      return offer;
+    }
+    await removeOffer(itemId);
+    return 0;
   }
 
   Future<void> removeOffer(String itemId) {
     return Items.document(itemId)
         .updateData({'theOffer': 0, 'Isoffered': false});
+  }
+
+  Future<void> changePrice(int newPrice, String itemId) {
+    return Items.document(itemId).updateData({'price': newPrice});
+  }
+
+  Future<void> changeQuantity(int newQuantity, String itemId) {
+    return Items.document(itemId).updateData({'quantity': newQuantity});
   }
 
   // get brews stream

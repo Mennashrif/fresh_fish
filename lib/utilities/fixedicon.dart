@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/pages/Order.dart';
+import 'package:fresh_fish/services/database.dart';
+import 'package:provider/provider.dart';
 
 class fixedicon extends StatefulWidget {
   final order;
@@ -56,8 +59,14 @@ class _fixediconState extends State<fixedicon>
                 Navigator.of(context).pop();
               } else {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrderScreen(
-                        cartItem: cartItem, refresh: widget.refresh)));
+                    builder: (context) => MultiProvider(
+                          providers: [
+                            StreamProvider<QuerySnapshot>.value(
+                                value: DatabaseService().users),
+                          ],
+                          child: OrderScreen(
+                              cartItem: cartItem, refresh: widget.refresh),
+                        )));
               }
             },
           ),

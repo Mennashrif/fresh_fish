@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/services/database.dart';
 
-class EditOfferModal extends StatefulWidget {
+class EditProductModal extends StatefulWidget {
   final itemId;
+  final String helperText;
 
-  EditOfferModal(
-      { this.itemId});
+  EditProductModal({this.itemId, @required this.helperText});
 
   @override
-  _EditOfferModalState createState() => _EditOfferModalState();
+  _EditProductModalState createState() => _EditProductModalState();
 }
 
-class _EditOfferModalState extends State<EditOfferModal> {
+class _EditProductModalState extends State<EditProductModal> {
   bool loading = false;
-  String changedField ; 
+  String changedField;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +31,7 @@ class _EditOfferModalState extends State<EditOfferModal> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'How much is the offer',
+              widget.helperText,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.0,
@@ -65,7 +65,7 @@ class _EditOfferModalState extends State<EditOfferModal> {
                   )
                 : FlatButton(
                     child: Text(
-                      'Make Offer',
+                      'Save',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -74,9 +74,16 @@ class _EditOfferModalState extends State<EditOfferModal> {
                     onPressed: () async {
                       if (changedField.isNotEmpty) {
                         setState(() => loading = true);
-                        DatabaseService databaseService =
-                            DatabaseService();
-                        await databaseService.makeOffer(int.parse(changedField), widget.itemId);
+                        DatabaseService databaseService = DatabaseService();
+                        if (widget.helperText == 'Enter your offer') {
+                          await databaseService.makeOffer(
+                              int.parse(changedField), widget.itemId);
+                        } else if (widget.helperText == 'Enter the quantity')
+                          await databaseService.changeQuantity(
+                              int.parse(changedField), widget.itemId);
+                        else
+                          await databaseService.changePrice(
+                              int.parse(changedField), widget.itemId);
                       }
                       Navigator.pop(context);
                     },

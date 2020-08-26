@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/models/user.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,10 @@ class Wrapper extends StatelessWidget {
           value: DatabaseService().items,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: MainScreen(),
+            home: MultiProvider(providers: [
+              StreamProvider<QuerySnapshot>.value(
+                  value: DatabaseService().users),
+            ], child: MainScreen()),
           ));
     }
   }

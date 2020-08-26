@@ -13,6 +13,7 @@ class DetailsPage extends StatefulWidget {
   final index;
   final refresh;
   final offer;
+  final quantity;
   final id;
   final bool isAdmin;
   DetailsPage(
@@ -25,7 +26,8 @@ class DetailsPage extends StatefulWidget {
       this.refresh,
       this.id,
       this.isAdmin = false,
-      this.offer});
+      this.offer,
+      this.quantity});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -74,8 +76,9 @@ class _DetailsPageState extends State<DetailsPage> {
                         Visibility(
                           visible: widget.isAdmin,
                           child: GestureDetector(
-                              onTap: () {
-                                showEditScreen(context, widget.id);
+                              onTap: () async {
+                                showEditScreen(
+                                    context, widget.id, 'Enter your offer');
                               },
                               child: Icon(Icons.local_offer)),
                         ),
@@ -128,7 +131,29 @@ class _DetailsPageState extends State<DetailsPage> {
                               fontFamily: 'Montserrat',
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold)),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 10.0),
+                      Visibility(
+                        visible: widget.isAdmin,
+                        child: Row(
+                          children: <Widget>[
+                            Text(widget.quantity.toString(),
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 20.0,
+                                    color: Colors.grey)),
+                            SizedBox(width: 5),
+                            GestureDetector(
+                                onTap: () {
+                                  showEditScreen(
+                                      context, widget.id, 'Enter the quantity');
+                                },
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Color(0xFF7A9BEE),
+                                )),
+                          ],
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -137,6 +162,19 @@ class _DetailsPageState extends State<DetailsPage> {
                                   fontFamily: 'Montserrat',
                                   fontSize: 20.0,
                                   color: Colors.grey)),
+                          Visibility(
+                            visible: widget.isAdmin,
+                            child: GestureDetector(
+                                onTap: () async {
+                                  await showEditScreen(context, widget.id,
+                                      'Enter the new price');
+                                  setState(() {});
+                                },
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Color(0xFF7A9BEE),
+                                )),
+                          ),
                           Container(
                               height: 25.0, color: Colors.grey, width: 1.0),
                           Container(
@@ -260,7 +298,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   (quantity * widget.foodPrice + optionPrice)
                                           .toString() +
                                       " " +
-                                      "L.e",
+                                      "L.E",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Montserrat')),
@@ -352,7 +390,7 @@ class _DetailsPageState extends State<DetailsPage> {
     });
   }
 
-  showEditScreen(var context, String itemId) {
+  showEditScreen(var context, String itemId, String helperText) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -360,7 +398,10 @@ class _DetailsPageState extends State<DetailsPage> {
                 child: Container(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: EditOfferModal(itemId: itemId),
+              child: EditProductModal(
+                itemId: itemId,
+                helperText: helperText,
+              ),
             )));
   }
 }
