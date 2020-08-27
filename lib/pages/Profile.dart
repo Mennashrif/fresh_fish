@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.only(top: 8.0),
             child: ListView(children: <Widget>[
               Text(
-                '  Account Information',
+                '  معلومات الحساب',
                 style: TextStyle(
                     color: Colors.grey, fontWeight: FontWeight.bold),
               ),
@@ -51,14 +51,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 10,
               ),
               InfoItem(
-                text: "Email",
+                text: "البريد الالكتروني",
                 txt: _email,
               ),
               SizedBox(
                 height: 10,
               ),
               InfoItem(
-                text: "Name",
+                text: "الاسم",
                 txt: _name,
                 function: () {
                   showEditScreen(context, 'name', _email, _name, _address,
@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 10,
               ),
               InfoItem(
-                text: "Phone Number",
+                text: "رقم الهاتف",
                 txt: _phone,
                 function: () {
                   showEditScreen(context, 'pN', _email, _name, _address,
@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 10,
               ),
               InfoItem(
-                text: "Address",
+                text: "العنوان",
                 txt: _address,
                 function: () {
                   showEditScreen(context, 'address', _email, _name, _address,

@@ -73,17 +73,17 @@ class _OrderScreenState extends State<OrderScreen>
               padding: EdgeInsets.only(left: 40.0),
               child: Row(
                 children: <Widget>[
-                  Text('Shopping',
+                  Text('التسوق',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                          fontSize: 25.0)),
+                  SizedBox(width: 10.0),
+                  Text('عربة',
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.0)),
-                  SizedBox(width: 10.0),
-                  Text('Cart',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
                           fontSize: 25.0))
                 ],
               ),
@@ -127,7 +127,9 @@ class _OrderScreenState extends State<OrderScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top:MediaQuery.of(context).size.height*(1/30)),
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height *
+                                  (1 / 30)),
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
@@ -234,7 +236,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                                               index]
                                                                           .quantity)
                                                                       .toString() +
-                                                                  " Kg",
+                                                                  " كيلو",
                                                               style: TextStyle(
                                                                   fontFamily:
                                                                       'Montserrat',
@@ -249,7 +251,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                                                   index]
                                                                               .optionPrice)
                                                                       .toString() +
-                                                                  " L.E",
+                                                                  " جم",
                                                               style: TextStyle(
                                                                   fontFamily:
                                                                       'Montserrat',
@@ -311,14 +313,14 @@ class _OrderScreenState extends State<OrderScreen>
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Subtotal",
+                                    "اجمالي المشتريات",
                                     style: TextStyle(
                                         color: Color(0xFF9BA7C6),
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    sum().toString() + " " + "L.e",
+                                    sum().toString() + " " + "جم",
                                     style: TextStyle(
                                         color: Color(0xFF6C6D6D),
                                         fontSize: 16.0,
@@ -335,14 +337,14 @@ class _OrderScreenState extends State<OrderScreen>
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Delivery",
+                                    "التوصيل",
                                     style: TextStyle(
                                         color: Color(0xFF9BA7C6),
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    "5 L.e",
+                                    "5 جم",
                                     style: TextStyle(
                                         color: Color(0xFF6C6D6D),
                                         fontSize: 16.0,
@@ -351,13 +353,13 @@ class _OrderScreenState extends State<OrderScreen>
                                 ],
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: 5.0,
                               ),
                               Divider(
                                 height: 2.0,
                               ),
                               SizedBox(
-                                height: 20.0,
+                                height: 10.0,
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -365,14 +367,14 @@ class _OrderScreenState extends State<OrderScreen>
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Cart Total",
+                                    "الاجمالي",
                                     style: TextStyle(
                                         color: Color(0xFF9BA7C6),
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    (sum() + 5).toString() + " " + "L.e",
+                                    (sum() + 5).toString() + " " + "جم",
                                     style: TextStyle(
                                         color: Color(0xFF6C6D6D),
                                         fontSize: 16.0,
@@ -394,7 +396,7 @@ class _OrderScreenState extends State<OrderScreen>
                                     setState(() {
                                       loading = false;
                                       Fluttertoast.showToast(
-                                          msg: "Order Failed",
+                                          msg: "فشل ارسال الطلب",
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.CENTER,
                                           timeInSecForIosWeb: 3,
@@ -404,7 +406,7 @@ class _OrderScreenState extends State<OrderScreen>
                                     });
                                   } else {
                                     Fluttertoast.showToast(
-                                        msg: "Order Successfull",
+                                        msg: "تم ارسال الطلب",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 3,
@@ -421,12 +423,12 @@ class _OrderScreenState extends State<OrderScreen>
                                   height: MediaQuery.of(context).size.height *
                                       (1 / 15),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Color(0xFF7A9BEE),
                                     borderRadius: BorderRadius.circular(35.0),
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "Proceed To Checkout",
+                                      "ارسال الطلب",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18.0,

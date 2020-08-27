@@ -25,8 +25,19 @@ class _InfoItemState extends State<InfoItem> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          Visibility(
+            visible: widget.text != 'البريد الالكتروني',
+            child: GestureDetector(
+                onTap: () {
+                  widget.function();
+                },
+                child: Icon(
+                  Icons.edit,
+                  color: Color(0xFF527DAA),
+                )),
+          ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Text(
                 widget.text,
@@ -36,22 +47,11 @@ class _InfoItemState extends State<InfoItem> {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                widget.txt ?? 'Empty',
+                widget.txt ?? 'فارغ',
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ],
           ),
-          Visibility(
-            visible: widget.text != 'Email',
-            child: GestureDetector(
-                onTap: () {
-                  widget.function();
-                },
-                child: Icon(
-                  Icons.edit,
-                  color: Color(0xFF527DAA),
-                )),
-          )
         ],
       ),
     );

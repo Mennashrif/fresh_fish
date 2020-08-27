@@ -148,7 +148,7 @@ class _itemsPageState extends State<itemsPage> {
                                             Listofcategory[index]
                                                     .price
                                                     .toString() +
-                                                " L.E",
+                                                " جم",
                                             style: TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 15.0,
@@ -169,7 +169,7 @@ class _itemsPageState extends State<itemsPage> {
                                                                 .theOffer)
                                                         .toString() +
                                                     " " +
-                                                    "L.e",
+                                                    "جم",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 15.0,
@@ -186,7 +186,6 @@ class _itemsPageState extends State<itemsPage> {
                                         fit: BoxFit.cover,
                                         height: 75.0,
                                         width: 75.0)),
-                                SizedBox(width: 10.0),
                               ])),
                             ],
                           ));

@@ -35,7 +35,7 @@ class _EditProfModalState extends State<EditProfModal> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'Type your change',
+              'ادخل التحديث',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.0,
@@ -68,7 +68,7 @@ class _EditProfModalState extends State<EditProfModal> {
                   )
                 : FlatButton(
                     child: Text(
-                      'Apply',
+                      'حفظ',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -80,7 +80,7 @@ class _EditProfModalState extends State<EditProfModal> {
                         print(widget.uid);
                         DatabaseService databaseService =
                             DatabaseService(uid: widget.uid);
-                        await databaseService.updateUserData(
+                        await databaseService.setUserData(
                             widget.email,
                             widget.change == 'name'
                                 ? changedField

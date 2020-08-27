@@ -61,7 +61,7 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
-            title: Text('Details',
+            title: Text('التفاصيل',
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 18.0,
@@ -78,7 +78,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: GestureDetector(
                               onTap: () async {
                                 showEditScreen(
-                                    context, widget.id, 'Enter your offer');
+                                    context, widget.id, 'ادخل الخصم');
                               },
                               child: Icon(Icons.local_offer)),
                         ),
@@ -145,7 +145,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             GestureDetector(
                                 onTap: () {
                                   showEditScreen(
-                                      context, widget.id, 'Enter the quantity');
+                                      context, widget.id, 'ادخل الكمية');
                                 },
                                 child: Icon(
                                   Icons.edit,
@@ -157,7 +157,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(widget.foodPrice.toString() + " L.E",
+                          Text(widget.foodPrice.toString() + " جم",
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 20.0,
@@ -166,8 +166,8 @@ class _DetailsPageState extends State<DetailsPage> {
                             visible: widget.isAdmin,
                             child: GestureDetector(
                                 onTap: () async {
-                                  await showEditScreen(context, widget.id,
-                                      'Enter the new price');
+                                  await showEditScreen(
+                                      context, widget.id, 'ادخل السعر الجديد');
                                   setState(() {});
                                 },
                                 child: Icon(
@@ -208,7 +208,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                     ),
                                   ),
                                 ),
-                                Text(quantity.toString() + " " + "Kg",
+                                Text(quantity.toString() + " " + "كيلو ",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Montserrat',
@@ -246,13 +246,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: <Widget>[
-                              _buildInfoCard('قلي', '5', 'L.e'),
+                              _buildInfoCard('قلي', '5', 'جم'),
                               SizedBox(width: 10.0),
-                              _buildInfoCard('شوي', '5', 'L.e'),
+                              _buildInfoCard('شوي', '5', 'جم'),
                               SizedBox(width: 10.0),
-                              _buildInfoCard('سنجاري', '10', 'L.e'),
+                              _buildInfoCard('سنجاري', '10', 'جم'),
                               SizedBox(width: 10.0),
-                              _buildInfoCard('بدون', '0', 'L.e')
+                              _buildInfoCard('بدون', '0', 'جم')
                             ],
                           )),
                       SizedBox(height: 20.0),
@@ -298,7 +298,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   (quantity * widget.foodPrice + optionPrice)
                                           .toString() +
                                       " " +
-                                      "L.E",
+                                      "جم",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Montserrat')),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fresh_fish/services/database.dart';
 
 class EditProductModal extends StatefulWidget {
@@ -65,7 +66,7 @@ class _EditProductModalState extends State<EditProductModal> {
                   )
                 : FlatButton(
                     child: Text(
-                      'Save',
+                      'حفظ',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -75,15 +76,24 @@ class _EditProductModalState extends State<EditProductModal> {
                       if (changedField.isNotEmpty) {
                         setState(() => loading = true);
                         DatabaseService databaseService = DatabaseService();
-                        if (widget.helperText == 'Enter your offer') {
+                        if (widget.helperText == 'ادخل الخصم') {
                           await databaseService.makeOffer(
                               int.parse(changedField), widget.itemId);
-                        } else if (widget.helperText == 'Enter the quantity')
+                        } else if (widget.helperText == 'ادخل الكمية')
                           await databaseService.changeQuantity(
                               int.parse(changedField), widget.itemId);
                         else
                           await databaseService.changePrice(
                               int.parse(changedField), widget.itemId);
+
+                        Fluttertoast.showToast(
+                            msg: "تم التحديث بنجاح",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 3,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       }
                       Navigator.pop(context);
                     },

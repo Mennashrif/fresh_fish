@@ -46,43 +46,35 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     changeTab(_index);
-    return WillPopScope(
-      onWillPop: () {
-        print('onWillPop in Main Called');
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainScreen()));
-        return;
-      },
-      child: Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Color(0xFF7A9BEE),
-          height: 60,
-          items: <Widget>[
-                  Icon(Icons.live_help, size: 25),
-                  Icon(Icons.local_offer, size: 25),
-                  Icon(Icons.account_circle, size: 25),
-                  Icon(Icons.home, size: 25),
-                ],
-          index: _index,
-          onTap: (index) {
-            setState(() {
-              _index = index;
-            });
-          },
-        ),
-        //body: Container(color: Colors.blueAccent),
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Stack(children: <Widget>[
-              Center(
-                child: Container(
-                  child: _showpage,
-                ),
+    return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Color(0xFF7A9BEE),
+        height: 60,
+        items: <Widget>[
+                Icon(Icons.live_help, size: 25),
+                Icon(Icons.local_offer, size: 25),
+                Icon(Icons.account_circle, size: 25),
+                Icon(Icons.home, size: 25),
+              ],
+        index: _index,
+        onTap: (index) {
+          setState(() {
+            _index = index;
+          });
+        },
+      ),
+      //body: Container(color: Colors.blueAccent),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(children: <Widget>[
+            Center(
+              child: Container(
+                child: _showpage,
               ),
-            ]),
-          ),
+            ),
+          ]),
         ),
       ),
     );

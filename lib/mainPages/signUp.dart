@@ -21,10 +21,10 @@ class _signUpScreenState extends State<signUpScreen> {
   final _formkey=GlobalKey<FormState>();
   Widget _buildNameTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Name',
+          'الأسم',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -33,7 +33,7 @@ class _signUpScreenState extends State<signUpScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextFormField(
-            validator: (val)=>val.isEmpty ? 'Enter a Name':null,
+            validator: (val)=>val.isEmpty ? 'ادخل الأسم':null,
             onChanged: (val){
              _name=val;
            },
@@ -48,7 +48,7 @@ class _signUpScreenState extends State<signUpScreen> {
                 Icons.perm_identity,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Name',
+              hintText: 'ادحل اسمك',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -59,10 +59,10 @@ class _signUpScreenState extends State<signUpScreen> {
 
   Widget _buildEmailTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Email',
+          'البريد الالكتروني',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -72,7 +72,7 @@ class _signUpScreenState extends State<signUpScreen> {
           height: 60.0,
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
-            validator:(val)=>val.isEmpty ? 'Enter an Email':null ,
+            validator:(val)=>val.isEmpty ? 'ادخل البريد الالكتروني':null ,
             onChanged: (val){
               _email=val;
             },
@@ -87,7 +87,7 @@ class _signUpScreenState extends State<signUpScreen> {
                 Icons.email,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'ادخل البريد الالكتروني',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -98,10 +98,10 @@ class _signUpScreenState extends State<signUpScreen> {
 
   Widget _buildPasswordTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Password',
+          'الرقم السري',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -111,7 +111,7 @@ class _signUpScreenState extends State<signUpScreen> {
           height: 60.0,
           child: TextFormField(
             obscureText: true,
-            validator:(val)=>val.length < 6 ? 'Enter a password 6+ chars long':null ,
+            validator:(val)=>val.length < 6 ? 'الرقم السري قصير':null ,
             onChanged: (val){
               _password=val;
             },
@@ -126,7 +126,7 @@ class _signUpScreenState extends State<signUpScreen> {
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Password',
+              hintText: 'ادخل الرقم السري',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -136,10 +136,10 @@ class _signUpScreenState extends State<signUpScreen> {
   }
   Widget _buildAddressTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Address',
+          'العنوان',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -148,7 +148,7 @@ class _signUpScreenState extends State<signUpScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextFormField(
-            validator:(val)=>val.isEmpty ? 'Enter an Address':null ,
+            validator:(val)=>val.isEmpty ? 'ادخل العنوان':null ,
             onChanged: (val){
               _address=val;
             },
@@ -163,7 +163,7 @@ class _signUpScreenState extends State<signUpScreen> {
                 Icons.home,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Address',
+              hintText: 'ادخل العنوان',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -173,10 +173,10 @@ class _signUpScreenState extends State<signUpScreen> {
   }
   Widget _buildPhoneTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Phone',
+          'رقم الهاتف',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -196,10 +196,10 @@ class _signUpScreenState extends State<signUpScreen> {
                 Icons.phone,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Phone Number',
+              hintText: 'ادخل رقم الهاتف',
               hintStyle: kHintTextStyle,
             ),
-            validator:(val)=>val.isEmpty ? 'Enter a Phone number':null ,
+            validator:(val)=>val.isEmpty ? 'ادخل رقم الهاتف':null ,
             onChanged: (val){
               _phone=val;
             },
@@ -222,7 +222,7 @@ class _signUpScreenState extends State<signUpScreen> {
             if(result == null) {
               setState(() {
                 loading = false;
-                _error = 'Please supply a valid email';
+                _error = 'من فضلك ادخل بريد الكتروني صحيح';
               });
             }
             else{
@@ -236,7 +236,7 @@ class _signUpScreenState extends State<signUpScreen> {
         ),
         color: Colors.white,
         child: Text(
-          'SIGN UP',
+          'انشاء حساب',
           style: TextStyle(
             color: Color(0xFF527DAA),
             letterSpacing: 1.5,
@@ -284,7 +284,7 @@ class _signUpScreenState extends State<signUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Sign Up',
+                          'انشاء حساب',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 30.0,

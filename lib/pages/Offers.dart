@@ -94,7 +94,7 @@ class _OffersScreenState extends State<OffersScreen> {
             Padding(
               padding: EdgeInsets.only(top: 45.0),
               child: Container(
-                height: MediaQuery.of(context).size.height - 300.0,
+                height: MediaQuery.of(context).size.height *0.6,
                 child: ListView.builder(
                     itemCount: Listofcategory.length,
                     itemBuilder: (context, index) {
@@ -111,6 +111,7 @@ class _OffersScreenState extends State<OffersScreen> {
                                             (Listofcategory[index].price -
                                                 Listofcategory[index].theOffer),
                                         order: false,
+                                        quantity: Listofcategory[index].quantity,
                                         id: Listofcategory[index].id,
                                         isAdmin: _email ==
                                             "fresh_fish@freshfish.com",
@@ -142,7 +143,7 @@ class _OffersScreenState extends State<OffersScreen> {
                                                         .price
                                                         .toString() +
                                                     " " +
-                                                    "L.e",
+                                                    "جم",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 15.0,
@@ -157,7 +158,7 @@ class _OffersScreenState extends State<OffersScreen> {
                                                                 .theOffer)
                                                         .toString() +
                                                     " " +
-                                                    "L.e",
+                                                    "جم",
                                                 style: TextStyle(
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 15.0,

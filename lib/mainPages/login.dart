@@ -6,14 +6,12 @@ import 'package:flutter/gestures.dart';
 import 'package:fresh_fish/services/auth.dart';
 import 'package:fresh_fish/utilities/loading.dart';
 
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _rememberMe = false;
   final AuthService _auth = AuthService();
   String _email = '';
   String _password = '';
@@ -22,26 +20,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   Widget _buildEmailTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Email',
+          'البريد الالكتروني',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          height: 60.0,
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
-            validator: (val) => val.isEmpty ? 'Enter an Email' : null,
+            validator: (val) => val.isEmpty ? 'ادخل بريدك الالكتروني' : null,
             onChanged: (val) {
               _email = val;
             },
             style: TextStyle(
               color: Colors.white,
-              fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -50,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.email,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'ادخل بريدك الالكتروني',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -61,27 +57,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildPasswordTF() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          'Password',
+          'الرقم السري',
           style: kLabelStyle,
         ),
         SizedBox(height: 5.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          height: 60.0,
           child: TextFormField(
             obscureText: true,
-            validator: (val) =>
-                val.length < 6 ? 'Enter a password 6+ chars long' : null,
+            validator: (val) => val.length < 6 ? 'الرقم السري قصير' : null,
             onChanged: (val) {
               _password = val;
             },
             style: TextStyle(
               color: Colors.white,
-              fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -90,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Password',
+              hintText: 'ادخل الرقم السري',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -98,48 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
-
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      //alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        //padding: EdgeInsets.only(right: 0.0),
-        child: Text(
-          'Forgot Password?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRememberMeCheckbox() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.black),
-            child: Checkbox(
-              value: _rememberMe,
-              checkColor: Colors.green,
-              activeColor: Colors.black,
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value;
-                });
-              },
-            ),
-          ),
-          Text(
-            'Remember me',
-            style: kLabelStyle,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildLoginBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -156,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (result == null) {
               setState(() {
                 loading = false;
-                _error = 'Could not sign in with those credentials';
+                _error = 'خطأ في البريد الالكتروني او الرقم السري   ';
               });
             }
           }
@@ -167,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         color: Colors.white,
         child: Text(
-          'LOGIN',
+          'تسجيل الدخول',
           style: TextStyle(
             color: Color(0xFF527DAA),
             letterSpacing: 1.5,
@@ -191,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         Text(
-          'Sign in with',
+          'سجل دخولك بواسطة',
           style: kLabelStyle,
         ),
       ],
@@ -255,12 +206,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     break;
                 }*/
               setState(() => loading = true);
-              dynamic result =
-              await _auth.signInWithfacebook();
+              dynamic result = await _auth.signInWithfacebook();
               if (result == null) {
                 setState(() {
                   loading = false;
-                  _error = 'Could not sign in with those credentials';
+                  _error = "خطأ في البريد الالكتروني او الرقم السري";
                 });
               }
             },
@@ -269,14 +219,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           _buildSocialBtn(
-            () async{
+            () async {
               setState(() => loading = true);
-              dynamic result =
-              await _auth.signInWithgoogle();
+              dynamic result = await _auth.signInWithgoogle();
               if (result == null) {
                 setState(() {
                   loading = false;
-                  _error = 'Could not sign in with those credentials';
+                  _error = 'خطأ في البريد الالكتروني او الرقم السري';
                 });
               }
             },
@@ -292,13 +241,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildSignupBtn() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => signUpScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => signUpScreen()));
       },
       child: RichText(
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'Don\'t have an Account? ',
+              text: '  لا تملك حساب ؟',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18.0,
@@ -306,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             TextSpan(
-              text: 'Sign Up',
+              text: 'انشئ حساب',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18.0,
@@ -361,7 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           physics: AlwaysScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(
                             horizontal: 10.0,
-                            vertical: MediaQuery.of(context).size.height*0.17,
+                            vertical: MediaQuery.of(context).size.height * 0.17,
                           ),
                           child: Form(
                             key: _formkey,
@@ -369,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'Sign In',
+                                  'تسجيل الدخول',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 30.0,
@@ -382,8 +332,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 10.0,
                                 ),
                                 _buildPasswordTF(),
-                                _buildForgotPasswordBtn(),
-                                _buildRememberMeCheckbox(),
                                 _buildLoginBtn(),
                                 SizedBox(height: 12.0),
                                 Text(

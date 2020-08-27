@@ -9,12 +9,6 @@ class DatabaseService {
   final CollectionReference Users = Firestore.instance.collection('Users');
   final CollectionReference Items = Firestore.instance.collection('Items');
   final CollectionReference Order = Firestore.instance.collection('Order');
-  Future updateUserData(
-      String email, String name, String address, String phone) async {
-    return await Users.document(uid).updateData(
-        {'email': email, 'name': name, 'address': address, 'phone': phone});
-  }
-
   Future setUserData(
       String email, String name, String address, String phone) async {
     return await Users.document(uid).setData(
@@ -25,6 +19,7 @@ class DatabaseService {
     try {
       await Order.document().setData({
         'uid': uid,
+        'timeStamp':DateTime.now().toIso8601String(),
         'content': [
           for (int i = 0; i < order.length; i++)
             {
@@ -60,9 +55,6 @@ class DatabaseService {
           quantity: doc.data['quantity'] ?? 0,
           theOffer: doc.data['theOffer'] ?? 0);
     }).toList();
-  }
-  Future<List<orderitem>> getOrders(){
-    
   }
   Future<List<item>> fetchSearchResult(String searchString) async {
     List<item> result = [];
