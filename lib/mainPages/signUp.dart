@@ -48,7 +48,7 @@ class _signUpScreenState extends State<signUpScreen> {
                 Icons.perm_identity,
                 color: Colors.white,
               ),
-              hintText: 'ادحل اسمك',
+              hintText: 'ادخل اسمك',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -276,7 +276,7 @@ class _signUpScreenState extends State<signUpScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 120.0,
+                    vertical: 20.0,
                   ),
                   child: Form(
                     key: _formkey,

@@ -93,7 +93,7 @@ class _DetailsPageState extends State<DetailsPage> {
           body: ListView(children: [
             Stack(children: [
               Container(
-                  height: MediaQuery.of(context).size.height - 82.0,
+                  height: MediaQuery.of(context).size.height * 0.88,
                   width: MediaQuery.of(context).size.width,
                   color: Colors.transparent),
               Positioned(
@@ -105,11 +105,11 @@ class _DetailsPageState extends State<DetailsPage> {
                             topRight: Radius.circular(45.0),
                           ),
                           color: Colors.white),
-                      height: MediaQuery.of(context).size.height - 100.0,
+                      height: MediaQuery.of(context).size.height * (5.6 / 7),
                       width: MediaQuery.of(context).size.width)),
               Positioned(
                   top: 30.0,
-                  left: (MediaQuery.of(context).size.width / 2) - 100.0,
+                  left: (MediaQuery.of(context).size.width * 0.4),
                   child: Hero(
                       tag: widget.heroTag,
                       child: Container(
@@ -117,10 +117,10 @@ class _DetailsPageState extends State<DetailsPage> {
                               image: DecorationImage(
                                   image: AssetImage(widget.heroTag),
                                   fit: BoxFit.cover)),
-                          height: 200.0,
-                          width: 200.0))),
+                          height: MediaQuery.of(context).size.height * 0.25,
+                          width: MediaQuery.of(context).size.height * 0.25))),
               Positioned(
-                  top: 250.0,
+                  top: 200.0,
                   left: 25.0,
                   right: 25.0,
                   child: Column(
@@ -240,9 +240,9 @@ class _DetailsPageState extends State<DetailsPage> {
                           )
                         ],
                       ),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 4.0),
                       Container(
-                          height: 150.0,
+                          height: MediaQuery.of(context).size.height * 0.2,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: <Widget>[
@@ -255,7 +255,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               _buildInfoCard('بدون', '0', 'جم')
                             ],
                           )),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 10.0),
                       InkWell(
                         onTap: () {
                           setState(() {
@@ -282,27 +282,24 @@ class _DetailsPageState extends State<DetailsPage> {
                             }
                           });
                         },
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 5.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10.0),
-                                    topRight: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(25.0),
-                                    bottomRight: Radius.circular(25.0)),
-                                color: Colors.black),
-                            height: 50.0,
-                            child: Center(
-                              child: Text(
-                                  (quantity * widget.foodPrice + optionPrice)
-                                          .toString() +
-                                      " " +
-                                      "جم",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Montserrat')),
-                            ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0),
+                                  bottomLeft: Radius.circular(25.0),
+                                  bottomRight: Radius.circular(25.0)),
+                              color: Colors.black),
+                          height: 50.0,
+                          child: Center(
+                            child: Text(
+                                (quantity * widget.foodPrice + optionPrice)
+                                        .toString() +
+                                    " " +
+                                    "جم",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Montserrat')),
                           ),
                         ),
                       )
@@ -334,8 +331,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   style: BorderStyle.solid,
                   width: 0.75),
             ),
-            height: 100.0,
-            width: 100.0,
+            height: MediaQuery.of(context).size.height / 7,
+            width: MediaQuery.of(context).size.height / 7,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,

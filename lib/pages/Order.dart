@@ -123,12 +123,11 @@ class _OrderScreenState extends State<OrderScreen>
                       // fit: BoxFit.cover,
                     ),
                   ))
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                : ListView(
                     children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height *
+                          padding: EdgeInsets.symmetric(
+                              vertical: MediaQuery.of(context).size.height *
                                   (1 / 30)),
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.5,
@@ -305,6 +304,7 @@ class _OrderScreenState extends State<OrderScreen>
                             left: 10.0,
                             right: 10.0,
                           ),
+              
                           child: Column(
                             children: <Widget>[
                               Row(
@@ -419,20 +419,23 @@ class _OrderScreenState extends State<OrderScreen>
                                     });
                                   }
                                 },
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      (1 / 15),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF7A9BEE),
-                                    borderRadius: BorderRadius.circular(35.0),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "ارسال الطلب",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom:32.0),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        (1 / 15),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF7A9BEE),
+                                      borderRadius: BorderRadius.circular(35.0),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "ارسال الطلب",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),

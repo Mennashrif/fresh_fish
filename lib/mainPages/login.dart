@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   Widget _buildLoginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: EdgeInsets.symmetric(vertical: 16.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           }
         },
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -275,81 +275,83 @@ class _LoginScreenState extends State<LoginScreen> {
         ? Loading()
         : Scaffold(
             //backgroundColor: Colors.black12,
-            body: AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle.light,
-              child: GestureDetector(
-                onTap: () => FocusScope.of(context).unfocus(),
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      /*decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),*/
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/background.png"),
-                          fit: BoxFit.cover,
+            body: Center(
+              child: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light,
+                child: GestureDetector(
+                  onTap: () => FocusScope.of(context).unfocus(),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        /*decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF73AEF5),
+                        Color(0xFF61A4F1),
+                        Color(0xFF478DE0),
+                        Color(0xFF398AE5),
+                      ],
+                      stops: [0.1, 0.4, 0.7, 0.9],
+                    ),
+                  ),*/
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/background.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    Center(
-                      child: Container(
-                        height: double.infinity,
-                        child: SingleChildScrollView(
-                          physics: AlwaysScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: MediaQuery.of(context).size.height * 0.17,
-                          ),
-                          child: Form(
-                            key: _formkey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  'تسجيل الدخول',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,
+                      Center(
+                        child: Container(
+                          height: double.infinity,
+                          child: SingleChildScrollView(
+                            physics: AlwaysScrollableScrollPhysics(),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                              vertical: 20,
+                            ),
+                            child: Form(
+                              key: _formkey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'تسجيل الدخول',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 10.0),
-                                _buildEmailTF(),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                _buildPasswordTF(),
-                                _buildLoginBtn(),
-                                SizedBox(height: 12.0),
-                                Text(
-                                  _error,
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 14.0),
-                                ),
-                                SizedBox(height: 10.0),
-                                _buildSignInWithText(),
-                                _buildSocialBtnRow(),
-                                _buildSignupBtn(),
-                              ],
+                                  SizedBox(height: 10.0),
+                                  _buildEmailTF(),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  _buildPasswordTF(),
+                                  _buildLoginBtn(),
+                                  SizedBox(height: 8.0),
+                                  Text(
+                                    _error,
+                                    style: TextStyle(
+                                        color: Colors.red, fontSize: 14.0),
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  _buildSignInWithText(),
+                                  _buildSocialBtnRow(),
+                                  _buildSignupBtn(),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
