@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
@@ -6,28 +7,22 @@ import 'package:fresh_fish/utilities/set_offer_modal.dart';
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
-  final foodName;
-  final foodPrice;
   final order;
   final edit;
   final index;
   final refresh;
-  final offer;
-  final quantity;
-  final id;
-  final bool isAdmin;
+  final  Item;
+  final isAdmin;
   DetailsPage(
-      {this.heroTag,
-      this.foodName,
-      this.foodPrice,
-      this.order,
-      this.edit = false,
-      this.index = 0,
-      this.refresh,
-      this.id,
-      this.isAdmin = false,
-      this.offer,
-      this.quantity});
+      {
+        this.heroTag,
+        this.order,
+        this.edit = false,
+        this.index = 0,
+        this.refresh,
+        this.Item,
+        this.isAdmin,
+      });
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -38,7 +33,189 @@ class _DetailsPageState extends State<DetailsPage> {
   var quantity = 0.25;
   var optionPrice = 0.0;
   var optionName = '';
+  var _character='نى';
   DatabaseService databaseService = DatabaseService();
+  Widget option(){
+    if(widget.Item.category.contains('جمبرى')) {
+      return Container(
+          height: 120.0,
+          child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                _buildInfoCard('بدون', '0', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('قلي', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('شوي', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('صنية', '10', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('butterfly', '5', 'L.e')]));
+    }
+    else if(widget.Item.category.contains('كابوريا'))
+      return  Container(
+          height: 120.0,
+          child: ListView(
+              scrollDirection: Axis.horizontal,
+              children:<Widget>[
+                _buildInfoCard('بدون', '0', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('شوي', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('صنية', '10', 'L.e')]));
+    else if(widget.Item.category.contains('جاندوفلى و بلح بحر'))
+      return Container(
+          height: 120.0,
+          child: ListView(
+              scrollDirection: Axis.horizontal,
+              children:<Widget>[
+                _buildInfoCard('بدون', '0', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('سلق', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('طاجن', '10', 'L.e')]));
+    else if(widget.Item.category.contains('فيليه'))
+      return Container(
+          height: 120.0,
+          child: ListView(
+              scrollDirection: Axis.horizontal,
+              children:<Widget>[
+                _buildInfoCard('بدون', '0', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('قلي', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('شوي', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('طواجن', '10', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('صوانى', '5', 'L.e')]));
+    else if(widget.Item.category.contains('الاسماك')) {
+      if (widget.Item.name.contains('المكرونة') ||
+          widget.Item.name.contains('الموسى'))
+        return Container(
+            height: 120.0,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildInfoCard('بدون', '0', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('قلي', '5', 'L.e')]));
+      else if (widget.Item.name.contains('دراك') ||
+          widget.Item.name.contains('تونة') ||
+          widget.Item.name.contains('ثعابين'))
+        return Container(
+            height: 120.0,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildInfoCard('بدون', '0', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('قلي', '5', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('شوى', '5', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('صوانى', '5', 'L.e')]));
+      else if (widget.Item.name.contains('سردين') ||
+          widget.Item.name.contains('سهلية'))
+        return Container(
+            height: 120.0,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildInfoCard('بدون', '0', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('شوى', '5', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('صنية', '5', 'L.e')]));
+      else if (widget.Item.name.contains('بربون') ||
+          widget.Item.name.contains('المرجان'))
+        return Container(
+            height: 120.0,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildInfoCard('بدون', '0', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('قلى', '5', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('صنية', '5', 'L.e')]));
+      else
+        return Container(
+            height: 120.0,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildInfoCard('بدون', '0', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('قلي', '5', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('سنجارى', '10', 'L.e'),
+                  SizedBox(width: 10.0),
+                  _buildInfoCard('صوانى', '5', 'L.e')]));
+    }
+    else if(widget.Item.category.contains('استاكوزا'))
+      return Container(
+          height: 120.0,
+          child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                _buildInfoCard('بدون', '0', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('فرن', '5', 'L.e')]));
+    else if(widget.Item.category.contains('سلمون')) {
+      if (widget.Item.name.contains('سلمون مدخن')) {
+        return Container(
+          child: Text(
+              "This is a spcial plate",
+              style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold)
+          ),
+        );
+      }
+      else {
+        if (_character == 'نى')
+          return Container(
+              height: 120.0,
+              child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    _buildInfoCard('بدون', '0', 'L.e'),
+                    SizedBox(width: 10.0),
+                    _buildInfoCard('زيت زيتون', '5', 'L.e'),
+                    SizedBox(width: 10.0),
+                    _buildInfoCard('كرافس', '5', 'L.e')]));
+        else
+          return Container(
+              height: 120.0,
+              child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    _buildInfoCard('بدون', '0', 'L.e'),
+                    SizedBox(width: 10.0),
+                    _buildInfoCard('مقلى', '5', 'L.e'),
+                    SizedBox(width: 10.0),
+                    _buildInfoCard('طاجن', '5', 'L.e'),
+                    SizedBox(width: 10.0),
+                    _buildInfoCard('مشوى', '5', 'L.e')]));
+      }
+    }
+    else
+      return Container(
+          height: 120.0,
+          child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                _buildInfoCard('بدون', '0', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('قلى', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('شوى', '5', 'L.e'),
+                SizedBox(width: 10.0),
+                _buildInfoCard('صوانى', '5', 'L.e')]));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +255,16 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: GestureDetector(
                               onTap: () async {
                                 showEditScreen(
-                                    context, widget.id, 'ادخل الخصم');
+                                    context, widget.Item.id, 'ادخل الخصم');
                               },
                               child: Icon(Icons.local_offer)),
                         ),
-                        fixedicon(
+                        widget.edit
+                            ? new Container()
+                            : widget.order?fixedicon(
+                          order: widget.order,
+                          refresh: widget.refresh,
+                        ):fixedicon(
                           order: widget.order,
                           refresh: refresh,
                         ),
@@ -93,11 +275,11 @@ class _DetailsPageState extends State<DetailsPage> {
           body: ListView(children: [
             Stack(children: [
               Container(
-                  height: MediaQuery.of(context).size.height * 0.88,
+                  height: MediaQuery.of(context).size.height * 0.96,
                   width: MediaQuery.of(context).size.width,
                   color: Colors.transparent),
               Positioned(
-                  top: 75.0,
+                  top: MediaQuery.of(context).size.height*0.1,
                   child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -105,11 +287,11 @@ class _DetailsPageState extends State<DetailsPage> {
                             topRight: Radius.circular(45.0),
                           ),
                           color: Colors.white),
-                      height: MediaQuery.of(context).size.height * (5.6 / 7),
+                      height: MediaQuery.of(context).size.height * 0.86,
                       width: MediaQuery.of(context).size.width)),
               Positioned(
                   top: 30.0,
-                  left: (MediaQuery.of(context).size.width * 0.4),
+                  left: (MediaQuery.of(context).size.width*0.27),
                   child: Hero(
                       tag: widget.heroTag,
                       child: Container(
@@ -119,24 +301,63 @@ class _DetailsPageState extends State<DetailsPage> {
                                   fit: BoxFit.cover)),
                           height: MediaQuery.of(context).size.height * 0.25,
                           width: MediaQuery.of(context).size.height * 0.25))),
+
               Positioned(
-                  top: 200.0,
+                  top: MediaQuery.of(context).size.height*0.29,
                   left: 25.0,
                   right: 25.0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(widget.foodName,
+                      Text(widget.Item.name,
                           style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10.0),
+                      widget.Item.name.contains('سلمون مدخن')?new Container():
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.41,
+                            height: 30.0,
+                            child: ListTile(
+                              title: const Text('مستوى'),
+                              leading: Radio(
+                                value:'مستوى',
+                                groupValue: _character,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _character = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.41,
+                            height: 30.0,
+                            child: ListTile(
+                              title: const Text('نى'),
+                              leading: Radio(
+                                value:'نى',
+                                groupValue: _character,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _character = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30.0),
                       Visibility(
                         visible: widget.isAdmin,
                         child: Row(
                           children: <Widget>[
-                            Text(widget.quantity.toString(),
+                            Text(widget.Item.allquantity.toString(),
                                 style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 20.0,
@@ -145,7 +366,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             GestureDetector(
                                 onTap: () {
                                   showEditScreen(
-                                      context, widget.id, 'ادخل الكمية');
+                                      context, widget.Item.id, 'ادخل الكمية');
                                 },
                                 child: Icon(
                                   Icons.edit,
@@ -157,7 +378,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(widget.foodPrice.toString() + " جم",
+                          Text((widget.Item.price-widget.Item.theOffer).toString() + " جم",
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 20.0,
@@ -167,7 +388,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             child: GestureDetector(
                                 onTap: () async {
                                   await showEditScreen(
-                                      context, widget.id, 'ادخل السعر الجديد');
+                                      context, widget.Item.id, 'ادخل السعر الجديد');
                                   setState(() {});
                                 },
                                 child: Icon(
@@ -216,9 +437,21 @@ class _DetailsPageState extends State<DetailsPage> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
+                                      if(quantity<widget.Item.allquantity)
                                       quantity += 0.25;
+                                      else{
+                                        Fluttertoast.showToast(
+                                            msg: "Sorry, This item have been finished",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.black,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      }
                                     });
                                   },
+
                                   child: Container(
                                     height: 25.0,
                                     width: 25.0,
@@ -240,43 +473,38 @@ class _DetailsPageState extends State<DetailsPage> {
                           )
                         ],
                       ),
-                      SizedBox(height: 4.0),
-                      Container(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: <Widget>[
-                              _buildInfoCard('قلي', '5', 'جم'),
-                              SizedBox(width: 10.0),
-                              _buildInfoCard('شوي', '5', 'جم'),
-                              SizedBox(width: 10.0),
-                              _buildInfoCard('سنجاري', '10', 'جم'),
-                              SizedBox(width: 10.0),
-                              _buildInfoCard('بدون', '0', 'جم')
-                            ],
-                          )),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: MediaQuery.of(context).size.height*0.027),
+                      option(),
+                      SizedBox(height: MediaQuery.of(context).size.height*0.027),
                       InkWell(
                         onTap: () {
                           setState(() {
                             if (!widget.edit)
                               fixedicon().createState().increasecart(orderitem(
-                                  widget.foodName,
-                                  widget.foodPrice,
+                                  widget.Item.id,
+                                  widget.Item.name,
+                                  widget.Item.price,
+                                  widget.Item.category,
                                   quantity,
                                   false,
                                   optionName,
-                                  optionPrice));
+                                  optionPrice,
+                                  widget.Item.theOffer,
+                                  widget.Item.allquantity));
                             else {
                               fixedicon().createState().editcart(
                                   widget.index,
                                   orderitem(
-                                      widget.foodName,
-                                      widget.foodPrice,
+                                      widget.Item.id,
+                                      widget.Item.name,
+                                      widget.Item.price,
+                                      widget.Item.category,
                                       quantity,
                                       false,
                                       optionName,
-                                      optionPrice));
+                                      optionPrice,
+                                      widget.Item.theOffer,
+                                      widget.Item.allquantity));
                               widget.refresh();
                               Navigator.pop(context);
                             }
@@ -293,7 +521,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           height: 50.0,
                           child: Center(
                             child: Text(
-                                (quantity * widget.foodPrice + optionPrice)
+                                (quantity * (widget.Item.price-widget.Item.theOffer) + optionPrice)
                                         .toString() +
                                     " " +
                                     "جم",

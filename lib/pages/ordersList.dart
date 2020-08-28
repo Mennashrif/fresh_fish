@@ -54,12 +54,17 @@ class _OrdersListState extends State<OrdersList> {
                 int c = 0;
                 while (order.data['content'].length > c) {
                   orderItems.add(orderitem(
+                      null,
                       order.data['content'][c]['name'],
                       order.data['content'][c]['price'],
-                      order.data['content'][c]['quantity'],
+                      null,
+                    order.data['content'][c]['quantity'],
                       order.data['content'][c]['Isoffered'],
                       order.data['content'][c]['optionName'],
-                      order.data['content'][c]['optionPrice']));
+                      order.data['content'][c]['optionPrice'],
+                      null,
+                      null,
+                      ));
                   c++;
                 }
                 ordersWidgets.add(OrderListItem(
@@ -70,14 +75,15 @@ class _OrdersListState extends State<OrdersList> {
                 ));
               }
               return MultiProvider(
-                  providers: [
-                    StreamProvider<QuerySnapshot>.value(
-                        value: DatabaseService().users)
-                  ],
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ListView(children: ordersWidgets),
-                  ));
+                providers: [
+                  StreamProvider<QuerySnapshot>.value(
+                      value: DatabaseService().users)
+                ],
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: ListView(children: ordersWidgets),
+                ),
+              );
             },
           ),
         ));

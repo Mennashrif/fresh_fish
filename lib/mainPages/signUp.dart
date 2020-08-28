@@ -23,6 +23,7 @@ class _signUpScreenState extends State<signUpScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
+
         Text(
           'الأسم',
           style: kLabelStyle,
@@ -199,7 +200,7 @@ class _signUpScreenState extends State<signUpScreen> {
               hintText: 'ادخل رقم الهاتف',
               hintStyle: kHintTextStyle,
             ),
-            validator:(val)=>val.isEmpty ? 'ادخل رقم الهاتف':null ,
+            validator:(val)=>val.isEmpty?'ادخل رقم الهاتف':val[0]!='0'||val.length!=11 ?"ادخل رقم الهاتف الصحيح":null ,
             onChanged: (val){
               _phone=val;
             },
@@ -280,43 +281,46 @@ class _signUpScreenState extends State<signUpScreen> {
                   ),
                   child: Form(
                     key: _formkey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'انشاء حساب',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height*0.1),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'انشاء حساب',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 30.0),
-                        _buildNameTF(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildEmailTF(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildPasswordTF(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildAddressTF(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildPhoneTF(),
+                          SizedBox(height: 30.0),
+                          _buildNameTF(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          _buildEmailTF(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          _buildPasswordTF(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          _buildAddressTF(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          _buildPhoneTF(),
 
-                       _buildSignUpBtn(),
-                        SizedBox(height: 12.0),
-                        Text(
-                          _error,
-                          style: TextStyle(color: Colors.red, fontSize: 14.0),
-                        )
-                      ],
+                         _buildSignUpBtn(),
+                          SizedBox(height: 12.0),
+                          Text(
+                            _error,
+                            style: TextStyle(color: Colors.red, fontSize: 14.0),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

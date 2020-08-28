@@ -59,14 +59,8 @@ class _fixediconState extends State<fixedicon>
                 Navigator.of(context).pop();
               } else {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MultiProvider(
-                          providers: [
-                            StreamProvider<QuerySnapshot>.value(
-                                value: DatabaseService().users),
-                          ],
-                          child: OrderScreen(
-                              cartItem: cartItem, refresh: widget.refresh),
-                        )));
+                    builder: (context) => OrderScreen(
+                        cartItem: cartItem, refresh: widget.refresh)));
               }
             },
           ),

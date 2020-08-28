@@ -52,22 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return Listofcategory;
   }
 
-  void getdata(final user, final uid) {
-    if (user != null) {
-      for (int i = 0; i < user.documents.length; i++) {
-        if (user.documents[i].documentID == uid.uid) {
-          _email = user.documents[i].data['email'];
-        }
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final items = Provider.of<List<item>>(context);
     final uid = Provider.of<User>(context);
-    final user = Provider.of<QuerySnapshot>(context);
-    getdata(user, uid);
+    final user = Provider.of<DocumentSnapshot>(context);
+    if (user !=null && user.exists) {
+      _email = user.data['email'];
+
+    }
     List<item> Listofcategory = fillListofcategory(items);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -103,11 +97,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: ListView(children: <Widget>[
-        /* Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                 fixedicon(),
-            ],),*/
         Center(
           child: SizedBox(
             height: 200, // card height
@@ -115,20 +104,16 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: Listofcategory.length,
               controller: PageController(viewportFraction: 0.7),
               onPageChanged: (int index) => setState(() => _index = index),
-              itemBuilder: (_, i) {
+              itemBuilder: (con, i) {
                 return InkWell(
-                  onTap: () {
+                  onTap: ()  {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => DetailsPage(
                             heroTag: "assets/images/salmon.png",
-                            foodName: Listofcategory[i].name,
-                            foodPrice: (Listofcategory[i].price -
-                                Listofcategory[i].theOffer),
                             order: false,
-                            quantity: Listofcategory[i].quantity,
-                            isAdmin: _email == "fresh_fish@freshfish.com",
-                            id: Listofcategory[i].id,
-                            refresh: refreshHome)));
+                            refresh: refreshHome,
+                            Item: Listofcategory[i],
+                            isAdmin: _email == "fresh_fish@freshfish.com",)));
                   },
                   child: Transform.scale(
                     scale: i == _index ? 1 : 0.9,
@@ -136,12 +121,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       elevation: 6,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      child: Stack(children: [
-                        Positioned(
-                          top: 10.0,
-                          left:
-                              (MediaQuery.of(context).size.width / 2) - 115.0,
-                          child: Hero(
+                      child: Container(
+                        padding:EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center
+                            ,children: [
+                          Hero(
                               tag: i,
                               child: Container(
                                   decoration: BoxDecoration(
@@ -151,52 +136,48 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fit: BoxFit.cover)),
                                   height: 90.0,
                                   width: 90.0)),
-                        ),
-                        Positioned(
-                            top: 103,
-                            left: 25.0,
-                            right: 10.0,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(Listofcategory[i].name,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold)),
-                                  /*SizedBox(height: 1.0),*/
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                            Listofcategory[i]
-                                                    .price
-                                                    .toString() +
-                                                " " +
-                                                "جم",
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 18.0,
-                                                color: Colors.grey,
-                                                decoration: TextDecoration
-                                                    .lineThrough)),
-                                        Text(
-                                            (Listofcategory[i].price -
-                                                        Listofcategory[i]
-                                                            .theOffer)
-                                                    .toString() +
-                                                " " +
-                                                "جم",
-                                            style: TextStyle(
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Text(Listofcategory[i].name,
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold)),
+                                /*SizedBox(height: 1.0),*/
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                          Listofcategory[i]
+                                                  .price
+                                                  .toString() +
+                                              " " +
+                                              "جم",
+                                          style: TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 18.0,
-                                              color: Colors.blue,
-                                            ))
-                                      ])
-                                ])),
-                      ]),
+                                              color: Colors.grey,
+                                              decoration: TextDecoration
+                                                  .lineThrough)),
+                                      Text(
+                                          (Listofcategory[i].price -
+                                                      Listofcategory[i]
+                                                          .theOffer)
+                                                  .toString() +
+                                              " " +
+                                              "جم",
+                                          style: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 18.0,
+                                            color: Colors.blue,
+                                          ))
+                                    ])
+                              ]),
+                        ]),
+                      ),
                     ),
                   ),
                 );

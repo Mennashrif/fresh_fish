@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/services/database.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class EditProfModal extends StatefulWidget {
   final String change;
@@ -77,10 +78,10 @@ class _EditProfModalState extends State<EditProfModal> {
                     onPressed: () async {
                       if (changedField.isNotEmpty) {
                         setState(() => loading = true);
-                        print(widget.uid);
                         DatabaseService databaseService =
                             DatabaseService(uid: widget.uid);
-                        await databaseService.setUserData(
+                        if(widget.change=='pN'&&widget.change.isNotEmpty&&widget.change[0]=='0'&&widget.change.length==11)
+                          await databaseService.setUserData(
                             widget.email,
                             widget.change == 'name'
                                 ? changedField
@@ -91,6 +92,14 @@ class _EditProfModalState extends State<EditProfModal> {
                             widget.change == 'pN'
                                 ? changedField
                                 : widget.phone);
+                        else  Fluttertoast.showToast(
+                            msg: "ادخل رقم الهاتف الصحيح",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 3,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       }
                       Navigator.pop(context);
                     },

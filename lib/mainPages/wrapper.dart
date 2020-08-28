@@ -12,18 +12,19 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     print(user);
+
     // return either the Home or Authenticate widget
     if (user == null) {
       return LoginScreen();
     } else {
-      return StreamProvider<List<item>>.value(
-          value: DatabaseService().items,
+      return MultiProvider(
+          providers: [
+            StreamProvider<DocumentSnapshot>.value(value: DatabaseService(uid: user.uid).user),
+            StreamProvider<List<item>>.value(value: DatabaseService().items)
+          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: MultiProvider(providers: [
-              StreamProvider<QuerySnapshot>.value(
-                  value: DatabaseService().users),
-            ], child: MainScreen()),
+            home: MainScreen(),
           ));
     }
   }

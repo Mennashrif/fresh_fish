@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           }
         },
+
         padding: EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -126,6 +127,29 @@ class _LoginScreenState extends State<LoginScreen> {
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
+        ),
+      ),
+    );
+  }
+  Widget _buildForgotPasswordBtn() {
+    return Container(
+      //alignment: Alignment.centerRight,
+      child: FlatButton(
+        onPressed: () async {
+          setState(() => loading = true);
+          dynamic result =
+          await _auth.signInAnon();
+          if (result == null) {
+            setState(() {
+              loading = false;
+              _error = 'Could not sign in with those credentials';
+            });
+          }
+        },
+        //padding: EdgeInsets.only(right: 0.0),
+        child: Text(
+          'Login as a guest',
+          style: kLabelStyle,
         ),
       ),
     );
@@ -316,35 +340,39 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             child: Form(
                               key: _formkey,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    'تسجيل الدخول',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height*0.2),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      'تسجيل الدخول',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  _buildEmailTF(),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  _buildPasswordTF(),
-                                  _buildLoginBtn(),
-                                  SizedBox(height: 8.0),
-                                  Text(
-                                    _error,
-                                    style: TextStyle(
-                                        color: Colors.red, fontSize: 14.0),
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  _buildSignInWithText(),
-                                  _buildSocialBtnRow(),
-                                  _buildSignupBtn(),
-                                ],
+                                    SizedBox(height: 10.0),
+                                    _buildEmailTF(),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    _buildPasswordTF(),
+                                  _buildForgotPasswordBtn(),
+                                    _buildLoginBtn(),
+                                    SizedBox(height: 8.0),
+                                    Text(
+                                      _error,
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 14.0),
+                                    ),
+                                    SizedBox(height: 10.0),
+                                    _buildSignInWithText(),
+                                    _buildSocialBtnRow(),
+                                    _buildSignupBtn(),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fresh_fish/models/orderitem.dart';
@@ -7,6 +8,7 @@ import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'Profile.dart';
 import 'detailsPage.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -19,34 +21,29 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen>
     with SingleTickerProviderStateMixin {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool loading = false;
+  String _name = '';
+  String _email = '';
+  String _address = '';
+  String _phone = '';
   double sum() {
     double total = 0;
     setState(() {
       for (int i = 0; i < widget.cartItem.length; i++) {
         total += (widget.cartItem[i].price * widget.cartItem[i].quantity) +
-            widget.cartItem[i].optionPrice;
+            widget.cartItem[i].optionPrice*widget.cartItem[i].quantity;
       }
     });
     return total;
   }
 
-  String _email;
-  void getdata(final user, final uid) {
-    if (user != null) {
-      for (int i = 0; i < user.documents.length; i++) {
-        if (user.documents[i].documentID == uid.uid) {
-          _email = user.documents[i].data['email'];
-        }
-      }
-    }
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    final uid = Provider.of<User>(context);
-    final user = Provider.of<QuerySnapshot>(context);
-    getdata(user, uid);
+
     return WillPopScope(
       onWillPop: () async {
         widget.refresh();
@@ -97,14 +94,66 @@ class _OrderScreenState extends State<OrderScreen>
   }
 
   Widget _buildFoodItem() {
-    final user = Provider.of<User>(context);
+    final uid = Provider.of<User>(context);
+    final user = Provider.of<DocumentSnapshot>(context);
+
+    if (user !=null && user.exists) {
+      _name = user.data['name'];
+      _email = user.data['email'];
+      _address = user.data['address'];
+      _phone = user.data['phone'];
+    }
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(topRight: Radius.circular(75.0)),
         ),
-        child: loading
+        child:uid.isAnon?  new Container(
+          child:Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/2-110),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "Please, Login First",
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.normal),
+
+                ),
+                SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () async {
+                    await _auth.signOut();
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Do you want to? ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Login',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ): loading
             ? Container(
                 color: Colors.white,
                 child: Center(
@@ -130,7 +179,7 @@ class _OrderScreenState extends State<OrderScreen>
                               vertical: MediaQuery.of(context).size.height *
                                   (1 / 30)),
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.46,
                             child: ListView.builder(
                                 itemCount: widget.cartItem.length,
                                 itemBuilder: (context, index) {
@@ -138,19 +187,15 @@ class _OrderScreenState extends State<OrderScreen>
                                       padding:
                                           EdgeInsets.only(top: 8.0, right: 16),
                                       child: InkWell(
-                                          onTap: () {
+                                          onTap: ()  {
                                             Navigator.of(context).push(MaterialPageRoute(
                                                 builder: (context) => DetailsPage(
                                                     heroTag:
-                                                        "assets/images/salmon.png",
-                                                    foodName: widget
-                                                        .cartItem[index].name,
-                                                    foodPrice: widget
-                                                        .cartItem[index].price,
+                                                    "assets/images/salmon.png",
                                                     order: true,
-                                                    isAdmin: _email ==
-                                                        "fresh_fish@freshfish.com",
-                                                    refresh: refresh)));
+                                                    refresh: refresh,
+                                                    isAdmin: _email == "fresh_fish@freshfish.com",
+                                                    Item: widget.cartItem[index])));
                                           },
                                           child: Row(
                                             mainAxisAlignment:
@@ -182,22 +227,13 @@ class _OrderScreenState extends State<OrderScreen>
                                                           Navigator.of(context).push(MaterialPageRoute(
                                                               builder: (context) => DetailsPage(
                                                                   heroTag:
-                                                                      "assets/images/salmon.png",
-                                                                  foodName: widget
-                                                                      .cartItem[
-                                                                          index]
-                                                                      .name,
-                                                                  foodPrice: widget
-                                                                      .cartItem[
-                                                                          index]
-                                                                      .price,
+                                                                  "assets/images/salmon.png",
                                                                   edit: true,
                                                                   index: index,
-                                                                  isAdmin: _email ==
-                                                                      "fresh_fish@freshfish.com",
                                                                   order: true,
-                                                                  refresh:
-                                                                      refresh)));
+                                                                  refresh: refresh,
+                                                                  isAdmin: _email == "fresh_fish@freshfish.com",
+                                                                  Item: widget.cartItem[index])));
                                                         });
                                                       },
                                                     ),
@@ -387,10 +423,22 @@ class _OrderScreenState extends State<OrderScreen>
                                     MediaQuery.of(context).size.height * 0.035,
                               ),
                               GestureDetector(
-                                onTap: () async {
+                                onTap:(_address==null||_phone==null)?(){
+                                  Fluttertoast.showToast(
+                                      msg: "من فضلك اكمل بياناتك",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 4,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ProfileScreen()));
+                                } :() async {
+
                                   setState(() => loading = true);
                                   bool res =
-                                      await DatabaseService(uid: user.uid)
+                                      await DatabaseService(uid: uid.uid)
                                           .addOrder(widget.cartItem);
                                   if (!res) {
                                     setState(() {
@@ -419,23 +467,20 @@ class _OrderScreenState extends State<OrderScreen>
                                     });
                                   }
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom:32.0),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        (1 / 15),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF7A9BEE),
-                                      borderRadius: BorderRadius.circular(35.0),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "ارسال الطلب",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height *
+                                      (1 / 15),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF7A9BEE),
+                                    borderRadius: BorderRadius.circular(35.0),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "ارسال الطلب",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),

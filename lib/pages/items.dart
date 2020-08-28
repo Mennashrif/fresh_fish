@@ -89,8 +89,9 @@ class _itemsPageState extends State<itemsPage> {
     final items = Provider.of<List<item>>(context);
     List<item> Listofcategory =
         widget.searchPage ? widget.searchResult : fillListofcategory(items);
+    print(MediaQuery.of(context).size.height);
     return Container(
-      height: MediaQuery.of(context).size.height - 185.0,
+      height: MediaQuery.of(context).size.height *0.748,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(topRight: Radius.circular(75.0)),
@@ -100,28 +101,21 @@ class _itemsPageState extends State<itemsPage> {
           padding: EdgeInsets.only(left: 25.0, right: 20.0),
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 16.0),
+              padding: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.06),
               child: Container(
-                height: MediaQuery.of(context).size.height*0.8,
+               height: MediaQuery.of(context).size.height*0.63,
                 child: ListView.builder(
                     itemCount: Listofcategory.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                          onTap: () {
+                          onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetailsPage(
-                                    heroTag: "assets/images/salmon.png",
-                                    foodName: Listofcategory[index].name,
-                                    foodPrice: Listofcategory[index]
-                                            .Isoffered
-                                        ? (Listofcategory[index].price -
-                                            Listofcategory[index].theOffer)
-                                        : Listofcategory[index].price,
-                                    order: false,
-                                    quantity: Listofcategory[index].quantity,
-                                    isAdmin: widget.email=="fresh_fish@freshfish.com",
-                                    id: Listofcategory[index].id,
-                                    refresh: refresh)));
+                                  heroTag: "assets/images/salmon.png",
+                                  order: false,
+                                  refresh: refresh,
+                                  Item: Listofcategory[index],
+                                  isAdmin: widget.email == "fresh_fish@freshfish.com",)));
                           },
                           child: Row(
                             mainAxisAlignment:

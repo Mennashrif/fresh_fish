@@ -39,8 +39,11 @@ class DatabaseService {
     }
   }
 
+  Stream<DocumentSnapshot> get user{
+    return Users.document(uid).snapshots();
+  }
   Stream<QuerySnapshot> get users {
-    return Users.where('uid', isEqualTo: uid).snapshots();
+    return Users.snapshots();
   }
 
   List<item> _itemListFromSnapshot(QuerySnapshot snapshot) {
@@ -52,10 +55,11 @@ class DatabaseService {
           price: doc.data['price'] ?? 0,
           category: doc.data['category'] ?? '0',
           Isoffered: doc.data['Isoffered'] ?? false,
-          quantity: doc.data['quantity'] ?? 0,
-          theOffer: doc.data['theOffer'] ?? 0);
+          theOffer: doc.data['theOffer'] ?? 0,
+          allquantity: doc.data['quantity']??0);
     }).toList();
   }
+
   Future<List<item>> fetchSearchResult(String searchString) async {
     List<item> result = [];
     QuerySnapshot querySnapshot = await Items.getDocuments();
@@ -63,12 +67,10 @@ class DatabaseService {
     docSnapshot.map((e) {
       if (e.data['name'].contains(searchString))
         result.add(item(
-          id: e.documentID,
           name: e.data['name'],
           price: e.data['price'],
           category: e.data['category'],
           Isoffered: e.data['Isoffered'],
-          quantity: e.data['quantity'] ?? 0,
           sort: e.data['sort'],
           theOffer: e.data['theOffer'],
         ));

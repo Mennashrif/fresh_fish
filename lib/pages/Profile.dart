@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/utilities/edit_profile_modal.dart';
@@ -11,41 +12,84 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   String _name = '';
   String _email = '';
   String _address = '';
   String _phone = '';
 
-  void getdata(final user, final uid) {
-    if (user != null) {
-      for (int i = 0; i < user.documents.length; i++) {
-        if (user.documents[i].documentID == uid.uid) {
-          _name = user.documents[i].data['name'];
-          _email = user.documents[i].data['email'];
-          _address = user.documents[i].data['address'];
-          _phone = user.documents[i].data['phone'];
-        }
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<QuerySnapshot>(context);
+    final user = Provider.of<DocumentSnapshot>(context);
     final uid = Provider.of<User>(context);
-    getdata(user, uid);
-    return Scaffold(
+    if (user !=null && user.exists) {
+      _name = user.data['name'];
+      _email = user.data['email'];
+      _address = user.data['address'];
+      _phone = user.data['phone'];
+    }
+    return uid.isAnon?
+    new Container(
+      child:Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/2-20),
+        child: Column(
+          children: <Widget>[
+            Text(
+              "Please, Login First",
+              style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.normal),
+
+            ),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () async {
+                await _auth.signOut();
+              },
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Do you want to? ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Login',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ): Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
           backgroundColor: Color(0xFF527DAA),
         ),
         body: Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: ListView(children: <Widget>[
-              Text(
-                '  معلومات الحساب',
-                style: TextStyle(
-                    color: Colors.grey, fontWeight: FontWeight.bold),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.end
+                ,children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right:16.0),
+                child: Text(
+                  '  معلومات الحساب',
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold),
+                ),
               ),
               SizedBox(
                 height: 10,

@@ -1,8 +1,6 @@
-
-
 class User{
-
   final String uid;
-  User({ this.uid=null});
+  final bool isAnon;
+  User({this.uid=null,this.isAnon});
 
 }

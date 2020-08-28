@@ -12,8 +12,12 @@ class OffersScreen extends StatefulWidget {
 }
 
 class _OffersScreenState extends State<OffersScreen> {
+  String _email;
+
+
   List<item> fillListofcategory(List<item> items) {
     List<item> Listofcategory = [];
+
     if (items != null) {
       for (int i = 0; i < items.length; i++) {
         if (items[i].Isoffered) {
@@ -24,22 +28,16 @@ class _OffersScreenState extends State<OffersScreen> {
     return Listofcategory;
   }
 
-  String _email;
-  void getdata(final user, final uid) {
-    if (user != null) {
-      for (int i = 0; i < user.documents.length; i++) {
-        if (user.documents[i].documentID == uid.uid) {
-          _email = user.documents[i].data['email'];
-        }
-      }
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
     final uid = Provider.of<User>(context);
-    final user = Provider.of<QuerySnapshot>(context);
-    getdata(user, uid);
+    final user = Provider.of<DocumentSnapshot>(context);
+    if (user !=null && user.exists) {
+      _email = user.data['email'];
+
+    }
     return Scaffold(
       backgroundColor: Color(0xFF7A9BEE),
       body: ListView(children: <Widget>[
@@ -105,17 +103,11 @@ class _OffersScreenState extends State<OffersScreen> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => DetailsPage(
-                                        heroTag: "assets/images/salmon.png",
-                                        foodName: Listofcategory[index].name,
-                                        foodPrice:
-                                            (Listofcategory[index].price -
-                                                Listofcategory[index].theOffer),
-                                        order: false,
-                                        quantity: Listofcategory[index].quantity,
-                                        id: Listofcategory[index].id,
-                                        isAdmin: _email ==
-                                            "fresh_fish@freshfish.com",
-                                        refresh: refresh)));
+                                      heroTag: "assets/images/salmon.png",
+                                      order: false,
+                                      refresh: refresh,
+                                      Item: Listofcategory[index],
+                                      isAdmin: _email == "fresh_fish@freshfish.com",)));
                               },
                               child: Row(
                                 mainAxisAlignment:
