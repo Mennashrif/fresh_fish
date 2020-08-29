@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
-import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
 import 'detailsPage.dart';
@@ -32,7 +31,6 @@ class _OffersScreenState extends State<OffersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final uid = Provider.of<User>(context);
     final user = Provider.of<DocumentSnapshot>(context);
     if (user !=null && user.exists) {
       _email = user.data['email'];

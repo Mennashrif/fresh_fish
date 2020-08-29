@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/pages/Order.dart';
-import 'package:fresh_fish/services/database.dart';
-import 'package:provider/provider.dart';
 
 class fixedicon extends StatefulWidget {
   final order;

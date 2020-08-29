@@ -23,7 +23,6 @@ class _OrderScreenState extends State<OrderScreen>
     with SingleTickerProviderStateMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool loading = false;
-  String _name = '';
   String _email = '';
   String _address = '';
   String _phone = '';
@@ -98,7 +97,6 @@ class _OrderScreenState extends State<OrderScreen>
     final user = Provider.of<DocumentSnapshot>(context);
 
     if (user !=null && user.exists) {
-      _name = user.data['name'];
       _email = user.data['email'];
       _address = user.data['address'];
       _phone = user.data['phone'];

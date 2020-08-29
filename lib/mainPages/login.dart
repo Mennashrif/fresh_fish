@@ -146,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
             });
           }
         },
-        //padding: EdgeInsets.only(right: 0.0),
         child: Text(
           'Login as a guest',
           style: kLabelStyle,
@@ -306,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () => FocusScope.of(context).unfocus(),
                   child: Stack(
                     children: <Widget>[
-                      Container(
+                      /*Container(
                         height: double.infinity,
                         width: double.infinity,
                         /*decoration: BoxDecoration(
@@ -328,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                      ),
+                      ),*/
                       Center(
                         child: Container(
                           height: double.infinity,

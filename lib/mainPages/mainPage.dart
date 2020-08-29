@@ -1,10 +1,13 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fresh_fish/pages/Profile.dart';
 import 'package:fresh_fish/pages/Home.dart';
 import 'package:fresh_fish/pages/Offers.dart';
 import 'package:fresh_fish/pages/aboutUs.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -21,20 +24,20 @@ class _MainScreenState extends State<MainScreen>
   int _index = 3;
 
   Widget _pageChooser(int page) {
-      switch (page) {
-        case 3:
-          return _Home;
-          break;
-        case 2:
-          return _Profile;
-          break;
-        case 1:
-          return _Offers;
-          break;
-        case 0:
-          return _aboutUs;
-          break;
-      }
+    switch (page) {
+      case 3:
+        return _Home;
+        break;
+      case 2:
+        return _Profile;
+        break;
+      case 1:
+        return _Offers;
+        break;
+      case 0:
+        return _aboutUs;
+        break;
+    }
     return null;
   }
 
@@ -43,19 +46,52 @@ class _MainScreenState extends State<MainScreen>
       _showpage = _pageChooser(index);
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero).then((value) => storeAdminToken());
+    FirebaseMessaging fcm = FirebaseMessaging();
+    fcm.requestNotificationPermissions();
+    fcm.configure(
+      onMessage: (message) {
+        print('onMessage' + message.toString());
+        return;
+      },
+      onLaunch: (message) {
+        print('onLaunch' + message.toString());
+        return;
+      },
+      onResume: (message) {
+        print('onResume' + message.toString());
+        return;
+      },
+    );
+  }
+
+  Future<void> storeAdminToken() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    IdTokenResult tokenResult = await user.getIdToken();
+    if(user.email=='fresh_fish@freshfish.com')
+    Firestore.instance
+        .collection('Token').document(user.uid)
+        .setData({'adminToken':tokenResult.token });
+  }
+
   @override
   Widget build(BuildContext context) {
     changeTab(_index);
+
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Color(0xFF7A9BEE),
         height: 60,
         items: <Widget>[
-                Icon(Icons.live_help, size: 25),
-                Icon(Icons.local_offer, size: 25),
-                Icon(Icons.account_circle, size: 25),
-                Icon(Icons.home, size: 25),
-              ],
+          Icon(Icons.live_help, size: 25),
+          Icon(Icons.local_offer, size: 25),
+          Icon(Icons.account_circle, size: 25),
+          Icon(Icons.home, size: 25),
+        ],
         index: _index,
         onTap: (index) {
           setState(() {
