@@ -103,6 +103,7 @@ class _OrderScreenState extends State<OrderScreen>
     }
     return Expanded(
       child: Container(
+        width:MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(topRight: Radius.circular(75.0)),
