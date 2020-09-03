@@ -43,29 +43,41 @@ class AuthService {
   }
   // sign in with facebook
   Future signInWithfacebook() async {
-
-      final facebookLogin = new FacebookLogin();
-      final result = await facebookLogin.logIn(['email']);
-      FacebookAccessToken facebookAccessToken = result.accessToken;
-      AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken: facebookAccessToken.token);
-      FirebaseUser fbUser;
-      fbUser = (await _auth.signInWithCredential(authCredential)).user;
-      return fbUser;
+   try {
+     final facebookLogin = new FacebookLogin();
+     final result = await facebookLogin.logIn(['email']);
+     FacebookAccessToken facebookAccessToken = result.accessToken;
+     AuthCredential authCredential = FacebookAuthProvider.getCredential(
+         accessToken: facebookAccessToken.token);
+     FirebaseUser fbUser;
+     fbUser = (await _auth.signInWithCredential(authCredential)).user;
+     return fbUser;
+   }
+   catch(error){
+     print(error.toString());
+     return null;
+   }
   }
   // sign in with google
   Future signInWithgoogle() async {
+       try {
+         GoogleSignIn _googleSignIn = new GoogleSignIn();
+         GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+         GoogleSignInAuthentication googleSignInAuthentication =
+         await googleSignInAccount.authentication;
 
-    GoogleSignIn _googleSignIn = new GoogleSignIn();
-    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-    await googleSignInAccount.authentication;
+         AuthCredential credential = GoogleAuthProvider.getCredential(
+             idToken: googleSignInAuthentication.idToken,
+             accessToken: googleSignInAuthentication.accessToken);
 
-    AuthCredential credential = GoogleAuthProvider.getCredential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken);
+         AuthResult User = (await _auth.signInWithCredential(credential));
 
-    AuthResult  User = (await _auth.signInWithCredential(credential));
-    return User.user;
+         return User.user;
+       }
+       catch(error){
+         print(error.toString());
+         return null;
+       }
   }
 // register with email and password
   Future registerWithEmailAndPassword(String name,String email, String password,String address, String phone) async {

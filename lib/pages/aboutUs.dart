@@ -33,7 +33,7 @@ class _aboutUsScreenState extends State<aboutUsScreen>
                 children: <Widget>[
                   Text('عن التطبيق',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                   SizedBox(height: 32),
                   AboutUsUIItem(
                     title: 'العنوان',

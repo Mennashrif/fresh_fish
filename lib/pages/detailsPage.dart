@@ -289,6 +289,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           color: Colors.white),
                       height: MediaQuery.of(context).size.height * 0.86,
                       width: MediaQuery.of(context).size.width)),
+
               Positioned(
                   top: 30.0,
                   left: (MediaQuery.of(context).size.width*0.27),
@@ -301,13 +302,12 @@ class _DetailsPageState extends State<DetailsPage> {
                                   fit: BoxFit.cover)),
                           height: MediaQuery.of(context).size.height * 0.25,
                           width: MediaQuery.of(context).size.height * 0.25))),
-
               Positioned(
-                  top: MediaQuery.of(context).size.height*0.29,
+                  top: MediaQuery.of(context).size.height*0.3,
                   left: 25.0,
                   right: 25.0,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(widget.Item.name,
                           style: TextStyle(
@@ -521,10 +521,10 @@ class _DetailsPageState extends State<DetailsPage> {
                           height: 50.0,
                           child: Center(
                             child: Text(
-                                (quantity * (widget.Item.price-widget.Item.theOffer) + optionPrice)
+                             "جم "+(quantity * (widget.Item.price-widget.Item.theOffer) + optionPrice)
                                         .toString() +
                                     " " +
-                                    "جم",
+                                    " << اضف الي السله",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Montserrat')),

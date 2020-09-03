@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "938576998514-s4r2s7dnf18o4sv0auhmf8ufc881ttgq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fresh_fish",
+            "certificate_hash": "572ec4b9eb6afad97971b4de47316fc8f4e00813"
+          }
+        },
+        {
           "client_id": "938576998514-5b0g9heibv2cogubcvc88jmqpdhuohn6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "938576998514-62277rfk0a8j5uqn9ju8ns6sp45dktoe.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "938576998514-7pip6fkjretdegnffl7r78qtcrra2jeu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freshFish"
+              }
             }
           ]
         }

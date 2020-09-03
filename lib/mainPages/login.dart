@@ -204,36 +204,12 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           _buildSocialBtn(
             () async {
-              /*Map userProfile;
-                dynamic result =
-                    await _auth.signInWithfacebook();
-               print(result.status);
-                switch (result.status) {
-
-                  case FacebookLoginStatus.loggedIn:
-                    final token = result.accessToken.token;
-                    final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
-                    final profile = JSON.jsonDecode(graphResponse.body);
-                    setState(() {
-                      userProfile = profile;
-                      loading = true;
-
-                    });
-                    break;
-
-                  case FacebookLoginStatus.cancelledByUser:
-                    setState(() => loading = false );
-                    break;
-                  case FacebookLoginStatus.error:
-                    setState(() => loading = false );
-                    break;
-                }*/
               setState(() => loading = true);
               dynamic result = await _auth.signInWithfacebook();
               if (result == null) {
                 setState(() {
                   loading = false;
-                  _error = "خطأ في البريد الالكتروني او الرقم السري";
+                  _error = "خطأ";
                 });
               }
             },
@@ -248,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (result == null) {
                 setState(() {
                   loading = false;
-                  _error = 'خطأ في البريد الالكتروني او الرقم السري';
+                  _error = 'خطأ';
                 });
               }
             },
@@ -305,7 +281,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () => FocusScope.of(context).unfocus(),
                   child: Stack(
                     children: <Widget>[
-                      /*Container(
+                      Container(
                         height: double.infinity,
                         width: double.infinity,
                         /*decoration: BoxDecoration(
@@ -327,7 +303,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                      ),*/
+                      ),
                       Center(
                         child: Container(
                           height: double.infinity,
