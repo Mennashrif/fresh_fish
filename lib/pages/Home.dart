@@ -39,7 +39,35 @@ class _HomeScreenState extends State<HomeScreen> {
     "استاكوزا",
     "الاسماك"
   ];
+  final List<String> images=[
+    "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
+
+    "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
+
+    "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
+
+    "https://kamelabdo.com/wp-content/uploads/2020/02/40-1.jpg",
+
+    "https://kamelabdo.com/wp-content/uploads/2020/02/38-1.jpg",
+
+    "https://images.unsplash.com/photo-1578935149228-66b184c83e69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
+
+    "https://tonysmarket.com/wp-content/uploads/2017/03/ThinkstockPhotos-533985314.jpg",
+
+    "https://p0.pikrepo.com/preview/834/625/sliced-fish-meat-on-white-surface.jpg",
+
+    "https://www.italian-feelings.com/wp-content/uploads/2019/06/cid_3E213ACC-7341-4877-858A-BD557EAF7444.jpg",
+
+    "https://images.unsplash.com/photo-1574653853117-0274131c2175?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
+
+    "https://d2j6dbq0eux0bg.cloudfront.net/images/13995032/1409097998.jpg",
+
+    "https://images.unsplash.com/photo-1590759668628-05b0fc34bb70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
+
+    "https://www.fishing.net.nz/default/cache/file/ABCE2B3C-0BA2-4347-C5DECA7D1DBF64FF.jpg"
+  ];
   final _textFieldController = TextEditingController();
+
   List<item> fillListofcategory(List<item> items) {
     List<item> Listofcategory = [];
     if (items != null) {
@@ -259,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 230.0,
                           width: 340.0,
                           child: new Image.network(
-                            "https://images.unsplash.com/photo-1517115358639-5720b8e02219?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80",
+                            images[index],
                             fit: BoxFit.cover,
                           ),
                         ),

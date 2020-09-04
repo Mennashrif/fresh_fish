@@ -11,40 +11,48 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
-  Widget tmp;
-  LoginScreen login=LoginScreen();
-  MainScreen main=MainScreen();
+  bool _appStart = true;
   @override
   void initState() {
     super.initState();
-      Timer(Duration(seconds: 5), (){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Wrapper()));
-      });
+
+    // TODO: implement initState
+
+    Timer(Duration(seconds: 5), (){
+      if(_appStart) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Wrapper()));
+         _appStart = false;
+      }
+    });
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Expanded(
+      body: Container(
 
-                    child: FlareActor(
-                      "assets/logos/New File.flr",
-                      alignment: Alignment.center,
-                      fit: BoxFit.cover,
-                      animation: "Untitled Duplicate Duplicate",
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Expanded(
 
-                    ),
+                child: FlareActor(
+                  "assets/logos/New File.flr",
+                  alignment: Alignment.center,
+                  fit: BoxFit.cover,
+                  animation: "Untitled Duplicate Duplicate",
 
-                  ),
-              ],
-            ),
+                ),
+
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
 
   }
 

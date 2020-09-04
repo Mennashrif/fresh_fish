@@ -8,7 +8,9 @@ final kHintTextStyle = TextStyle(
 final kLabelStyle = TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.bold,
+  fontSize: 20.0,
   fontFamily: 'OpenSans',
+
 );
 
 final kBoxDecorationStyle = BoxDecoration(
