@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 
 class OrderListItem extends StatefulWidget {
   final String uId;
-  final String orderId; 
+  final String orderId;
+  final bool delivered;
   final String timeStamp;
   final List<orderitem> orders;
-  OrderListItem({this.orders, this.uId, this.timeStamp, this.orderId});
+  OrderListItem(
+      {this.orders, this.uId, this.timeStamp, this.orderId, this.delivered});
 
   @override
   _OrderListItemState createState() => _OrderListItemState();
@@ -23,6 +25,7 @@ class _OrderListItemState extends State<OrderListItem> {
   @override
   void initState() {
     super.initState();
+    deliveredCBValue = widget.delivered;
     for (int i = 0; i < widget.orders.length; i++)
       price += widget.orders[i].price;
   }
@@ -39,6 +42,7 @@ class _OrderListItemState extends State<OrderListItem> {
     }
   }
 
+  bool deliveredCBValue;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<QuerySnapshot>(context);
@@ -54,7 +58,7 @@ class _OrderListItemState extends State<OrderListItem> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("الاجمالي: " + price.toString() + ' جم',
+                  Text("الاجمالي: " + (price + 5).toString() + ' جم',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   Text(_name + " : الأسم"),
@@ -95,7 +99,10 @@ class _OrderListItemState extends State<OrderListItem> {
                                   color: Colors.red,
                                   child: Text('تأكيد'),
                                   onPressed: () async {
-                                    await Firestore.instance.collection('Order').document(widget.orderId).delete();
+                                    await Firestore.instance
+                                        .collection('Order')
+                                        .document(widget.orderId)
+                                        .delete();
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -116,6 +123,25 @@ class _OrderListItemState extends State<OrderListItem> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('تم التوصيل'),
+                      Checkbox(
+                          value: deliveredCBValue,
+                          onChanged: (val) async {
+                            print(widget.orderId);
+                            await Firestore.instance
+                                .collection('Order')
+                                .document(widget.orderId)
+                                .updateData({'delivered': !deliveredCBValue});
+                            setState(() {
+                              deliveredCBValue = !deliveredCBValue;
+                              print(deliveredCBValue);
+                            });
+                          }),
                     ],
                   ),
                   Divider()

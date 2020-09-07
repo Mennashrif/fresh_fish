@@ -19,7 +19,8 @@ class DatabaseService {
     try {
       await Order.document().setData({
         'uid': uid,
-        'timeStamp':DateTime.now().toIso8601String(),
+        'timeStamp': DateTime.now().toIso8601String(),
+        'delivered': false,
         'content': [
           for (int i = 0; i < order.length; i++)
             {
@@ -39,9 +40,10 @@ class DatabaseService {
     }
   }
 
-  Stream<DocumentSnapshot> get user{
+  Stream<DocumentSnapshot> get user {
     return Users.document(uid).snapshots();
   }
+
   Stream<QuerySnapshot> get users {
     return Users.snapshots();
   }
@@ -56,7 +58,7 @@ class DatabaseService {
           category: doc.data['category'] ?? '0',
           Isoffered: doc.data['Isoffered'] ?? false,
           theOffer: doc.data['theOffer'] ?? 0,
-          allquantity: doc.data['quantity']??0);
+          allquantity: doc.data['quantity'] ?? 0);
     }).toList();
   }
 
