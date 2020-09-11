@@ -28,6 +28,7 @@ class BillItem extends StatelessWidget {
                       style: TextStyle(color: Colors.black, fontSize: 15)),
                   SizedBox(height: 3),
                   Visibility(
+                    visible: item.optionName.trim().isNotEmpty,
                     child: Row(
                       children: <Widget>[
                         Text(

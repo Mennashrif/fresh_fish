@@ -54,22 +54,23 @@ class _OrdersListState extends State<OrdersList> {
                 int c = 0;
                 while (order.data['content'].length > c) {
                   orderItems.add(orderitem(
-                      null,
-                      order.data['content'][c]['name'],
-                      order.data['content'][c]['price'],
-                      null,
+                    null,
+                    order.data['content'][c]['name'],
+                    order.data['content'][c]['price'],
+                    null,
                     order.data['content'][c]['quantity'],
-                      order.data['content'][c]['Isoffered'],
-                      order.data['content'][c]['optionName'],
-                      order.data['content'][c]['optionPrice'],
-                      null,
-                      null,
-                      ));
+                    order.data['content'][c]['Isoffered'],
+                    order.data['content'][c]['optionName'],
+                    order.data['content'][c]['optionPrice'],
+                    null,
+                    null,
+                  ));
                   c++;
                 }
                 ordersWidgets.add(OrderListItem(
                   timeStamp: order.data['timeStamp'],
                   uId: order.data['uid'],
+                  delivered: order.data['delivered'],
                   orderId: order.documentID,
                   orders: orderItems,
                 ));
