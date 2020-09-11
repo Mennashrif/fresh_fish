@@ -4,6 +4,7 @@ import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:fresh_fish/utilities/set_offer_modal.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
@@ -298,10 +299,13 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(widget.heroTag),
+                                  image:  CachedNetworkImageProvider(
+                                    "https://i.ibb.co/m5t8NZf/121851230-traditional-french-octopus-braised-cooked-with-salicornia-lemon-curd-and-spice-as-top-view.png",
+                                  ),
+
                                   fit: BoxFit.cover)),
                           height: MediaQuery.of(context).size.height * 0.25,
-                          width: MediaQuery.of(context).size.height * 0.25))),
+                          width: MediaQuery.of(context).size.width * 0.51))),
               Positioned(
                   top: MediaQuery.of(context).size.height*0.3,
                   left: 25.0,

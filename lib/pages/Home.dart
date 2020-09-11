@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     "استاكوزا",
     "الاسماك"
   ];
-  final List<String> images=[
+  final List<String> imagesCategory=[
     "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
 
     "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     "https://kamelabdo.com/wp-content/uploads/2020/02/38-1.jpg",
 
-    "https://images.unsplash.com/photo-1578935149228-66b184c83e69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1448043552756-e747b7a2b2b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=949&q=80",
 
     "https://tonysmarket.com/wp-content/uploads/2017/03/ThinkstockPhotos-533985314.jpg",
 
@@ -65,6 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
     "https://images.unsplash.com/photo-1590759668628-05b0fc34bb70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
 
     "https://www.fishing.net.nz/default/cache/file/ABCE2B3C-0BA2-4347-C5DECA7D1DBF64FF.jpg"
+  ];
+  List<String>imagesItem=[
+
   ];
   final _textFieldController = TextEditingController();
 
@@ -159,8 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Container(
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/salmon.png"),
+                                          image:NetworkImage("https://i.ibb.co/qk5jTBw/13604398-a-plate-of-shrimp-cocktail-from-above-removebg-preview.png"),
                                           fit: BoxFit.cover)),
                                   height: 90.0,
                                   width: 90.0)),
@@ -286,10 +289,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           height: 230.0,
                           width: 340.0,
-                          child: new Image.network(
-                            images[index],
-                            fit: BoxFit.cover,
-                          ),
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:  CachedNetworkImageProvider(
+                                      imagesCategory[index],
+                                    ),
+
+                                    fit: BoxFit.cover)),
                         ),
                         Positioned(
                           left: 0.0,
