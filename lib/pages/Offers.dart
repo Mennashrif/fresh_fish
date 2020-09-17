@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fresh_fish/models/category.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +14,13 @@ class OffersScreen extends StatefulWidget {
 
 class _OffersScreenState extends State<OffersScreen> {
   String _email;
+  static List<category> _category;
+  final _textFieldController = TextEditingController();
 
 
+  void Constractor(List<category> categorys){
+    _category=categorys;
+  }
   List<item> fillListofcategory(List<item> items) {
     List<item> Listofcategory = [];
 
@@ -101,7 +108,7 @@ class _OffersScreenState extends State<OffersScreen> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => DetailsPage(
-                                      heroTag: "assets/images/salmon.png",
+                                      heroTag: _category[_category.indexWhere((element) => element.name==Listofcategory[index].category)].itemImage,
                                       order: false,
                                       refresh: refresh,
                                       Item: Listofcategory[index],
@@ -159,8 +166,7 @@ class _OffersScreenState extends State<OffersScreen> {
                                     Hero(
                                         tag: index,
                                         child: Image(
-                                            image: AssetImage(
-                                                "assets/images/salmon.png"),
+                                            image: CachedNetworkImageProvider(_category[_category.indexWhere((element) => element.name==Listofcategory[index].category)].itemImage),
                                             fit: BoxFit.cover,
                                             height: 75.0,
                                             width: 75.0)),

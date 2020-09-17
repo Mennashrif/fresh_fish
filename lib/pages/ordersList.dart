@@ -55,6 +55,7 @@ class _OrdersListState extends State<OrdersList> {
                 while (order.data['content'].length > c) {
                   orderItems.add(orderitem(
                     null,
+                    null,
                     order.data['content'][c]['name'],
                     order.data['content'][c]['price'],
                     null,

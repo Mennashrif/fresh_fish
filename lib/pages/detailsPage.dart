@@ -35,54 +35,100 @@ class _DetailsPageState extends State<DetailsPage> {
   var optionName = '';
   var _character = 'نى';
   DatabaseService databaseService = DatabaseService();
+
   Widget option() {
+    widget.Item.name.contains('سلمون مدخن') ? quantity = 0.1 : quantity = 0.25;
     if (widget.Item.category.contains('جمبرى')) {
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            _buildInfoCard('بدون', '0', 'L.e'),
+            _character == 'نى'
+                ? _buildInfoCard('بدون', '0', 'L.e')
+                : new Container(),
             SizedBox(width: 10.0),
-            _buildInfoCard('قلي', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('شوي', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('صنية', '10', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('butterfly', '5', 'L.e')
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله butterfly' : 'butterfly',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
           ]));
     } else if (widget.Item.category.contains('كابوريا'))
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            _buildInfoCard('بدون', '0', 'L.e'),
+            _character == 'نى'
+                ? _buildInfoCard('بدون', '0', 'L.e')
+                : new Container(),
             SizedBox(width: 10.0),
-            _buildInfoCard('شوي', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('صنية', '10', 'L.e')
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
           ]));
     else if (widget.Item.category.contains('جاندوفلى و بلح بحر'))
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            _buildInfoCard('بدون', '0', 'L.e'),
+            _character == 'نى'
+                ? _buildInfoCard('بدون', '0', 'L.e')
+                : new Container(),
             SizedBox(width: 10.0),
-            _buildInfoCard('سلق', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله سلق' : 'سلق',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('طاجن', '10', 'L.e')
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله طاجن' : 'طاجن',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
           ]));
     else if (widget.Item.category.contains('فيليه'))
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            _buildInfoCard('بدون', '0', 'L.e'),
+            _character == 'نى'
+                ? _buildInfoCard('بدون', '0', 'L.e')
+                : new Container(),
             SizedBox(width: 10.0),
-            _buildInfoCard('قلي', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('شوي', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('طواجن', '10', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله طاجن' : 'طاجن',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('صوانى', '5', 'L.e')
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
           ]));
     else if (widget.Item.category.contains('الاسماك')) {
       if (widget.Item.name.contains('المكرونة') ||
@@ -91,9 +137,14 @@ class _DetailsPageState extends State<DetailsPage> {
             height: 120.0,
             child:
                 ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-              _buildInfoCard('بدون', '0', 'L.e'),
+              _character == 'نى'
+                  ? _buildInfoCard('بدون', '0', 'L.e')
+                  : new Container(),
               SizedBox(width: 10.0),
-              _buildInfoCard('قلي', '5', 'L.e')
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
             ]));
       else if (widget.Item.name.contains('دراك') ||
           widget.Item.name.contains('تونة') ||
@@ -102,13 +153,24 @@ class _DetailsPageState extends State<DetailsPage> {
             height: 120.0,
             child:
                 ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-              _buildInfoCard('بدون', '0', 'L.e'),
+              _character == 'نى'
+                  ? _buildInfoCard('بدون', '0', 'L.e')
+                  : new Container(),
               SizedBox(width: 10.0),
-              _buildInfoCard('قلي', '5', 'L.e'),
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
               SizedBox(width: 10.0),
-              _buildInfoCard('شوى', '5', 'L.e'),
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
               SizedBox(width: 10.0),
-              _buildInfoCard('صوانى', '5', 'L.e')
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
             ]));
       else if (widget.Item.name.contains('سردين') ||
           widget.Item.name.contains('سهلية'))
@@ -116,11 +178,19 @@ class _DetailsPageState extends State<DetailsPage> {
             height: 120.0,
             child:
                 ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-              _buildInfoCard('بدون', '0', 'L.e'),
+              _character == 'نى'
+                  ? _buildInfoCard('بدون', '0', 'L.e')
+                  : new Container(),
               SizedBox(width: 10.0),
-              _buildInfoCard('شوى', '5', 'L.e'),
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
               SizedBox(width: 10.0),
-              _buildInfoCard('صنية', '5', 'L.e')
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
             ]));
       else if (widget.Item.name.contains('بربون') ||
           widget.Item.name.contains('المرجان'))
@@ -128,32 +198,56 @@ class _DetailsPageState extends State<DetailsPage> {
             height: 120.0,
             child:
                 ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-              _buildInfoCard('بدون', '0', 'L.e'),
+              _character == 'نى'
+                  ? _buildInfoCard('بدون', '0', 'L.e')
+                  : new Container(),
               SizedBox(width: 10.0),
-              _buildInfoCard('قلى', '5', 'L.e'),
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
               SizedBox(width: 10.0),
-              _buildInfoCard('صنية', '5', 'L.e')
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
             ]));
       else
         return Container(
             height: 120.0,
             child:
                 ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-              _buildInfoCard('بدون', '0', 'L.e'),
+              _character == 'نى'
+                  ? _buildInfoCard('بدون', '0', 'L.e')
+                  : new Container(),
               SizedBox(width: 10.0),
-              _buildInfoCard('قلي', '5', 'L.e'),
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
               SizedBox(width: 10.0),
-              _buildInfoCard('سنجارى', '10', 'L.e'),
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله سنجارى' : 'سنجارى',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
               SizedBox(width: 10.0),
-              _buildInfoCard('صوانى', '5', 'L.e')
+              _buildInfoCard(
+                  _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                  _character == 'نى' ? 'مجاني' : '5',
+                  _character == 'نى' ? '' : 'L.e'),
             ]));
     } else if (widget.Item.category.contains('استاكوزا'))
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            _buildInfoCard('بدون', '0', 'L.e'),
+            _character == 'نى'
+                ? _buildInfoCard('بدون', '0', 'L.e')
+                : new Container(),
             SizedBox(width: 10.0),
-            _buildInfoCard('فرن', '5', 'L.e')
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله فرن' : 'فرن',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
           ]));
     else if (widget.Item.category.contains('سلمون')) {
       if (widget.Item.name.contains('سلمون مدخن')) {
@@ -170,37 +264,61 @@ class _DetailsPageState extends State<DetailsPage> {
               height: 120.0,
               child:
                   ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-                _buildInfoCard('بدون', '0', 'L.e'),
+                _character == 'نى'
+                    ? _buildInfoCard('بدون', '0', 'L.e')
+                    : new Container(),
                 SizedBox(width: 10.0),
-                _buildInfoCard('زيت زيتون', '5', 'L.e'),
+                _buildInfoCard(
+                    'تتبيله زيت زيتون',
+                    _character == 'نى' ? 'مجاني' : '5',
+                    _character == 'نى' ? '' : 'L.e'),
                 SizedBox(width: 10.0),
-                _buildInfoCard('كرافس', '5', 'L.e')
+                _buildInfoCard(
+                    'تتبيله كرافس',
+                    _character == 'نى' ? 'مجاني' : '5',
+                    _character == 'نى' ? '' : 'L.e')
               ]));
         else
           return Container(
               height: 120.0,
               child:
                   ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-                _buildInfoCard('بدون', '0', 'L.e'),
+                _character == 'نى'
+                    ? _buildInfoCard('بدون', '0', 'L.e')
+                    : new Container(),
                 SizedBox(width: 10.0),
-                _buildInfoCard('مقلى', '5', 'L.e'),
+                _buildInfoCard('مقلى', _character == 'نى' ? 'مجاني' : '5',
+                    _character == 'نى' ? '' : 'L.e'),
                 SizedBox(width: 10.0),
-                _buildInfoCard('طاجن', '5', 'L.e'),
+                _buildInfoCard('طاجن', _character == 'نى' ? 'مجاني' : '5',
+                    _character == 'نى' ? '' : 'L.e'),
                 SizedBox(width: 10.0),
-                _buildInfoCard('مشوى', '5', 'L.e')
+                _buildInfoCard('مشوى', _character == 'نى' ? 'مجاني' : '5',
+                    _character == 'نى' ? '' : 'L.e')
               ]));
       }
     } else
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            _buildInfoCard('بدون', '0', 'L.e'),
+            _character == 'نى'
+                ? _buildInfoCard('بدون', '0', 'L.e')
+                : new Container(),
             SizedBox(width: 10.0),
-            _buildInfoCard('قلى', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله قلي' : 'مقلى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('شوى', '5', 'L.e'),
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
-            _buildInfoCard('صوانى', '5', 'L.e')
+            _buildInfoCard(
+                _character == 'نى' ? 'تتبيله صنية' : 'صنية',
+                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? '' : 'L.e'),
           ]));
   }
 
@@ -286,10 +404,9 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image:  CachedNetworkImageProvider(
-                                    "https://i.ibb.co/m5t8NZf/121851230-traditional-french-octopus-braised-cooked-with-salicornia-lemon-curd-and-spice-as-top-view.png",
+                                  image: CachedNetworkImageProvider(
+                                    widget.heroTag,
                                   ),
-
                                   fit: BoxFit.cover)),
                           height: MediaQuery.of(context).size.height * 0.25,
                           width: MediaQuery.of(context).size.width * 0.51))),
@@ -341,6 +458,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                           _character = value;
                                         });
                                       },
+                                      autofocus: true,
                                     ),
                                   ),
                                 ),
@@ -407,7 +525,12 @@ class _DetailsPageState extends State<DetailsPage> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      if (quantity > 0.25) quantity -= 0.25;
+                                      if (widget.Item.name
+                                          .contains('سلمون مدخن')) {
+                                        if (quantity > 0.1) quantity -= 0.05;
+                                      } else {
+                                        if (quantity > 0.25) quantity -= 0.25;
+                                      }
                                     });
                                   },
                                   child: Container(
@@ -434,9 +557,13 @@ class _DetailsPageState extends State<DetailsPage> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      if (quantity < widget.Item.allquantity)
-                                        quantity += 0.25;
-                                      else {
+                                      if (quantity < widget.Item.allquantity) {
+                                        if (widget.Item.name
+                                            .contains('سلمون مدخن'))
+                                          quantity += 0.05;
+                                        else
+                                          quantity += 0.25;
+                                      } else {
                                         Fluttertoast.showToast(
                                             msg:
                                                 "Sorry, This item have been finished",
@@ -478,44 +605,50 @@ class _DetailsPageState extends State<DetailsPage> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            if (!widget.edit)
-                              fixedicon().createState().increasecart(orderitem(
-                                  widget.Item.id,
-                                  widget.Item.name,
-                                  (widget.Item.price - widget.Item.theOffer) *
-                                      quantity,
-                                  widget.Item.category,
-                                  quantity,
-                                  false,
-                                  optionName,
-                                  optionPrice * quantity,
-                                  widget.Item.theOffer,
-                                  widget.Item.allquantity));
-                            else {
-                              fixedicon().createState().editcart(
-                                  widget.index,
-                                  orderitem(
-                                      widget.Item.id,
-                                      widget.Item.name,
-                                      (widget.Item.price -
-                                              widget.Item.theOffer) *
-                                          quantity,
-                                      widget.Item.category,
-                                      quantity,
-                                      false,
-                                      optionName,
-                                      optionPrice * quantity,
-                                      widget.Item.theOffer,
-                                      widget.Item.allquantity));
-                              widget.refresh();
-                              Navigator.pop(context);
-                            }
-                            print(((widget.Item.price - widget.Item.theOffer) *
-                                        quantity)
-                                    .toString() +
-                                ' ' +
-                                (optionPrice * quantity).toString() +
-                                ' ');
+                              if (!widget.edit)
+                                fixedicon().createState().increasecart(
+                                    orderitem(
+                                        widget.Item.id,
+                                        widget.heroTag,
+                                        widget.Item.name,
+                                        (widget.Item.price -
+                                                widget.Item.theOffer) *
+                                            quantity,
+                                        widget.Item.category,
+                                        quantity,
+                                        false,
+                                        optionName,
+                                        optionPrice * quantity,
+                                        widget.Item.theOffer,
+                                        widget.Item.allquantity));
+                              else {
+                                fixedicon().createState().editcart(
+                                    widget.index,
+                                    orderitem(
+                                        widget.Item.id,
+                                        widget.heroTag,
+                                        widget.Item.name,
+                                        (widget.Item.price -
+                                                widget.Item.theOffer) *
+                                            quantity,
+                                        widget.Item.category,
+                                        quantity,
+                                        false,
+                                        optionName,
+                                        optionPrice * quantity,
+                                        widget.Item.theOffer,
+                                        widget.Item.allquantity));
+                                widget.refresh();
+                                Navigator.pop(context);
+                              }
+                              print(
+                                  ((widget.Item.price - widget.Item.theOffer) *
+                                              quantity)
+                                          .toString() +
+                                      ' ' +
+                                      (optionPrice * quantity).toString() +
+                                      ' ');
+
                           });
                         },
                         child: Container(

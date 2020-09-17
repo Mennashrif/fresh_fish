@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -185,8 +186,7 @@ class _OrderScreenState extends State<OrderScreen>
                                           onTap: () {
                                             Navigator.of(context).push(MaterialPageRoute(
                                                 builder: (context) => DetailsPage(
-                                                    heroTag:
-                                                        "assets/images/salmon.png",
+                                                    heroTag:widget.cartItem[index].image,
                                                     order: true,
                                                     refresh: refresh,
                                                     isAdmin: _email ==
@@ -224,7 +224,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                           Navigator.of(context).push(MaterialPageRoute(
                                                               builder: (context) => DetailsPage(
                                                                   heroTag:
-                                                                      "assets/images/salmon.png",
+                                                                      widget.cartItem[index].image,
                                                                   edit: true,
                                                                   index: index,
                                                                   order: true,
@@ -316,8 +316,9 @@ class _OrderScreenState extends State<OrderScreen>
                                                     Hero(
                                                         tag: index,
                                                         child: Image(
-                                                            image: AssetImage(
-                                                                "assets/images/salmon.png"),
+                                                            image:  CachedNetworkImageProvider(
+                                                              widget.cartItem[index].image,
+                                                            ),
                                                             fit: BoxFit.cover,
                                                             height: MediaQuery.of(
                                                                         context)

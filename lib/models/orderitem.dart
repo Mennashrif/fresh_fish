@@ -1,5 +1,6 @@
 class orderitem {
   final id;
+  final image;
   final num quantity;
   final String name;
   final num price;
@@ -11,6 +12,7 @@ class orderitem {
   final num allquantity;
   orderitem(
       this.id,
+      this.image,
       this.name,
       this.price,
       this.category,

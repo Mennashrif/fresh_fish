@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
@@ -6,13 +7,13 @@ import 'detailsPage.dart';
 
 class itemsPage extends StatefulWidget {
   final category;
-  //final items;
+  final heroTag;
   final refreshHome;
   final bool searchPage;
   final List<item> searchResult;
   final email ;
   itemsPage(
-      {this.category, this.refreshHome, this.searchPage, this.searchResult,@required this.email});
+      {this.heroTag,this.category,this.refreshHome, this.searchPage, this.searchResult,@required this.email});
 
   @override
   _itemsPageState createState() => _itemsPageState();
@@ -111,7 +112,7 @@ class _itemsPageState extends State<itemsPage> {
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetailsPage(
-                                  heroTag: "assets/images/salmon.png",
+                                  heroTag: widget.heroTag,
                                   order: false,
                                   refresh: refresh,
                                   Item: Listofcategory[index],
@@ -175,8 +176,8 @@ class _itemsPageState extends State<itemsPage> {
                                 Hero(
                                     tag: index,
                                     child: Image(
-                                        image: AssetImage(
-                                            "assets/images/salmon.png"),
+                                        image: CachedNetworkImageProvider(
+                                            widget.heroTag),
                                         fit: BoxFit.cover,
                                         height: 75.0,
                                         width: 75.0)),
