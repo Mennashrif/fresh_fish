@@ -15,8 +15,6 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   String _email;
   static List<category> _category;
-  final _textFieldController = TextEditingController();
-
 
   void Constractor(List<category> categorys){
     _category=categorys;

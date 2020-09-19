@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fresh_fish/mainPages/login.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:fresh_fish/mainPages/wrapper.dart';
-import 'mainPage.dart';
 // This is the Splash Screen
 class SplashScreen extends StatefulWidget {
   @override

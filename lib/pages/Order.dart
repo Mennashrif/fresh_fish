@@ -9,6 +9,7 @@ import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'Profile.dart';
 import 'detailsPage.dart';
 
@@ -184,15 +185,20 @@ class _OrderScreenState extends State<OrderScreen>
                                           EdgeInsets.only(top: 8.0, right: 16),
                                       child: InkWell(
                                           onTap: () {
-                                            Navigator.of(context).push(MaterialPageRoute(
-                                                builder: (context) => DetailsPage(
-                                                    heroTag:widget.cartItem[index].image,
-                                                    order: true,
-                                                    refresh: refresh,
-                                                    isAdmin: _email ==
-                                                        "fresh_fish@freshfish.com",
-                                                    Item: widget
-                                                        .cartItem[index])));
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DetailsPage(
+                                                            heroTag: widget
+                                                                .cartItem[index]
+                                                                .image,
+                                                            order: true,
+                                                            refresh: refresh,
+                                                            isAdmin: _email ==
+                                                                "fresh_fish@freshfish.com",
+                                                            Item:
+                                                                widget.cartItem[
+                                                                    index])));
                                           },
                                           child: Row(
                                             mainAxisAlignment:
@@ -223,8 +229,10 @@ class _OrderScreenState extends State<OrderScreen>
                                                         setState(() {
                                                           Navigator.of(context).push(MaterialPageRoute(
                                                               builder: (context) => DetailsPage(
-                                                                  heroTag:
-                                                                      widget.cartItem[index].image,
+                                                                  heroTag: widget
+                                                                      .cartItem[
+                                                                          index]
+                                                                      .image,
                                                                   edit: true,
                                                                   index: index,
                                                                   order: true,
@@ -316,8 +324,12 @@ class _OrderScreenState extends State<OrderScreen>
                                                     Hero(
                                                         tag: index,
                                                         child: Image(
-                                                            image:  CachedNetworkImageProvider(
-                                                              widget.cartItem[index].image,
+                                                            image:
+                                                                CachedNetworkImageProvider(
+                                                              widget
+                                                                  .cartItem[
+                                                                      index]
+                                                                  .image,
                                                             ),
                                                             fit: BoxFit.cover,
                                                             height: MediaQuery.of(
@@ -439,39 +451,47 @@ class _OrderScreenState extends State<OrderScreen>
                                                 builder: (context) =>
                                                     ProfileScreen()));
                                       }
-                                    : () async {
-                                        setState(() => loading = true);
-                                        bool res =
-                                            await DatabaseService(uid: uid.uid)
-                                                .addOrder(widget.cartItem);
-                                        if (!res) {
-                                          setState(() {
-                                            loading = false;
+                                    : () {
+                                        DatePicker.showDateTimePicker(context,
+                                            locale: LocaleType.ar,
+                                            minTime: DateTime.now(),
+                                            currentTime: DateTime.now(),
+                                            onChanged: (date) {},
+                                            onConfirm: (date) async {
+                                          setState(() => loading = true);
+                                          bool res = await DatabaseService(
+                                                  uid: uid.uid)
+                                              .addOrder(widget.cartItem,date.toIso8601String());
+                                          if (!res) {
+                                            setState(() {
+                                              loading = false;
+                                              Fluttertoast.showToast(
+                                                  msg: "فشل ارسال الطلب",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 3,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                            });
+                                          } else {
                                             Fluttertoast.showToast(
-                                                msg: "فشل ارسال الطلب",
+                                                msg: "تم ارسال الطلب",
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.CENTER,
                                                 timeInSecForIosWeb: 3,
-                                                backgroundColor: Colors.red,
+                                                backgroundColor: Colors.green,
                                                 textColor: Colors.white,
                                                 fontSize: 16.0);
-                                          });
-                                        } else {
-                                          Fluttertoast.showToast(
-                                              msg: "تم ارسال الطلب",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 3,
-                                              backgroundColor: Colors.green,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0);
-                                          setState(() {
-                                            fixedicon()
-                                                .createState()
-                                                .cleancart();
-                                            loading = false;
-                                          });
-                                        }
+                                            setState(() {
+                                              fixedicon()
+                                                  .createState()
+                                                  .cleancart();
+                                              loading = false;
+                                            });
+                                          }
+                                        });
                                       },
                                 child: Container(
                                   height: MediaQuery.of(context).size.height *

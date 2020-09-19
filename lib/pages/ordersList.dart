@@ -72,6 +72,7 @@ class _OrdersListState extends State<OrdersList> {
                   timeStamp: order.data['timeStamp'],
                   uId: order.data['uid'],
                   delivered: order.data['delivered'],
+                  deliveryDate: order.data['deliveryDate'],
                   orderId: order.documentID,
                   orders: orderItems,
                 ));

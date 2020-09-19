@@ -15,12 +15,13 @@ class DatabaseService {
         {'email': email, 'name': name, 'address': address, 'phone': phone});
   }
 
-  Future<bool> addOrder(List<orderitem> order) async {
+  Future<bool> addOrder(List<orderitem> order,String deliveryDate) async {
     try {
       await Order.document().setData({
         'uid': uid,
         'timeStamp': DateTime.now().toIso8601String(),
         'delivered': false,
+        'deliveryDate':deliveryDate,
         'content': [
           for (int i = 0; i < order.length; i++)
             {
