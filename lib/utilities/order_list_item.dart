@@ -33,7 +33,7 @@ class _OrderListItemState extends State<OrderListItem> {
     super.initState();
     deliveredCBValue = widget.delivered;
     for (int i = 0; i < widget.orders.length; i++)
-      price += widget.orders[i].price;
+      price += widget.orders[i].price+(widget.orders[i].optionPrice*widget.orders[i].quantity);
   }
 
   void getdata(final user, final uid) {
@@ -64,7 +64,7 @@ class _OrderListItemState extends State<OrderListItem> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("الاجمالي: " + (price + 5).toString() + ' جم',
+                  Text("الاجمالي: " + (price+ 5).toString() + ' جم',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   Text(_name + " : الأسم"),

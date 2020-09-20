@@ -3,10 +3,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/categoryImage.dart';
 import 'package:fresh_fish/models/item.dart';
-import 'package:fresh_fish/models/user.dart';
 import 'package:fresh_fish/pages/ordersList.dart';
 import 'package:fresh_fish/services/auth.dart';
-import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
 import 'detailsPage.dart';
@@ -43,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final items = Provider.of<List<item>>(context);
-    final uid = Provider.of<User>(context);
     final user = Provider.of<DocumentSnapshot>(context);
     if (user !=null && user.exists) {
       _email = user.data['email'];

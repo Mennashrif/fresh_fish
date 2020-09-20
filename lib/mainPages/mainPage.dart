@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fresh_fish/models/categoryImage.dart';
-import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/pages/Profile.dart';
 import 'package:fresh_fish/pages/Home.dart';
 import 'package:fresh_fish/pages/Offers.dart';

@@ -405,14 +405,14 @@ class _DetailsPageState extends State<DetailsPage> {
                   top: 30.0,
                   left: (MediaQuery.of(context).size.width * 0.27),
                   child: Hero(
-                      tag: widget.heroTag,
-                      child:ExtendedImage.network(
-                        widget.heroTag,
-                        width: MediaQuery.of(context).size.width * 0.51,
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        fit: BoxFit.cover,
-                        cache: true,
-                      ),/*CachedNetworkImage(
+                    tag: widget.heroTag,
+                    child: ExtendedImage.network(
+                      widget.heroTag,
+                      width: MediaQuery.of(context).size.width * 0.51,
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      fit: BoxFit.cover,
+                      cache: true,
+                    ), /*CachedNetworkImage(
                           imageUrl: widget.heroTag,
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
@@ -426,7 +426,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                           placeholder: (context, url) => CircularProgressIndicator(),
                           errorWidget: (context, url, error) => Icon(Icons.error),
-)*/)),
+)*/
+                  )),
               Positioned(
                   top: MediaQuery.of(context).size.height * 0.3,
                   left: 25.0,
@@ -671,7 +672,14 @@ class _DetailsPageState extends State<DetailsPage> {
                               setState(() {
                                 quantity = 0.0;
                               });
-
+                              Fluttertoast.showToast(
+                                  msg: "تم الاضافة لعربة التسوق",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
                               print(
                                   ((widget.Item.price - widget.Item.theOffer) *
                                               quantity)
@@ -680,15 +688,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                       (optionPrice * quantity).toString() +
                                       ' ');
                             } else {
-                                        Fluttertoast.showToast(
-                                            msg: " عفوا , ادخل الوزن المطلوب اولا",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.CENTER,
-                                            timeInSecForIosWeb: 5,
-                                            backgroundColor: Colors.red,
-                                            textColor: Colors.white,
-                                            fontSize: 16.0);
-                                      }
+                              Fluttertoast.showToast(
+                                  msg: " عفوا , ادخل الوزن المطلوب اولا",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            }
                           });
                         },
                         child: Container(
