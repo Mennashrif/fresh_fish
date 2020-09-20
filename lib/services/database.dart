@@ -75,8 +75,9 @@ class DatabaseService {
           Isoffered: e.data['Isoffered'],
           sort: e.data['sort'],
           theOffer: e.data['theOffer'],
+
         ));
-    }).toList();
+          }).toList();
     return result;
   }
 

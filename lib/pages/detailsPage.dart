@@ -4,7 +4,7 @@ import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:fresh_fish/utilities/set_offer_modal.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
@@ -401,15 +401,27 @@ class _DetailsPageState extends State<DetailsPage> {
                   left: (MediaQuery.of(context).size.width * 0.27),
                   child: Hero(
                       tag: widget.heroTag,
-                      child: Container(
-                          decoration: BoxDecoration(
+                      child:ExtendedImage.network(
+                        widget.heroTag,
+                        width: MediaQuery.of(context).size.width * 0.51,
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        fit: BoxFit.cover,
+                        cache: true,
+                      ),/*CachedNetworkImage(
+                          imageUrl: widget.heroTag,
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                    widget.heroTag,
-                                  ),
-                                  fit: BoxFit.cover)),
-                          height: MediaQuery.of(context).size.height * 0.25,
-                          width: MediaQuery.of(context).size.width * 0.51))),
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                 ),
+                            ),
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              width: MediaQuery.of(context).size.width * 0.51,
+                          ),
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+)*/)),
               Positioned(
                   top: MediaQuery.of(context).size.height * 0.3,
                   left: 25.0,

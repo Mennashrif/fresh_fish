@@ -1,5 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fresh_fish/models/categoryImage.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
@@ -10,23 +11,33 @@ class itemsPage extends StatefulWidget {
   final heroTag;
   final refreshHome;
   final bool searchPage;
-  final List<item> searchResult;
+  final String searchText;
+  final List<categoryImage> imageSearch;
   final email ;
   itemsPage(
-      {this.heroTag,this.category,this.refreshHome, this.searchPage, this.searchResult,@required this.email});
+      {this.heroTag,this.category,this.refreshHome, this.searchPage,this.searchText,this.imageSearch,@required this.email});
 
   @override
   _itemsPageState createState() => _itemsPageState();
 }
 
+
 class _itemsPageState extends State<itemsPage> {
   List<item> fillListofcategory(List<item> items) {
     List<item> Listofcategory = [];
     if (items != null) {
-      for (int i = 0; i < items.length; i++) {
-        if (items[i].category == widget.category) {
-          print(items[i].name);
-          Listofcategory.add(items[i]);
+      if (widget.searchPage) {
+        for (int i = 0; i < items.length; i++) {
+          if (items[i].name.contains(widget.searchText)) {
+            Listofcategory.add(items[i]);
+          }
+        }
+      }
+      else {
+        for (int i = 0; i < items.length; i++) {
+          if (items[i].category == widget.category) {
+            Listofcategory.add(items[i]);
+          }
         }
       }
     }
@@ -88,8 +99,7 @@ class _itemsPageState extends State<itemsPage> {
 
   Widget _buildFoodItem() {
     final items = Provider.of<List<item>>(context);
-    List<item> Listofcategory =
-        widget.searchPage ? widget.searchResult : fillListofcategory(items);
+    List<item> Listofcategory=fillListofcategory(items);
     print(MediaQuery.of(context).size.height);
     return Container(
       height: MediaQuery.of(context).size.height *0.748,
@@ -112,7 +122,7 @@ class _itemsPageState extends State<itemsPage> {
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetailsPage(
-                                  heroTag: widget.heroTag,
+                                  heroTag: widget.searchPage?widget.imageSearch[widget.imageSearch.indexWhere((element) => element.name==Listofcategory[index].category)].itemImage: widget.heroTag,
                                   order: false,
                                   refresh: refresh,
                                   Item: Listofcategory[index],
@@ -175,12 +185,18 @@ class _itemsPageState extends State<itemsPage> {
                                 ),
                                 Hero(
                                     tag: index,
-                                    child: Image(
+                                    child: ExtendedImage.network(
+                                      widget.searchPage?widget.imageSearch[widget.imageSearch.indexWhere((element) => element.name==Listofcategory[index].category)].itemImage: widget.heroTag,
+                                      width: 75.0,
+                                      height: 75.0,
+                                      fit: BoxFit.cover,
+                                      cache: true,
+                                    ),/*Image(
                                         image: CachedNetworkImageProvider(
                                             widget.heroTag),
                                         fit: BoxFit.cover,
                                         height: 75.0,
-                                        width: 75.0)),
+                                        width: 75.0)*/),
                               ])),
                             ],
                           ));
