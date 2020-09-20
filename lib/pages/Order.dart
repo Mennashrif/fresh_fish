@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -315,13 +315,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                     SizedBox(width: 5),
                                                     Hero(
                                                         tag: index,
-                                                        child: ExtendedImage.network(
-                                                          widget.cartItem[index].image,
-                                                          width:  MediaQuery.of(context).size.height * 0.1,
-                                                          height:MediaQuery.of(context).size.height * 0.1,
-                                                          fit: BoxFit.cover,
-                                                          cache: true,
-                                                        ),/*Image(
+                                                        child: Image(
                                                             image:  CachedNetworkImageProvider(
                                                               widget.cartItem[index].image,
                                                             ),
@@ -335,7 +329,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                                         context)
                                                                     .size
                                                                     .height *
-                                                                0.1)*/),
+                                                                0.1)),
                                                   ])),
                                             ],
                                           )));

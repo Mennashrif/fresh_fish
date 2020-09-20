@@ -9,9 +9,15 @@ class OrderListItem extends StatefulWidget {
   final String orderId;
   final bool delivered;
   final String timeStamp;
+  final String deliveryDate;
   final List<orderitem> orders;
   OrderListItem(
-      {this.orders, this.uId, this.timeStamp, this.orderId, this.delivered});
+      {this.orders,
+      this.uId,
+      this.timeStamp,
+      this.orderId,
+      this.delivered,
+      this.deliveryDate});
 
   @override
   _OrderListItemState createState() => _OrderListItemState();
@@ -62,11 +68,16 @@ class _OrderListItemState extends State<OrderListItem> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   Text(_name + " : الأسم"),
-                  Text(_address + " : العنوان"),
+                  Text(" العنوان : " + _address),
                   Text("رقم الهاتف : " + _phone),
                   Text(widget.timeStamp.substring(0, 10) +
                       " | " +
-                      widget.timeStamp.substring(11, 19)),
+                      widget.timeStamp.substring(11, 16) +
+                      " : تاريخ الطلب"),
+                  Text(widget.timeStamp.substring(0, 10) +
+                      " | " +
+                      widget.deliveryDate.substring(11, 16) +
+                      " : تاريخ التوصيل"),
                   SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -14,6 +14,9 @@ class fixedicon extends StatefulWidget {
 class _fixediconState extends State<fixedicon>
     with SingleTickerProviderStateMixin {
   static List<orderitem> cartItem = [];
+   get getCart{
+    return cartItem;
+  }
   void increasecart(orderitem item) {
     cartItem.add(item);
   }

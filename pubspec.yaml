@@ -39,9 +39,10 @@ dependencies:
   google_sign_in: ^4.5.1
   http: ^0.12.1
   fluttertoast: ^7.0.2
+  cached_network_image: ^2.3.1
   firebase_messaging: ^6.0.16
-  extended_image: ^1.1.1
-  #cached_network_image: ^2.3.2+1
+  flutter_datetime_picker: ^1.4.0
+
 
 
 dev_dependencies:

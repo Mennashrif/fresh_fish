@@ -30,14 +30,13 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   var selectedCard = 'WEIGHT';
-  var quantity = 0.25;
+  var quantity = 0.0;
   var optionPrice = 0.0;
   var optionName = '';
   var _character = 'نى';
   DatabaseService databaseService = DatabaseService();
 
   Widget option() {
-    widget.Item.name.contains('سلمون مدخن') ? quantity = 0.1 : quantity = 0.25;
     if (widget.Item.category.contains('جمبرى')) {
       return Container(
           height: 120.0,
@@ -323,6 +322,12 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    quantity = 0.0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
@@ -568,8 +573,18 @@ class _DetailsPageState extends State<DetailsPage> {
                                         fontSize: 15.0)),
                                 InkWell(
                                   onTap: () {
+                                    List<orderitem> cart =
+                                        fixedicon().createState().getCart;
+                                    double sum = 0;
+                                    cart.forEach((element) {
+                                      if (element.id == widget.Item.id)
+                                        sum += element.quantity;
+                                    });
+                                    print('--------------' +
+                                        (sum + quantity).toString());
                                     setState(() {
-                                      if (quantity < widget.Item.allquantity) {
+                                      if (sum + quantity <
+                                          widget.Item.allquantity) {
                                         if (widget.Item.name
                                             .contains('سلمون مدخن'))
                                           quantity += 0.05;
@@ -577,12 +592,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                           quantity += 0.25;
                                       } else {
                                         Fluttertoast.showToast(
-                                            msg:
-                                                "Sorry, This item have been finished",
+                                            msg: "عفوا , لقد انتهى هذا المنتج",
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.CENTER,
                                             timeInSecForIosWeb: 5,
-                                            backgroundColor: Colors.black,
+                                            backgroundColor: Colors.red,
                                             textColor: Colors.white,
                                             fontSize: 16.0);
                                       }
@@ -617,6 +631,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       InkWell(
                         onTap: () {
                           setState(() {
+                            if (quantity != 0.0) {
                               if (!widget.edit)
                                 fixedicon().createState().increasecart(
                                     orderitem(
@@ -653,6 +668,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                 widget.refresh();
                                 Navigator.pop(context);
                               }
+                              setState(() {
+                                quantity = 0.0;
+                              });
+
                               print(
                                   ((widget.Item.price - widget.Item.theOffer) *
                                               quantity)
@@ -660,7 +679,16 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ' ' +
                                       (optionPrice * quantity).toString() +
                                       ' ');
-
+                            } else {
+                                        Fluttertoast.showToast(
+                                            msg: " عفوا , ادخل الوزن المطلوب اولا",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      }
                           });
                         },
                         child: Container(
@@ -698,7 +726,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget _buildInfoCard(String cardTitle, String info, String unit) {
     return InkWell(
         onTap: () {
-          optionPrice = double.parse(info);
+          optionPrice = info == 'مجاني' ? 0.0 : double.parse(info);
           cardTitle == 'بدون' ? optionName = '' : optionName = cardTitle;
           selectCard(cardTitle);
         },
