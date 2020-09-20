@@ -21,14 +21,17 @@ class _fixediconState extends State<fixedicon>
   }
   void increasecart(orderitem item) {
     cartItem.add(item);
+    savecartItem();
   }
 
   void decreasecart(int index) {
     cartItem.removeAt(index);
+    savecartItem();
   }
 
   void editcart(int index, orderitem item) {
     cartItem[index] = item;
+    savecartItem();
   }
 
   void cleancart()  {

@@ -27,6 +27,7 @@ class _itemsPageState extends State<itemsPage> {
     List<item> Listofcategory = [];
     if (items != null) {
       if (widget.searchPage) {
+        print(widget.searchText);
         for (int i = 0; i < items.length; i++) {
           if (items[i].name.contains(widget.searchText)) {
             Listofcategory.add(items[i]);

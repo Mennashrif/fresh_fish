@@ -94,7 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (con, i) {
                 return InkWell(
                   onTap: ()  {
-                   // print(categoryList.indexOf(Listofcategory[i].category));
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => DetailsPage(
                             heroTag:_category[_category.indexWhere((element) => element.name==Listofcategory[i].category)].itemImage,
@@ -123,14 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 cache: true,
                               ),
                                 width: 90.0,
-                                height:90.0,),
-                            /*Container(
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image:CachedNetworkImageProvider(_category[_category.indexWhere((element) => element.name==Listofcategory[i].category)].itemImage),
-                                          fit: BoxFit.cover)),
-                                  height: 90.0,
-                                  width: 90.0)*/),
+                                height:90.0,),),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
@@ -140,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontFamily: 'Montserrat',
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold)),
-                                /*SizedBox(height: 1.0),*/
                                 Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -203,9 +194,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             searchText:_textFieldController.text,
                             imageSearch: _category,
                             refreshHome: refreshHome)));
-                    setState(() {
-                      _textFieldController.clear();
-                    });
                   }
                 },
                 decoration: InputDecoration(
@@ -228,9 +216,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     searchText:_textFieldController.text,
                                     imageSearch: _category,
                                     refreshHome: refreshHome)));
-                            setState(() {
-                              _textFieldController.clear();
-                            });
+
+
                           }
                         },
                       )),

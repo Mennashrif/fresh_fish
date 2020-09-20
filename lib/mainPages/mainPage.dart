@@ -104,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
   }
   DateTime currentBackPressTime;
   Future<bool> onWillPop() {
-    fixedicon().createState().savecartItem();
+
     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
         now.difference(currentBackPressTime) > Duration(seconds: 2)) {
