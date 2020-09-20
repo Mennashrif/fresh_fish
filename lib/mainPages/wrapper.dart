@@ -6,7 +6,7 @@ import 'package:fresh_fish/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:fresh_fish/mainPages/login.dart';
 import 'package:fresh_fish/mainPages/mainPage.dart';
-
+import 'package:fresh_fish/utilities/fixedicon.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,6 +17,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return LoginScreen();
     } else {
+      fixedicon().createState().getcartItem();
       return MultiProvider(
           providers: [
             StreamProvider<DocumentSnapshot>.value(value: DatabaseService(uid: user.uid).user),

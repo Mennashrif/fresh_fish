@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_fish/models/category.dart';
+import 'package:fresh_fish/models/categoryImage.dart';
 import 'package:fresh_fish/models/item.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +14,9 @@ class OffersScreen extends StatefulWidget {
 
 class _OffersScreenState extends State<OffersScreen> {
   String _email;
-  static List<category> _category;
-  final _textFieldController = TextEditingController();
+  static List<categoryImage> _category;
 
-
-  void Constractor(List<category> categorys){
+  void Constractor(List<categoryImage> categorys){
     _category=categorys;
   }
   List<item> fillListofcategory(List<item> items) {
@@ -90,7 +88,12 @@ class _OffersScreenState extends State<OffersScreen> {
         color: Colors.white,
         borderRadius: BorderRadius.only(topRight: Radius.circular(75.0)),
       ),
-      child: ListView(
+      child: Listofcategory.length==0? Center(
+        child: Container(
+          child: Text('حاليا لا يوجد عروض',textScaleFactor: 2.0),
+          
+        ),
+      ):ListView(
           primary: false,
           padding: EdgeInsets.only(left: 25.0, right: 20.0),
           children: <Widget>[
@@ -116,62 +119,68 @@ class _OffersScreenState extends State<OffersScreen> {
                               },
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Icon(Icons.add, color: Colors.black),
                                   Container(
                                       child: Row(children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 10.0),
-                                      child: Column(
-                                          crossAxisAlignment:
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 10.0),
+                                          child: Column(
+                                              crossAxisAlignment:
                                               CrossAxisAlignment.end,
-                                          children: [
-                                            Text(Listofcategory[index].name,
-                                                textDirection:
+                                              children: [
+                                                Text(Listofcategory[index].name,
+                                                    textDirection:
                                                     TextDirection.rtl,
-                                                style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 17.0,
-                                                    fontWeight:
+                                                    style: TextStyle(
+                                                        fontFamily: 'Montserrat',
+                                                        fontSize: 17.0,
+                                                        fontWeight:
                                                         FontWeight.bold)),
-                                            Text(
-                                                Listofcategory[index]
+                                                Text(
+                                                    Listofcategory[index]
                                                         .price
                                                         .toString() +
-                                                    " " +
-                                                    "جم",
-                                                style: TextStyle(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 15.0,
-                                                  color: Colors.grey,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                )),
-                                            Text(
-                                                (Listofcategory[index].price -
-                                                            Listofcategory[
-                                                                    index]
-                                                                .theOffer)
+                                                        " " +
+                                                        "جم",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 15.0,
+                                                      color: Colors.grey,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                    )),
+                                                Text(
+                                                    (Listofcategory[index].price -
+                                                        Listofcategory[
+                                                        index]
+                                                            .theOffer)
                                                         .toString() +
-                                                    " " +
-                                                    "جم",
-                                                style: TextStyle(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 15.0,
-                                                  color: Colors.blue,
-                                                ))
-                                          ]),
-                                    ),
-                                    Hero(
-                                        tag: index,
-                                        child: Image(
+                                                        " " +
+                                                        "جم",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 15.0,
+                                                      color: Colors.blue,
+                                                    ))
+                                              ]),
+                                        ),
+                                        Hero(
+                                          tag: index,
+                                          child: ExtendedImage.network(
+                                            _category[_category.indexWhere((element) => element.name==Listofcategory[index].category)].itemImage,
+                                            width:75.0,
+                                            height: 75.0,
+                                            fit: BoxFit.cover,
+                                            cache: true,
+                                          ),/*Image(
                                             image: CachedNetworkImageProvider(_category[_category.indexWhere((element) => element.name==Listofcategory[index].category)].itemImage),
                                             fit: BoxFit.cover,
                                             height: 75.0,
-                                            width: 75.0)),
-                                    SizedBox(width: 10.0),
-                                  ])),
+                                            width: 75.0)*/),
+                                        SizedBox(width: 10.0),
+                                      ])),
                                 ],
                               )));
                     }),

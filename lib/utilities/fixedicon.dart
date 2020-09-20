@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/pages/Order.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class fixedicon extends StatefulWidget {
   final order;
   final refresh;
@@ -13,6 +14,7 @@ class fixedicon extends StatefulWidget {
 
 class _fixediconState extends State<fixedicon>
     with SingleTickerProviderStateMixin {
+
   static List<orderitem> cartItem = [];
    get getCart{
     return cartItem;
@@ -29,10 +31,18 @@ class _fixediconState extends State<fixedicon>
     cartItem[index] = item;
   }
 
-  void cleancart() {
+  void cleancart()  {
     cartItem.removeRange(0, cartItem.length);
   }
-
+ void savecartItem() async {
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+   final String s=orderitem.encodeMusics(cartItem);
+  prefs.setString('cartItem', s);
+ }
+ void getcartItem() async{
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+   cartItem=orderitem.decodeMusics(prefs.getString('cartItem'));
+ }
   @override
   Widget build(BuildContext context) {
     return InkWell(

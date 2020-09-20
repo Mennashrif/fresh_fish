@@ -193,6 +193,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: Colors.black, fontSize: 16.0),
                 cursorColor: Theme.of(context).primaryColor,
                 textAlign: TextAlign.center,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (value){
+                  if (_textFieldController.text.isNotEmpty) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => itemsPage(
+                            searchPage: true,
+                            email: _email,
+                            searchText:_textFieldController.text,
+                            imageSearch: _category,
+                            refreshHome: refreshHome)));
+                    setState(() {
+                      _textFieldController.clear();
+                    });
+                  }
+                },
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 32.0, vertical: 14.0),
@@ -202,14 +217,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: IconButton(
                         icon: Icon(
                           Icons.search,
-                          color: Colors.black,
+                          color: Colors.blueAccent,
                         ),
-                        onPressed: () async {
+                        onPressed: ()  {
                           if (_textFieldController.text.isNotEmpty) {
-                            DatabaseService databaseService =
-                                DatabaseService(uid: uid.uid);
-                            /*List<item> result = await databaseService
-                                .fetchSearchResult(_textFieldController.text);*/
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => itemsPage(
                                     searchPage: true,
@@ -217,6 +228,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     searchText:_textFieldController.text,
                                     imageSearch: _category,
                                     refreshHome: refreshHome)));
+                            setState(() {
+                              _textFieldController.clear();
+                            });
                           }
                         },
                       )),

@@ -2,14 +2,16 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fresh_fish/models/categoryImage.dart';
+import 'package:fresh_fish/models/orderitem.dart';
 import 'package:fresh_fish/pages/Profile.dart';
 import 'package:fresh_fish/pages/Home.dart';
 import 'package:fresh_fish/pages/Offers.dart';
 import 'package:fresh_fish/pages/aboutUs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:fresh_fish/utilities/fixedicon.dart';
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -65,6 +67,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void changeTab(int index) {
     setState(() {
+
       _showpage = _pageChooser(index);
     });
   }
@@ -99,40 +102,57 @@ class _MainScreenState extends State<MainScreen> {
         .collection('Token').document(user.uid)
         .setData({'adminToken':tokenResult.token });
   }
+  DateTime currentBackPressTime;
+  Future<bool> onWillPop() {
+    fixedicon().createState().savecartItem();
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "اضغط مرتين للخروج من التطبيق");
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
 
   @override
   Widget build(BuildContext context) {
     changeTab(_index);
 
-    return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Color(0xFF7A9BEE),
-        height: 60,
-        items: <Widget>[
-          Icon(Icons.live_help, size: 25),
-          Icon(Icons.local_offer, size: 25),
-          Icon(Icons.account_circle, size: 25),
-          Icon(Icons.home, size: 25),
-        ],
-        index: _index,
-        onTap: (index) {
-          setState(() {
-            _index = index;
-          });
-        },
-      ),
-      //body: Container(color: Colors.blueAccent),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(children: <Widget>[
-            Center(
-              child: Container(
-                child: _showpage,
+    return WillPopScope(
+      onWillPop: () {
+       return onWillPop();
+      },
+      child: Scaffold(
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Color(0xFF7A9BEE),
+          height: 60,
+          items: <Widget>[
+            Icon(Icons.live_help, size: 25),
+            Icon(Icons.local_offer, size: 25),
+            Icon(Icons.account_circle, size: 25),
+            Icon(Icons.home, size: 25),
+          ],
+          index: _index,
+          onTap: (index) {
+            setState(() {
+              _index = index;
+            });
+          },
+        ),
+        //body: Container(color: Colors.blueAccent),
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Stack(children: <Widget>[
+              Center(
+                child: Container(
+                  child: _showpage,
+                ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );
