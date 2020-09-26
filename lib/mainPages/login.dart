@@ -18,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _error = '';
   bool loading = false;
   final _formkey = GlobalKey<FormState>();
+ //Field of userEmail
   Widget _buildEmailTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -54,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
-
+// Field of userPassword
   Widget _buildPasswordTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -91,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
+  // LoginButton to enter mainPage
   Widget _buildLoginBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -131,7 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  Widget _buildForgotPasswordBtn() {
+  //LoginButtton as aguest without needing of mails
+  Widget _buildLoginAsGuest() {
     return Container(
       //alignment: Alignment.centerRight,
       child: FlatButton(
@@ -153,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
+//text
   Widget _buildSignInWithText() {
     return Column(
       children: <Widget>[
@@ -171,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
-
+// design of socialButton
   Widget _buildSocialBtn(Function onTap, AssetImage logo) {
     return GestureDetector(
       onTap: onTap,
@@ -195,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
+// Login with facebook and gmail
   Widget _buildSocialBtnRow() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5.0),
@@ -236,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
+//Make anew account
   Widget _buildSignupBtn() {
     return GestureDetector(
       onTap: () {
@@ -270,6 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Make Loading till back to loginPage(if response failed) or enter mainPage (if response success)
     return loading
         ? Loading()
         : Scaffold(
@@ -279,24 +283,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 value: SystemUiOverlayStyle.light,
                 child: GestureDetector(
                   onTap: () => FocusScope.of(context).unfocus(),
+               //Stack of buttons and textFields of LoginPage
                   child: Stack(
                     children: <Widget>[
+               //View of background
                       Container(
                         height: double.infinity,
                         width: double.infinity,
-                        /*decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFF73AEF5),
-                        Color(0xFF61A4F1),
-                        Color(0xFF478DE0),
-                        Color(0xFF398AE5),
-                      ],
-                      stops: [0.1, 0.4, 0.7, 0.9],
-                    ),
-                  ),*/
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/images/background.png"),
@@ -334,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       height: 10.0,
                                     ),
                                     _buildPasswordTF(),
-                                  _buildForgotPasswordBtn(),
+                                    _buildLoginAsGuest(),
                                     _buildLoginBtn(),
                                     SizedBox(height: 8.0),
                                     Text(

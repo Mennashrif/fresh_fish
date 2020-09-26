@@ -255,17 +255,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           fit: BoxFit.cover,
                           cache: true,
                         ),
-                        /*Container(
-                          height: 230.0,
-                          width: 340.0,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:  CachedNetworkImageProvider(
-                                      _category[index].categoryImage,
-                                    ),
-
-                                    fit: BoxFit.cover)),
-                        ),*/
                         Positioned(
                           left: 0.0,
                           bottom: 0.0,

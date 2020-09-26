@@ -55,7 +55,7 @@ class orderitem {
         'allquantity': Orderitem.allquantity,
       };
 
-  static String encodeMusics(List<orderitem> orders) =>
+  static String encodeOrder(List<orderitem> orders) =>
       json.encode(
         orders
             .map<Map<String, dynamic>>((Orderitem) =>
@@ -63,7 +63,7 @@ class orderitem {
             .toList(),
       );
 
-  static List<orderitem> decodeMusics(String Orderitems) =>
+  static List<orderitem> decodeOrder(String Orderitems) =>
       (json.decode(Orderitems) as List<dynamic>)
           .map<orderitem>((item) => orderitem.fromJson(item))
           .toList();

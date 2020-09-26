@@ -10,7 +10,6 @@ import 'package:fresh_fish/pages/Offers.dart';
 import 'package:fresh_fish/pages/aboutUs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fresh_fish/utilities/fixedicon.dart';
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -139,7 +138,6 @@ class _MainScreenState extends State<MainScreen> {
             });
           },
         ),
-        //body: Container(color: Colors.blueAccent),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: GestureDetector(

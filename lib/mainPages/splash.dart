@@ -40,9 +40,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   alignment: Alignment.center,
                   fit: BoxFit.cover,
                   animation: "Untitled Duplicate Duplicate",
-
                 ),
-
               ),
             ],
           ),
