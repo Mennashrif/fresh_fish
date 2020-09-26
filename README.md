@@ -1,16 +1,24 @@
 # fresh_fish
+A Fish restaurant ordering app made in Flutter . 
 
-A new Flutter application.
+What we used in this app :
 
-## Getting Started
+- Provider package . 
 
-This project is a starting point for a Flutter application.
+- Firebase Authentication .
 
-A few resources to get you started if this is your first Flutter project:
+- Firebase cloud firestore . 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Cloud Messaging .
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Cloud Functions .
+
+- Google & Facebook SignIn .
+
+- Shared Preferences .
+
+- Stream & Future Builders . 
+
+![iphonexspacegrey_landscape (1)](https://user-images.githubusercontent.com/56844663/94262102-383a9600-ff33-11ea-882e-48186158d59a.png)
+![iphonexspacegrey_portrait (4)](https://user-images.githubusercontent.com/56844663/94262111-396bc300-ff33-11ea-9722-280acc4957f6.png)
+![iphonexspacegrey_portrait (5)](https://user-images.githubusercontent.com/56844663/94262113-3a045980-ff33-11ea-9cdc-a72ab5827c93.png)
