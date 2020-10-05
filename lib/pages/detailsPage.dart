@@ -680,13 +680,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                   backgroundColor: Colors.green,
                                   textColor: Colors.white,
                                   fontSize: 16.0);
-                              print(
-                                  ((widget.Item.price - widget.Item.theOffer) *
-                                              quantity)
-                                          .toString() +
-                                      ' ' +
-                                      (optionPrice * quantity).toString() +
-                                      ' ');
                             } else {
                               Fluttertoast.showToast(
                                   msg: " عفوا , ادخل الوزن المطلوب اولا",
