@@ -5,7 +5,6 @@ import 'package:fresh_fish/services/database.dart';
 import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:fresh_fish/utilities/set_offer_modal.dart';
 import 'package:extended_image/extended_image.dart';
-
 class DetailsPage extends StatefulWidget {
   final heroTag;
   final order;
@@ -33,11 +32,13 @@ class _DetailsPageState extends State<DetailsPage> {
   var quantity = 0.0;
   var optionPrice = 0.0;
   var optionName = '';
+  var optiontStart='';
   var _character = 'نى';
   DatabaseService databaseService = DatabaseService();
 
   Widget option() {
     if (widget.Item.category.contains('جمبرى')) {
+      optiontStart='مقلى';
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -65,7 +66,8 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? 'مجاني' : '5',
                 _character == 'نى' ? '' : 'L.e'),
           ]));
-    } else if (widget.Item.category.contains('كابوريا'))
+    } else if (widget.Item.category.contains('كابوريا')) {
+      optiontStart='مشوى';
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -83,7 +85,9 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? 'مجاني' : '5',
                 _character == 'نى' ? '' : 'L.e'),
           ]));
-    else if (widget.Item.category.contains('جاندوفلى و بلح بحر'))
+    }
+    else if (widget.Item.category.contains('جاندوفلى و بلح بحر')) {
+      optiontStart='سلق';
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -101,7 +105,9 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? 'مجاني' : '5',
                 _character == 'نى' ? '' : 'L.e'),
           ]));
-    else if (widget.Item.category.contains('فيليه'))
+    }
+    else if (widget.Item.category.contains('فيليه')) {
+      optiontStart='مقلى';
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -129,13 +135,15 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? 'مجاني' : '5',
                 _character == 'نى' ? '' : 'L.e'),
           ]));
+    }
     else if (widget.Item.category.contains('الاسماك')) {
       if (widget.Item.name.contains('المكرونة') ||
-          widget.Item.name.contains('الموسى'))
+          widget.Item.name.contains('الموسى')) {
+        optiontStart='مقلى';
         return Container(
             height: 120.0,
             child:
-                ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+            ListView(scrollDirection: Axis.horizontal, children: <Widget>[
               _character == 'نى'
                   ? _buildInfoCard('بدون', '0', 'L.e')
                   : new Container(),
@@ -145,13 +153,15 @@ class _DetailsPageState extends State<DetailsPage> {
                   _character == 'نى' ? 'مجاني' : '5',
                   _character == 'نى' ? '' : 'L.e'),
             ]));
+      }
       else if (widget.Item.name.contains('دراك') ||
           widget.Item.name.contains('تونة') ||
-          widget.Item.name.contains('ثعابين'))
+          widget.Item.name.contains('ثعابين')) {
+        optiontStart='مقلى';
         return Container(
             height: 120.0,
             child:
-                ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+            ListView(scrollDirection: Axis.horizontal, children: <Widget>[
               _character == 'نى'
                   ? _buildInfoCard('بدون', '0', 'L.e')
                   : new Container(),
@@ -171,12 +181,14 @@ class _DetailsPageState extends State<DetailsPage> {
                   _character == 'نى' ? 'مجاني' : '5',
                   _character == 'نى' ? '' : 'L.e'),
             ]));
+      }
       else if (widget.Item.name.contains('سردين') ||
-          widget.Item.name.contains('سهلية'))
+          widget.Item.name.contains('سهلية')) {
+        optiontStart='مشوى';
         return Container(
             height: 120.0,
             child:
-                ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+            ListView(scrollDirection: Axis.horizontal, children: <Widget>[
               _character == 'نى'
                   ? _buildInfoCard('بدون', '0', 'L.e')
                   : new Container(),
@@ -191,12 +203,14 @@ class _DetailsPageState extends State<DetailsPage> {
                   _character == 'نى' ? 'مجاني' : '5',
                   _character == 'نى' ? '' : 'L.e'),
             ]));
+      }
       else if (widget.Item.name.contains('بربون') ||
-          widget.Item.name.contains('المرجان'))
+          widget.Item.name.contains('المرجان')) {
+        optiontStart='مقلى';
         return Container(
             height: 120.0,
             child:
-                ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+            ListView(scrollDirection: Axis.horizontal, children: <Widget>[
               _character == 'نى'
                   ? _buildInfoCard('بدون', '0', 'L.e')
                   : new Container(),
@@ -211,11 +225,13 @@ class _DetailsPageState extends State<DetailsPage> {
                   _character == 'نى' ? 'مجاني' : '5',
                   _character == 'نى' ? '' : 'L.e'),
             ]));
-      else
+      }
+      else {
+        optiontStart='مقلى';
         return Container(
             height: 120.0,
             child:
-                ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+            ListView(scrollDirection: Axis.horizontal, children: <Widget>[
               _character == 'نى'
                   ? _buildInfoCard('بدون', '0', 'L.e')
                   : new Container(),
@@ -235,7 +251,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   _character == 'نى' ? 'مجاني' : '5',
                   _character == 'نى' ? '' : 'L.e'),
             ]));
-    } else if (widget.Item.category.contains('استاكوزا'))
+      }
+    } else if (widget.Item.category.contains('استاكوزا')) {
+      optiontStart='فرن';
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -248,6 +266,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? 'مجاني' : '5',
                 _character == 'نى' ? '' : 'L.e'),
           ]));
+    }
     else if (widget.Item.category.contains('سلمون')) {
       if (widget.Item.name.contains('سلمون مدخن')) {
         return Container(
@@ -277,11 +296,12 @@ class _DetailsPageState extends State<DetailsPage> {
                     _character == 'نى' ? 'مجاني' : '5',
                     _character == 'نى' ? '' : 'L.e')
               ]));
-        else
+        else {
+          optiontStart='مقلى';
           return Container(
               height: 120.0,
               child:
-                  ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+              ListView(scrollDirection: Axis.horizontal, children: <Widget>[
                 _character == 'نى'
                     ? _buildInfoCard('بدون', '0', 'L.e')
                     : new Container(),
@@ -295,8 +315,11 @@ class _DetailsPageState extends State<DetailsPage> {
                 _buildInfoCard('مشوى', _character == 'نى' ? 'مجاني' : '5',
                     _character == 'نى' ? '' : 'L.e')
               ]));
+        }
       }
-    } else
+    } else {
+
+        optiontStart='مقلى';
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -319,6 +342,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? 'مجاني' : '5',
                 _character == 'نى' ? '' : 'L.e'),
           ]));
+    }
   }
 
   @override
@@ -339,7 +363,6 @@ class _DetailsPageState extends State<DetailsPage> {
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
-                // just refresh() if its statelesswidget
                 widget.refresh();
                 Navigator.pop(context);
               },
@@ -412,21 +435,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       height: MediaQuery.of(context).size.height * 0.25,
                       fit: BoxFit.cover,
                       cache: true,
-                    ), /*CachedNetworkImage(
-                          imageUrl: widget.heroTag,
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                 ),
-                            ),
-                              height: MediaQuery.of(context).size.height * 0.25,
-                              width: MediaQuery.of(context).size.width * 0.51,
-                          ),
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
-)*/
+                    ),
                   )),
               Positioned(
                   top: MediaQuery.of(context).size.height * 0.3,
@@ -458,6 +467,9 @@ class _DetailsPageState extends State<DetailsPage> {
                                         setState(() {
                                           _character = value;
                                         });
+                                        optionName=optiontStart;
+                                        selectCard(optiontStart);
+
                                       },
                                     ),
                                   ),

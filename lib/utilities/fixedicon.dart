@@ -38,12 +38,12 @@ class _fixediconState extends State<fixedicon>
   }
  void savecartItem() async {
    SharedPreferences prefs = await SharedPreferences.getInstance();
-   final String s=orderitem.encodeMusics(cartItem);
+   final String s=orderitem.encodeOrder(cartItem);
   prefs.setString('cartItem', s);
  }
  void getcartItem() async{
    SharedPreferences prefs = await SharedPreferences.getInstance();
-   cartItem=orderitem.decodeMusics(prefs.getString('cartItem'));
+   cartItem=orderitem.decodeOrder(prefs.getString('cartItem'));
  }
   @override
   Widget build(BuildContext context) {

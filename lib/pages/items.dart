@@ -192,12 +192,7 @@ class _itemsPageState extends State<itemsPage> {
                                       height: 75.0,
                                       fit: BoxFit.cover,
                                       cache: true,
-                                    ),/*Image(
-                                        image: CachedNetworkImageProvider(
-                                            widget.heroTag),
-                                        fit: BoxFit.cover,
-                                        height: 75.0,
-                                        width: 75.0)*/),
+                                    ),),
                               ])),
                             ],
                           ));

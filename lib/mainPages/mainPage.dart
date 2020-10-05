@@ -135,11 +135,11 @@ class _MainScreenState extends State<MainScreen> {
     fcm.configure(
       onMessage: (message) {
         print('onMessage' + message.toString());
-        if(message.toString().contains('خصم')==false )
-        Fluttertoast.showToast(
-            msg: 'يوجد طلب جديد !',
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Colors.blue);
+        if (message.toString().contains('خصم') == false)
+          Fluttertoast.showToast(
+              msg: 'يوجد طلب جديد !',
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.blue);
         return;
       },
       onLaunch: (message) {
@@ -200,7 +200,6 @@ class _MainScreenState extends State<MainScreen> {
             });
           },
         ),
-        //body: Container(color: Colors.blueAccent),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: GestureDetector(
