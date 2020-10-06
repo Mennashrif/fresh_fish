@@ -212,7 +212,7 @@ class _OrderScreenState extends State<OrderScreen>
           Padding(
             padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height *
-                    (1 / 30)),
+                    (1 / 26)),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.46,
               child: ListView.builder(
@@ -220,7 +220,7 @@ class _OrderScreenState extends State<OrderScreen>
                   itemBuilder: (context, index) {
                     return Padding(
                         padding:
-                        EdgeInsets.only(top: 8.0, right: 16),
+                        EdgeInsets.only(top: 6, right: 16),
                         child: InkWell(
                             onTap: () {
                               Navigator.of(context).push(
@@ -375,7 +375,7 @@ class _OrderScreenState extends State<OrderScreen>
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery.of(context).size.height * 0.27,
             padding: EdgeInsets.only(
               left: 10.0,
               right: 10.0,
@@ -434,7 +434,7 @@ class _OrderScreenState extends State<OrderScreen>
                   height: 2.0,
                 ),
                 SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -484,7 +484,6 @@ class _OrderScreenState extends State<OrderScreen>
                         locale: LocaleType.ar,
                         minTime: DateTime.now(),
                         currentTime: DateTime.now(),
-                        onChanged: (date) {},
                         onConfirm: (date) async {
                           setState(() => loading = true);
                           bool res = await DatabaseService(
