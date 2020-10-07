@@ -45,21 +45,27 @@ exports.newOrderListener = functions.firestore.document('Order/{id}').onCreate(a
 	}
 });
 exports.newOfferListener = functions.firestore.document('Items/{id}').onUpdate(async (change, context) => {
-	var payload = {
+    var oldItem = change.before.data();
+    var newItem = change.after.data();
+
+    var payload = {
 		notification: {
 			title: 'خصم جديد !' ,
-			body:' يوجد لدينا خصم جديد',
+			body:'يوجد لدينا خصم جديد على ال'+newItem.name,
 			sound: 'default',
 		},
 		data: {
 			click_action: 'FLUTTER_NOTIFICATION_CLICK',
 			key1: 'data',
 		},
-	};
+    };
+
+    if(newItem.theOffer!==oldItem.theOffer&&newItem.theOffer>0){
 	try {
 		const response = await admin.messaging().sendToTopic('offer',payload);
 		console.log('Notification sent successfully');
 	} catch (err) {
 		console.log(err);
-	}
+    }
+}
 });
