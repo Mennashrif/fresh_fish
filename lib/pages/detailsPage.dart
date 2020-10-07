@@ -267,6 +267,17 @@ class _DetailsPageState extends State<DetailsPage> {
                 _character == 'نى' ? '' : 'L.e'),
           ]));
     }
+    else if(widget.Item.category.contains('سى فود')||widget.Item.category.contains('الطواجن')
+        ||widget.Item.category.contains('الوجبات')||widget.Item.category.contains('السندوتشات')||widget.Item.category.contains('الارز')||widget.Item.category.contains('شوربه')
+        ||widget.Item.category.contains('السلطات')){
+      return Container(
+        child: Text("This is a spcial plate",
+            style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold)),
+      );
+    }
     else if (widget.Item.category.contains('سلمون')) {
       if (widget.Item.name.contains('سلمون مدخن')) {
         return Container(
@@ -449,7 +460,9 @@ class _DetailsPageState extends State<DetailsPage> {
                               fontFamily: 'Montserrat',
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold)),
-                      widget.Item.name.contains('سلمون مدخن')
+                      widget.Item.name.contains('سلمون مدخن')||widget.Item.category.contains('سى فود')||widget.Item.category.contains('الطواجن')
+                          ||widget.Item.category.contains('الوجبات')||widget.Item.category.contains('السندوتشات')||widget.Item.category.contains('الارز')||widget.Item.category.contains('شوربه')
+                          ||widget.Item.category.contains('السلطات')
                           ? new Container()
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -557,7 +570,9 @@ class _DetailsPageState extends State<DetailsPage> {
                                     setState(() {
                                       if (widget.Item.name
                                           .contains('سلمون مدخن')) {
-                                        if (quantity > 0.1) quantity -= 0.05;
+                                        if (quantity > 0.1) {
+                                          quantity -= 0.05;
+                                        }
                                       } else {
                                         if (quantity > 0.25) quantity -= 0.25;
                                       }
@@ -579,7 +594,9 @@ class _DetailsPageState extends State<DetailsPage> {
                                     ),
                                   ),
                                 ),
-                                Text(quantity.toString() + " " + "كيلو ",
+
+                                Text( widget.Item.name
+                                    .contains('سلمون مدخن') && quantity<1?(quantity*1000).toStringAsFixed(1) + " " + "جرام ":quantity.toStringAsFixed(2) + " " + "كيلو ",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Montserrat',
@@ -720,7 +737,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                                 (widget.Item.price -
                                                     widget.Item.theOffer) +
                                             optionPrice * quantity)
-                                        .toString() +
+                                        .toStringAsFixed(1) +
                                     " " +
                                     " << اضف الي السله",
                                 style: TextStyle(

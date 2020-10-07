@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'Profile.dart';
 import 'detailsPage.dart';
+import 'package:square_in_app_payments/models.dart';
+import 'package:square_in_app_payments/in_app_payments.dart';
 
 class OrderScreen extends StatefulWidget {
   final List<orderitem> cartItem;
@@ -36,6 +38,42 @@ class _OrderScreenState extends State<OrderScreen>
       }
     });
     return total;
+  }
+  Future<void> _initSquarePayment() async {
+    await InAppPayments.setSquareApplicationId('sandbox-sq0idb-CYjz4e71MYzthscIA4gaoA');
+    await InAppPayments.startCardEntryFlow(
+        onCardNonceRequestSuccess: _onCardEntryCardNonceRequestSuccess,
+        onCardEntryCancel: _onCancelCardEntryFlow);
+  }
+  void _onCancelCardEntryFlow() {
+    // Handle the cancel callback
+  }
+
+  /**
+   * Callback when successfully get the card nonce details for processig
+   * card entry is still open and waiting for processing card nonce details
+   */
+  void _onCardEntryCardNonceRequestSuccess(CardDetails result) async {
+    try {
+      // take payment with the card nonce details
+      // you can take a charge
+      // await chargeCard(result);
+      // payment finished successfully
+      // you must call this method to close card entry
+      InAppPayments.completeCardEntry(
+          onCardEntryComplete: _onCardEntryComplete);
+    } on Exception catch (ex) {
+      // payment failed to complete due to error
+      // notify card entry to show processing error
+      InAppPayments.showCardNonceProcessingError(ex.toString());
+    }
+  }
+
+  /**
+   * Callback when the card entry is closed after call 'completeCardEntry'
+   */
+  void _onCardEntryComplete() {
+    // Update UI to notify user that the payment flow is finished successfully
   }
 
   @override
@@ -329,25 +367,7 @@ class _OrderScreenState extends State<OrderScreen>
                                                 height:MediaQuery.of(context).size.height * 0.1,
                                                 fit: BoxFit.cover,
                                                 cache: true,
-                                              ),/* Image(
-                                                  image:
-                                                  CachedNetworkImageProvider(
-                                                    widget
-                                                        .cartItem[
-                                                    index]
-                                                        .image,
-                                                  ),
-                                                  fit: BoxFit.cover,
-                                                  height: MediaQuery.of(
-                                                      context)
-                                                      .size
-                                                      .height *
-                                                      0.1,
-                                                  width: MediaQuery.of(
-                                                      context)
-                                                      .size
-                                                      .height *
-                                                      0.1)*/),
+                                              ),),
                                         ])),
                               ],
                             )));
@@ -399,7 +419,7 @@ class _OrderScreenState extends State<OrderScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "5 جم",
+                      "يُحدد حسب الموقع",
                       style: TextStyle(
                           color: Color(0xFF6C6D6D),
                           fontSize: 16.0,
@@ -442,7 +462,9 @@ class _OrderScreenState extends State<OrderScreen>
                   MediaQuery.of(context).size.height * 0.035,
                 ),
                 GestureDetector(
-                  onTap: (_address == null || _phone == null)
+                  onTap:(){
+                    _initSquarePayment();
+                  }/* (_address == null || _phone == null)
                       ? () {
                     Fluttertoast.showToast(
                         msg: "من فضلك اكمل بياناتك",
@@ -497,7 +519,7 @@ class _OrderScreenState extends State<OrderScreen>
                             });
                           }
                         });
-                  },
+                  }*/,
                   child: Container(
                     height: MediaQuery.of(context).size.height *
                         (1 / 15),

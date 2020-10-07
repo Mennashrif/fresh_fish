@@ -109,4 +109,5 @@ class DatabaseService {
   Stream<List<item>> get items {
     return Items.orderBy('sort').snapshots().map(_itemListFromSnapshot);
   }
+
 }
