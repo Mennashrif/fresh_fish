@@ -24,9 +24,9 @@ class _MainScreenState extends State<MainScreen> {
         "https://i.ibb.co/qk5jTBw/13604398-a-plate-of-shrimp-cocktail-from-above-removebg-preview.png"),
     categoryImage(
         "جمبرى قشر أماراتى",
-        "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
+        "https://i.ibb.co/svsJdM7/FB-IMG-1597620694441.jpg",
         "https://i.ibb.co/kSNChhN/800px-COLOURBOX3225621-removebg-preview.png"),
-    categoryImage("جمبرى بلدى", "https://i.ibb.co/ZJwqkny/shrimp-lead.jpg",
+    categoryImage("جمبرى بلدى", "https://kamelabdo.com/wp-content/uploads/2020/02/7-1.jpg",
         "https://i.ibb.co/tJjDdYh/39531-removebg-preview.png"),
     categoryImage(
         "كابوريا",
@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         "https://i.ibb.co/7tw7zs2/vzxn0ykh7ppilpjm9k7g-removebg-preview.png"),
     categoryImage(
         "بطارخ",
-        "https://www.italian-feelings.com/wp-content/uploads/2019/06/cid_3E213ACC-7341-4877-858A-BD557EAF7444.jpg",
+        "https://i.ibb.co/12TTRZd/FB-IMG-1598025007099.jpg",
         "https://i.ibb.co/PCmfghy/71pb-S7-IHEi-L-SL1500-removebg-preview.png"),
     categoryImage(
         "سى فود",

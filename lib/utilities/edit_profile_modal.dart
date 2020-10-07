@@ -80,26 +80,29 @@ class _EditProfModalState extends State<EditProfModal> {
                         setState(() => loading = true);
                         DatabaseService databaseService =
                             DatabaseService(uid: widget.uid);
-                        if(widget.change=='pN'&&widget.change.isNotEmpty&&widget.change[0]=='0'&&widget.change.length==11)
+                        if(widget.change=='pN'&&widget.change.isNotEmpty&&widget.change[0]=='0'&&widget.change.length==11) {
                           await databaseService.setUserData(
-                            widget.email,
-                            widget.change == 'name'
-                                ? changedField
-                                : widget.name,
-                            widget.change == 'address'
-                                ? changedField
-                                : widget.address,
-                            widget.change == 'pN'
-                                ? changedField
-                                : widget.phone);
-                        else  Fluttertoast.showToast(
-                            msg: "ادخل رقم الهاتف الصحيح",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 3,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0);
+                              widget.email,
+                              widget.change == 'name'
+                                  ? changedField
+                                  : widget.name,
+                              widget.change == 'address'
+                                  ? changedField
+                                  : widget.address,
+                              widget.change == 'pN'
+                                  ? changedField
+                                  : widget.phone);
+                        }
+                        else {
+                          Fluttertoast.showToast(
+                              msg: "ادخل رقم الهاتف الصحيح",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 3,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
                       }
                       Navigator.pop(context);
                     },

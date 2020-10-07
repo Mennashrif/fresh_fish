@@ -419,7 +419,7 @@ class _OrderScreenState extends State<OrderScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "5 جم",
+                      "يُحدد حسب الموقع",
                       style: TextStyle(
                           color: Color(0xFF6C6D6D),
                           fontSize: 16.0,

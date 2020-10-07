@@ -33,8 +33,10 @@ class _fixediconState extends State<fixedicon>
     savecartItem();
   }
 
-  void cleancart()  {
+  void cleancart() async {
     cartItem.removeRange(0, cartItem.length);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('cartItem');
   }
  void savecartItem() async {
    SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -43,8 +45,10 @@ class _fixediconState extends State<fixedicon>
  }
  void getcartItem() async{
    SharedPreferences prefs = await SharedPreferences.getInstance();
+   if(prefs.containsKey('cartItem'))
    cartItem=orderitem.decodeOrder(prefs.getString('cartItem'));
  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
