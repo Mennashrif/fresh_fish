@@ -11,7 +11,6 @@ class orderitem {
   final bool Isoffered;
   final num theOffer;
   final num allquantity;
-
   orderitem(this.id,
       this.image,
       this.name,

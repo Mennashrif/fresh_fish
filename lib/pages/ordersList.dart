@@ -75,6 +75,9 @@ class _OrdersListState extends State<OrdersList> {
                   deliveryDate: order.data['deliveryDate'],
                   orderId: order.documentID,
                   orders: orderItems,
+                  name: order.data['name'],
+                  address: order.data['address'],
+                  phone: order.data['phone'],
                 ));
               }
               return MultiProvider(

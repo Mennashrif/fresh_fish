@@ -10,6 +10,7 @@ import 'package:fresh_fish/utilities/fixedicon.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'Profile.dart';
 import 'detailsPage.dart';
 import 'package:square_in_app_payments/models.dart';
@@ -28,6 +29,10 @@ class _OrderScreenState extends State<OrderScreen>
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool loading = false;
   String _email = '';
+  final _textFieldControllerName = TextEditingController();
+  final _textFieldControllerAddress = TextEditingController();
+  final _textFieldControllerPhone = TextEditingController();
+  final _formkey=GlobalKey<FormState>();
   String _address = '';
   String _phone = '';
   double sum() {
@@ -463,7 +468,7 @@ class _OrderScreenState extends State<OrderScreen>
                 ),
                 GestureDetector(
                   onTap:(){
-                    _initSquarePayment();
+                    _openPopup(context,uid);
                   }/* (_address == null || _phone == null)
                       ? () {
                     Fluttertoast.showToast(
@@ -546,7 +551,110 @@ class _OrderScreenState extends State<OrderScreen>
       ),
     );
   }
-
+  _openPopup(context,uid) {
+    Alert(
+        context: context,
+        title: "ادخل بياناتك",
+        content: Form(
+          key: _formkey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                validator: (val)=>val.isEmpty ? 'ادخل الأسم':null,
+                controller: _textFieldControllerName,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.account_circle),
+                  labelText: 'الاسم',
+                ),
+              ),
+              TextFormField(
+                validator: (val)=>val.isEmpty ? 'ادخل العنوان':null,
+                controller: _textFieldControllerAddress,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.home),
+                  labelText: 'العنوان',
+                ),
+              ),
+              TextFormField(
+                validator:(val)=>val.isEmpty?'ادخل رقم الهاتف':val[0]!='0'||val.length!=11 ?"ادخل رقم الهاتف الصحيح":null,
+                controller: _textFieldControllerPhone,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.phone),
+                  labelText: 'الهاتف',
+                ),
+              ),
+            ],
+          ),
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: (){
+      if(_formkey.currentState.validate()){
+        Navigator.of(context, rootNavigator: true).pop();
+        if(_address == null || _phone == null) {
+          Fluttertoast.showToast(
+              msg: "من فضلك اكمل بياناتك",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 4,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ProfileScreen()));
+        }
+            else {
+              DatePicker.showDateTimePicker(context,
+              locale: LocaleType.ar,
+              minTime: DateTime.now(),
+              currentTime: DateTime.now(),
+              onConfirm: (date) async {
+                setState(() => loading = true);
+                bool res = await DatabaseService(
+                    uid: uid.uid)
+                    .addOrder(widget.cartItem,date.toIso8601String(),_textFieldControllerName.text,_textFieldControllerAddress.text,_textFieldControllerPhone.text);
+                if (!res) {
+                  setState(() {
+                    loading = false;
+                    Fluttertoast.showToast(
+                        msg: "فشل ارسال الطلب",
+                        toastLength:
+                        Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  });
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "تم ارسال الطلب",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 3,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                  setState(() {
+                    fixedicon()
+                        .createState()
+                        .cleancart();
+                    loading = false;
+                  });
+                }
+              });
+            }
+        }
+      },
+            child: Text(
+              "تأكيد",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ]).show();
+  }
   refresh() {
     setState(() {
 //all the reload processes

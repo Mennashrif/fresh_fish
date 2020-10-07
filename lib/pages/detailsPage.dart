@@ -34,6 +34,7 @@ class _DetailsPageState extends State<DetailsPage> {
   var optionName = '';
   var optiontStart='';
   var _character = 'نى';
+
   DatabaseService databaseService = DatabaseService();
 
   Widget option() {
@@ -489,7 +490,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.41,
+                                      MediaQuery.of(context).size.width * 0.43,
                                   height: 30.0,
                                   child: ListTile(
                                     title: const Text('نى'),
