@@ -569,7 +569,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      if (widget.Item.name
+                                      if(widget.Item.name
+                                          .contains('طبق شوربة مخليه')||widget.Item.name
+                                          .contains('طبق شوربة سى فود عادى')||widget.Item.category.contains('الطواجن')
+                                          ||widget.Item.category.contains('الوجبات')||widget.Item.category.contains('السندوتشات')||widget.Item.category.contains('الارز')||widget.Item.category.contains('شوربه')
+                                          ||widget.Item.category.contains('السلطات')){
+                                        if(quantity>1)
+                                        quantity -= 1;
+                                      }
+                                      else if (widget.Item.name
                                           .contains('سلمون مدخن')) {
                                         if (quantity > 0.1) {
                                           quantity -= 0.05;
@@ -596,7 +604,12 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                 ),
 
-                                Text( widget.Item.name
+                                    Text(  widget.Item.name
+                                        .contains('طبق شوربة مخليه')||widget.Item.name
+                                        .contains('طبق شوربة سى فود عادى')||widget.Item.category.contains('الطواجن')
+                                        ||widget.Item.category.contains('الوجبات')||widget.Item.category.contains('السندوتشات')||widget.Item.category.contains('الارز')||widget.Item.category.contains('شوربه')
+                                        ||widget.Item.category.contains('السلطات')?quantity.toStringAsFixed(2)
+                                        :widget.Item.name
                                     .contains('سلمون مدخن') && quantity<1?(quantity*1000).toStringAsFixed(1) + " " + "جرام ":quantity.toStringAsFixed(2) + " " + "كيلو ",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -614,7 +627,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                     print('--------------' +
                                         (sum + quantity).toString());
                                     setState(() {
-                                      if (sum + quantity <
+
+                                      if(widget.Item.name
+                                          .contains('طبق شوربة مخليه')||widget.Item.name
+                                          .contains('طبق شوربة سى فود عادى')||widget.Item.category.contains('الطواجن')
+                                      ||widget.Item.category.contains('الوجبات')||widget.Item.category.contains('السندوتشات')||widget.Item.category.contains('الارز')||widget.Item.category.contains('شوربه')
+                                      ||widget.Item.category.contains('السلطات')){
+                                      quantity += 1;
+                                      }
+                                      else if (sum + quantity <
                                           widget.Item.allquantity) {
                                         if (widget.Item.name
                                             .contains('سلمون مدخن'))
