@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
-
   final IconData icon;
   final String text;
 
