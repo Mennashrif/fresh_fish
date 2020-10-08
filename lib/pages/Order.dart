@@ -71,7 +71,7 @@ class _OrderScreenState extends State<OrderScreen>
       // payment failed to complete due to error
       // notify card entry to show processing error
       InAppPayments.showCardNonceProcessingError(ex.toString());
-    }
+    } 
   }
 
   /**
@@ -454,7 +454,7 @@ class _OrderScreenState extends State<OrderScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      (sum() + 5).toString() + " " + "جم",
+                      sum().toString() + " " + "جم",
                       style: TextStyle(
                           color: Color(0xFF6C6D6D),
                           fontSize: 16.0,

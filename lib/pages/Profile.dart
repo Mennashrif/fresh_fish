@@ -36,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height / 2 - 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       "Please, Login First",
