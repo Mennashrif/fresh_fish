@@ -35,6 +35,7 @@ class _OrderScreenState extends State<OrderScreen>
   final _formkey=GlobalKey<FormState>();
   String _address = '';
   String _phone = '';
+  String _name='';
   double sum() {
     double total = 0;
     setState(() {
@@ -140,6 +141,7 @@ class _OrderScreenState extends State<OrderScreen>
       _email = user.data['email'];
       _address = user.data['address'];
       _phone = user.data['phone'];
+      _name=user.data['name'];
     }
     return Expanded(
       child: Container(
@@ -591,7 +593,8 @@ class _OrderScreenState extends State<OrderScreen>
             onPressed: (){
       if(_formkey.currentState.validate()){
         Navigator.of(context, rootNavigator: true).pop();
-        if(_address == null || _phone == null) {
+        print(_address);
+        if(_address == null || _phone == null||_address == ''||_phone == ''||){
           Fluttertoast.showToast(
               msg: "من فضلك اكمل بياناتك",
               toastLength: Toast.LENGTH_SHORT,

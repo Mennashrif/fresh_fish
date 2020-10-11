@@ -33,6 +33,7 @@ class _DetailsPageState extends State<DetailsPage> {
   var optionPrice = 0.0;
   var optionName = '';
   var optiontStart='';
+  var optionPriceStart=5.0;
   var _character = 'نى';
 
   DatabaseService databaseService = DatabaseService();
@@ -40,6 +41,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget option() {
     if (widget.Item.category.contains('جمبرى')) {
       optiontStart='مقلى';
+      optionPriceStart=5;
       return Container(
           height: 120.0,
           child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
@@ -54,7 +56,7 @@ class _DetailsPageState extends State<DetailsPage> {
             SizedBox(width: 10.0),
             _buildInfoCard(
                 _character == 'نى' ? 'تتبيله مشوى' : 'مشوى',
-                _character == 'نى' ? 'مجاني' : '5',
+                _character == 'نى' ? 'مجاني' : '10',
                 _character == 'نى' ? '' : 'L.e'),
             SizedBox(width: 10.0),
             _buildInfoCard(
@@ -480,9 +482,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                       onChanged: (value) {
                                         setState(() {
                                           _character = value;
+                                          optionName=optiontStart;
+                                          optionPrice=optionPriceStart;
+                                          selectCard(optiontStart);
                                         });
-                                        optionName=optiontStart;
-                                        selectCard(optiontStart);
+
 
                                       },
                                     ),
@@ -500,6 +504,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       onChanged: (value) {
                                         setState(() {
                                           _character = value;
+                                          optionPrice=0;
                                         });
                                       },
                                       autofocus: true,
@@ -778,7 +783,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget _buildInfoCard(String cardTitle, String info, String unit) {
     return InkWell(
         onTap: () {
-          optionPrice = info == 'مجاني' ? 0.0 : double.parse(info);
+          optionPrice = _character == 'نى' ? 0.0 : double.parse(info);
           cardTitle == 'بدون' ? optionName = '' : optionName = cardTitle;
           selectCard(cardTitle);
         },
